@@ -1,0 +1,188 @@
+[
+  {
+    "viewport": "mobile-390",
+    "viewportWidth": 390,
+    "scrollWidth": 390,
+    "docHeight": 15239,
+    "horizontalOverflow": false,
+    "offenders": [
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 146,
+        "right": 464
+      },
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 163,
+        "right": 447
+      },
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 151,
+        "right": 459
+      },
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 178,
+        "right": 432
+      },
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 186,
+        "right": 424
+      },
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 209,
+        "right": 401
+      },
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 209,
+        "right": 401
+      },
+      {
+        "tag": "path",
+        "cls": "[object SVGAnimatedString]",
+        "left": 305,
+        "right": 416
+      },
+      {
+        "tag": "rect",
+        "cls": "[object SVGAnimatedString]",
+        "left": -65,
+        "right": 455
+      },
+      {
+        "tag": "rect",
+        "cls": "[object SVGAnimatedString]",
+        "left": -41,
+        "right": 50
+      },
+      {
+        "tag": "rect",
+        "cls": "[object SVGAnimatedString]",
+        "left": 358,
+        "right": 437
+      },
+      {
+        "tag": "rect",
+        "cls": "[object SVGAnimatedString]",
+        "left": -29,
+        "right": 80
+      }
+    ],
+    "brokenImages": [],
+    "imageCount": 21,
+    "h1": [
+      "เปลี่ยนยางรถยนต์ ราคารวมติดตั้ง จองคิวออนไลน์"
+    ],
+    "h2Count": 17,
+    "jsonLdBlocks": 2
+  },
+  {
+    "viewport": "tablet-834",
+    "viewportWidth": 834,
+    "scrollWidth": 834,
+    "docHeight": 12461,
+    "horizontalOverflow": false,
+    "offenders": [
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 322,
+        "right": 918
+      },
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 353,
+        "right": 887
+      },
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 330,
+        "right": 910
+      },
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 382,
+        "right": 858
+      },
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 396,
+        "right": 844
+      }
+    ],
+    "brokenImages": [],
+    "imageCount": 21,
+    "h1": [
+      "เปลี่ยนยางรถยนต์ ราคารวมติดตั้ง จองคิวออนไลน์"
+    ],
+    "h2Count": 17,
+    "jsonLdBlocks": 2
+  },
+  {
+    "viewport": "desktop-1440",
+    "viewportWidth": 1440,
+    "scrollWidth": 1440,
+    "docHeight": 9441,
+    "horizontalOverflow": false,
+    "offenders": [
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 928,
+        "right": 1524
+      },
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 959,
+        "right": 1493
+      },
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 936,
+        "right": 1516
+      },
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 988,
+        "right": 1464
+      },
+      {
+        "tag": "circle",
+        "cls": "[object SVGAnimatedString]",
+        "left": 1002,
+        "right": 1450
+      },
+      {
+        "tag": "path",
+        "cls": "[object SVGAnimatedString]",
+        "left": -3,
+        "right": 1019
+      }
+    ],
+    "brokenImages": [],
+    "imageCount": 21,
+    "h1": [
+      "เปลี่ยนยางรถยนต์ ราคารวมติดตั้ง จองคิวออนไลน์"
+    ],
+    "h2Count": 17,
+    "jsonLdBlocks": 2
+  }
+]

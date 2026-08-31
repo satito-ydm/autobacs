@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AUTOBACS Thailand — ศูนย์บริการรถยนต์ครบวงจร มาตรฐานญี่ปุ่น</title>
+<meta name="description" content="ยาง แบตเตอรี่ น้ำมันเครื่อง ผ้าเบรก โช้คอัพ และบริการดูแลรถครบวงจร มาตรฐานญี่ปุ่น จองคิวออนไลน์ เช็คราคา และสั่งซื้อจัดส่งถึงบ้านได้ในที่เดียว">
+<link rel="icon" href="assets/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   AUTOBACS TH — Homepage mockup
+   Mood: ส้มนำ + บล็อกดำ (ผสม Velowave × Hype On)
+   ทรง: มุมมน · ปุ่มแคปซูล · เงานุ่ม · หัวข้อ Latin หนาตัวพิมพ์ใหญ่
+   จังหวะแถบสี: ดำ → ขาว → ส้ม(hero) → ครีม → ดำ(ข้อเสนอ) → ครีม → ขาว → ดำ(footer)
+   รูปภาพทั้งหมดดึงจาก autobacs.co.th · ราคาเป็นตัวอย่างสำหรับ mockup
+   ============================================================ */
+
+:root{
+  --ink:#111114;
+  --ink-soft:#1A1A1F;
+  --ink-2:#3D3A37;
+  --muted:#6E6A66;              /* neutral เอียงอุ่นเข้าหาส้ม ไม่ใช่เทากลาง */
+  --line:#E8E3DD;
+  --line-2:#F1EDE8;
+  --line-dk:rgba(255,255,255,.14);
+  --surface:#FFFFFF;
+  --cream:#F5F2EE;
+  --orange:#F36F21;
+  --orange-lt:#FF9247;
+  --orange-dk:#D9540C;
+  --orange-tint:#FDEFE4;
+
+  --container:1320px;
+  --gutter:24px;
+  --r-sm:10px;
+  --r:14px;
+  --r-lg:20px;
+  --pill:999px;
+  --section:104px;
+  --shadow:0 2px 4px rgba(17,17,20,.04), 0 14px 30px -16px rgba(17,17,20,.20);
+  --shadow-lg:0 30px 60px -30px rgba(0,0,0,.55);
+
+  --t-h1:44px;
+  --t-h2:32px;
+  --t-h3:20px;
+  --t-body:16px;
+  --t-sm:14px;
+  --t-xs:12px;
+
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--surface);
+  color:var(--ink);
+  font-family:'IBM Plex Sans Thai','Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-size:var(--t-body);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+select{font:inherit;color:inherit}
+h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.02em;line-height:1.22;text-wrap:balance}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+
+.wrap{width:100%;max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.num{font-family:'Archivo',sans-serif;font-variant-numeric:tabular-nums}
+
+/* ---------- shared bits ---------- */
+.kicker{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:'Archivo',sans-serif;font-size:11px;font-weight:800;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--orange);
+}
+.kicker::before{content:"";width:18px;height:3px;border-radius:2px;background:currentColor}
+
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:38px}
+.sec-head h2{font-size:var(--t-h2);margin-top:14px}
+.sec-head p{color:var(--muted);font-size:var(--t-sm);margin-top:8px}
+
+.link-arrow{
+  display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
+  font-size:var(--t-sm);font-weight:600;color:var(--ink);
+  transition:color .18s var(--ease),gap .18s var(--ease);
+}
+.link-arrow svg{transition:transform .22s var(--ease)}
+.link-arrow:hover{color:var(--orange)}
+.link-arrow:hover svg{transform:translateX(4px)}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  height:50px;padding:0 26px;border-radius:var(--pill);
+  font-size:var(--t-sm);font-weight:700;letter-spacing:.01em;white-space:nowrap;
+  border:1px solid transparent;
+  transition:background .18s var(--ease),border-color .18s var(--ease),color .18s var(--ease),transform .18s var(--ease),box-shadow .18s var(--ease);
+}
+.btn:hover{transform:translateY(-2px)}
+.btn--primary{background:var(--orange);color:#fff;box-shadow:0 10px 22px -12px rgba(243,111,33,.9)}
+.btn--primary:hover{background:var(--orange-dk)}
+.btn--ink{background:var(--ink);color:#fff}
+.btn--ink:hover{background:var(--orange)}
+.btn--white{background:#fff;color:var(--ink)}
+.btn--white:hover{background:var(--ink);color:#fff}
+.btn--ghost{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn--ghost:hover{border-color:var(--orange);color:var(--orange)}
+.btn--outline{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+.btn--outline:hover{background:#fff;color:var(--ink);border-color:#fff}
+.btn--lg{height:58px;padding:0 32px;font-size:var(--t-body)}
+.btn--block{width:100%}
+
+.card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  transition:border-color .2s var(--ease),transform .2s var(--ease),box-shadow .2s var(--ease);
+}
+.card:hover{border-color:transparent;transform:translateY(-3px);box-shadow:var(--shadow)}
+
+.chip{
+  display:inline-block;padding:5px 12px;border-radius:var(--pill);
+  font-size:11px;font-weight:700;color:var(--ink-2);
+  background:var(--cream);letter-spacing:.02em;
+}
+.chip--orange{background:var(--orange);color:#fff}
+.chip--ink{background:var(--ink);color:#fff}
+
+/* ---------- แถบสี ---------- */
+.band--ink{position:relative;background:var(--ink);color:#fff;overflow:hidden}
+.band--ink::before{
+  content:"";position:absolute;left:50%;top:-30%;width:1100px;height:1100px;
+  transform:translateX(-50%);pointer-events:none;
+  background:radial-gradient(circle, rgba(243,111,33,.22) 0%, rgba(243,111,33,0) 62%);
+}
+.band--ink>*{position:relative;z-index:1}
+.band--ink .kicker{color:var(--orange-lt)}
+.band--ink .sec-head p{color:rgba(255,255,255,.58)}
+.band--ink .link-arrow{color:#fff}
+.band--ink .link-arrow:hover{color:var(--orange-lt)}
+.band--cream{background:var(--cream)}
+.band--orange{background:linear-gradient(150deg,var(--orange-lt) 0%,var(--orange) 46%,var(--orange-dk) 100%);color:#fff}
+.band--orange .kicker{color:rgba(255,255,255,.9)}
+
+/* ---------- graphic tile (เฉพาะจุดที่ไม่มีรูปจริง) ---------- */
+.tile{position:relative;overflow:hidden;background:var(--ink);isolation:isolate}
+.tile::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(120% 90% at 80% 110%, rgba(243,111,33,.55) 0%, rgba(243,111,33,0) 60%);
+}
+.tile__ghost{
+  position:absolute;right:-.04em;bottom:-.20em;
+  font-family:'Archivo',sans-serif;font-weight:900;font-size:112px;line-height:.78;
+  white-space:nowrap;color:rgba(255,255,255,.12);letter-spacing:-.045em;pointer-events:none;
+}
+.tile__label{
+  position:absolute;top:20px;right:20px;
+  font-family:'Archivo',sans-serif;font-size:11px;font-weight:800;
+  letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);
+}
+.tile__mark{position:absolute;left:22px;bottom:20px;color:#fff;opacity:.92}
+
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ 1. utility bar ============ */
+.utility{background:var(--ink);color:rgba(255,255,255,.62);font-size:var(--t-xs)}
+.utility .wrap{display:flex;align-items:center;justify-content:space-between;height:38px}
+.utility a{color:inherit;transition:color .18s var(--ease)}
+.utility a:hover{color:var(--orange-lt)}
+.utility__right{display:flex;align-items:center;gap:22px}
+.utility__right .sep{width:1px;height:12px;background:var(--line-dk)}
+
+/* ============ 2. header ============ */
+.site-header{
+  position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);
+  backdrop-filter:saturate(1.5) blur(12px);
+  border-bottom:1px solid var(--line);
+  transition:box-shadow .24s var(--ease),background .24s var(--ease);
+}
+/* ความสูง header คงที่: อยู่ใน flow (sticky) ถ้าย่อตอน scroll เนื้อหาทั้งหน้าจะกระตุก */
+.site-header .wrap{display:flex;align-items:center;gap:28px;height:78px}
+.site-header.is-stuck{background:rgba(255,255,255,.97);box-shadow:0 8px 26px -20px rgba(17,17,20,.7)}
+
+.burger{display:flex;flex-direction:column;gap:4px;padding:8px 4px}
+.burger span{display:block;width:20px;height:2px;border-radius:2px;background:var(--ink);transition:transform .2s var(--ease)}
+.burger:hover span:nth-child(1){transform:translateX(2px)}
+.burger:hover span:nth-child(3){transform:translateX(-2px)}
+
+.brand{display:flex;align-items:center;flex:0 0 auto}
+.brand img{height:30px;width:auto}
+
+.mainnav{display:flex;align-items:center;gap:28px;margin-left:8px}
+.mainnav a{position:relative;font-size:var(--t-sm);font-weight:600;padding:6px 0;transition:color .18s var(--ease)}
+.mainnav a::after{
+  content:"";position:absolute;left:0;bottom:0;height:2px;width:0;border-radius:2px;background:var(--orange);
+  transition:width .22s var(--ease);
+}
+.mainnav a:hover{color:var(--orange)}
+.mainnav a:hover::after{width:100%}
+
+.header-actions{margin-left:auto;display:flex;align-items:center;gap:14px}
+.icon-btn{
+  position:relative;display:grid;place-items:center;width:44px;height:44px;
+  border:1px solid var(--line);border-radius:var(--pill);
+  transition:border-color .18s var(--ease),color .18s var(--ease);
+}
+.icon-btn:hover{border-color:var(--orange);color:var(--orange)}
+.icon-btn .dot{
+  position:absolute;top:-4px;right:-4px;min-width:19px;height:19px;padding:0 5px;
+  background:var(--orange);color:#fff;border-radius:var(--pill);
+  font-family:'Archivo',sans-serif;font-size:10px;font-weight:800;
+  display:grid;place-items:center;
+}
+
+/* ============ 3. hero — แบนเนอร์ใหญ่บนพื้นส้ม ============ */
+.hero{position:relative;padding:40px 0 68px;overflow:hidden}
+.hero::after{
+  content:"";position:absolute;right:-160px;top:-160px;width:620px;height:620px;border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.28) 0%, rgba(255,255,255,0) 65%);pointer-events:none;
+}
+.hero__banner{
+  position:relative;border-radius:var(--r-lg);overflow:hidden;
+  aspect-ratio:2.55/1;background:var(--ink-soft);box-shadow:var(--shadow-lg);
+}
+.hero__slide{position:absolute;inset:0;opacity:0;transition:opacity .7s var(--ease)}
+.hero__slide.on{opacity:1}
+.hero__slide img{width:100%;height:100%;object-fit:cover;object-position:center}
+.hero__ui{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 24px 20px}
+.hero__dots{display:flex;gap:8px}
+.hero__dots button{width:30px;height:5px;border-radius:var(--pill);background:rgba(255,255,255,.45);transition:background .2s var(--ease),width .2s var(--ease)}
+.hero__dots button[aria-current="true"]{background:#fff;width:48px}
+.hero__arrows{display:flex;gap:8px}
+.hero__arrows button{
+  display:grid;place-items:center;width:42px;height:42px;color:#fff;border-radius:var(--pill);
+  border:1px solid rgba(255,255,255,.4);background:rgba(17,17,20,.42);backdrop-filter:blur(6px);
+  transition:background .18s var(--ease),border-color .18s var(--ease),transform .18s var(--ease);
+}
+.hero__arrows button:hover{background:#fff;color:var(--ink);border-color:#fff;transform:translateY(-2px)}
+
+/* car finder — แถบเดียว คร่อมขอบล่างแบนเนอร์ */
+/* ไม่ทับแบนเนอร์: อาร์ตเวิร์กของ AUTOBACS มีข้อความชิดขอบล่าง */
+.finderwrap{position:relative;z-index:5;margin-top:20px}
+.finder{background:#fff;border-radius:var(--r-lg);padding:24px 26px;box-shadow:var(--shadow)}
+.finder__top{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:18px}
+.finder__title{font-size:var(--t-h3);white-space:nowrap}
+.finder__tabs{display:flex;border-radius:var(--pill);padding:4px;background:var(--cream)}
+.finder__tabs button{
+  min-width:112px;height:38px;padding:0 16px;border-radius:var(--pill);
+  font-size:var(--t-sm);font-weight:700;color:var(--muted);
+  transition:background .18s var(--ease),color .18s var(--ease);
+}
+.finder__tabs button[aria-selected="true"]{background:var(--ink);color:#fff}
+.finder__meta{display:flex;align-items:center;gap:14px;margin-left:auto;font-size:var(--t-xs);color:var(--muted)}
+.finder__meta button{font-size:var(--t-xs);font-weight:700;color:var(--orange);border-bottom:1px solid currentColor;padding-bottom:1px}
+.finder__row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:12px;align-items:end}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label{font-size:var(--t-xs);color:var(--muted);font-weight:600}
+.field select{
+  height:50px;padding:0 36px 0 16px;background:var(--cream);border:1px solid transparent;
+  border-radius:var(--pill);font-size:var(--t-sm);font-weight:600;color:var(--ink);appearance:none;cursor:pointer;width:100%;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4.5L6 8.5L10 4.5' stroke='%236E6A66' stroke-width='1.6' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat:no-repeat;background-position:right 16px center;
+  transition:border-color .18s var(--ease),background-color .18s var(--ease);
+}
+.field select:hover,.field select:focus{border-color:var(--orange);background-color:#fff;outline:none}
+.field option{color:var(--ink);background:#fff}
+.finder__go{height:50px}
+.finder__alt{display:flex;gap:24px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line-2);flex-wrap:wrap}
+.finder__alt a{display:inline-flex;align-items:center;gap:8px;font-size:var(--t-sm);font-weight:600;transition:color .18s var(--ease)}
+.finder__alt a:hover{color:var(--orange)}
+
+/* ============ 4. pillars ============ */
+.pillars{padding:var(--section) 0}
+.pillars__head{text-align:center;max-width:900px;margin:0 auto 46px}
+.pillars__head h2{font-size:var(--t-h1);margin-top:16px}
+.pillars__head p{color:var(--muted);font-size:var(--t-sm);margin-top:14px}
+.pillars__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.pillar{padding:28px 26px 26px;display:flex;flex-direction:column;min-height:236px}
+.pillar__top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px}
+.pillar__icon{display:grid;place-items:center;width:52px;height:52px;border-radius:var(--pill);background:var(--orange-tint);color:var(--orange-dk);transition:background .2s var(--ease),color .2s var(--ease)}
+.pillar:hover .pillar__icon{background:var(--orange);color:#fff}
+.pillar__no{font-family:'Archivo',sans-serif;font-size:var(--t-xs);font-weight:800;color:var(--line);letter-spacing:.1em}
+.pillar h3{font-size:var(--t-h3);margin-bottom:8px}
+.pillar p{font-size:var(--t-sm);color:var(--muted);margin-bottom:20px}
+.pillar .link-arrow{margin-top:auto;align-self:flex-start}
+
+/* ============ 5. offers ============ */
+.offers{padding:var(--section) 0}
+/* การ์ดข้อเสนอเป็นพื้นขาวบนแถบดำ จึงต้องดึงสีข้อความกลับเป็นโทนสว่าง */
+.offers .offer h3{color:var(--ink)}
+.offers .offer p{color:var(--muted)}
+.offers .offer .link-arrow{color:var(--ink)}
+.offers .offer .link-arrow:hover{color:var(--orange)}
+.offers__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.offer{overflow:hidden;display:flex;flex-direction:column}
+.offer__media{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--ink-soft)}
+.offer__media>img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.offer__media--fit>img{object-fit:contain}
+.offer:hover .offer__media>img{transform:scale(1.05)}
+.offer__badge{position:absolute;left:16px;top:16px;z-index:2}
+.offer__body{padding:24px;display:flex;flex-direction:column;flex:1}
+.offer h3{font-size:var(--t-h3);margin-bottom:8px}
+.offer p{font-size:var(--t-sm);color:var(--muted);margin-bottom:22px}
+.offer .link-arrow{margin-top:auto;align-self:flex-start}
+
+/* ============ 6. shop ============ */
+.shop{padding:var(--section) 0}
+.shop__tabsrow{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:28px}
+.shop__tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:4px;background:#fff;border-radius:var(--pill)}
+.shop__tabs::-webkit-scrollbar{display:none}
+.shop__tabs button{
+  white-space:nowrap;padding:0 20px;height:42px;border-radius:var(--pill);
+  font-size:var(--t-sm);font-weight:700;color:var(--muted);
+  transition:color .18s var(--ease),background .18s var(--ease);
+}
+.shop__tabs button[aria-selected="true"]{background:var(--orange);color:#fff}
+
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.product{display:flex;flex-direction:column;overflow:hidden}
+.product__media{
+  position:relative;aspect-ratio:1/1;background:#fff;
+  display:grid;place-items:center;padding:22px;overflow:hidden;
+}
+.product__media img{max-height:100%;width:auto;object-fit:contain;transition:transform .4s var(--ease)}
+.product:hover .product__media img{transform:scale(1.05)}
+.product__media--brand{background:var(--cream)}
+.product__media--brand img{max-width:54%;max-height:54%}
+.product__flag{position:absolute;left:14px;top:14px}
+.product__body{padding:0 20px 20px;display:flex;flex-direction:column;flex:1}
+.product__brand{font-family:'Archivo',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.product__name{font-size:15px;font-weight:700;line-height:1.45;margin:6px 0 4px;min-height:44px}
+.product__spec{font-size:var(--t-xs);color:var(--muted)}
+.product__price{display:flex;align-items:baseline;gap:6px;margin:14px 0 6px}
+.product__price .amt{font-family:'Archivo',sans-serif;font-size:26px;font-weight:800;color:var(--ink);letter-spacing:-.03em}
+.product__price .unit{font-size:var(--t-xs);color:var(--muted)}
+.product__member{
+  display:flex;align-items:center;gap:8px;font-size:var(--t-xs);color:var(--orange-dk);font-weight:600;
+  background:var(--orange-tint);border-radius:var(--pill);padding:8px 14px;margin-bottom:18px;
+}
+.product__member strong{font-family:'Archivo',sans-serif;font-weight:800}
+.product .btn{margin-top:auto}
+
+/* ============ 7-8. editorial ============ */
+.editorial{padding:var(--section) 0}
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.post{display:flex;flex-direction:column;overflow:hidden}
+.post__media{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--cream)}
+.post__media img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.post:hover .post__media img{transform:scale(1.05)}
+.post__body{padding:22px;display:flex;flex-direction:column;flex:1}
+.post__body .chip{align-self:flex-start;margin-bottom:14px}
+.post h3{font-size:17px;line-height:1.45;margin-bottom:8px}
+.post p{font-size:var(--t-sm);color:var(--muted);margin-bottom:18px}
+.post__foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;gap:16px}
+.post__date{font-family:'Archivo',sans-serif;font-size:var(--t-xs);color:var(--muted)}
+
+.tips{padding:var(--section) 0}
+.tips__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.tip{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);overflow:hidden;background:#fff}
+.tip__media{position:relative;min-height:238px;overflow:hidden;background:var(--ink-soft)}
+.tip__media img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.tip:hover .tip__media img{transform:scale(1.05)}
+.tip__body{padding:26px;display:flex;flex-direction:column}
+.tip__body .chip{align-self:flex-start;margin-bottom:14px}
+.tip h3{font-size:var(--t-h3);line-height:1.4;margin-bottom:8px}
+.tip p{font-size:var(--t-sm);color:var(--muted);margin-bottom:18px}
+.tip__foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;gap:16px}
+
+/* ============ 9. brands ============ */
+.brands{padding:var(--section) 0}
+.brands__grid{display:grid;grid-template-columns:repeat(9,1fr);gap:12px;margin-top:34px}
+.brand-chip{
+  display:grid;place-items:center;aspect-ratio:1/1;padding:14px;
+  border-radius:var(--r);background:#fff;
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease);
+}
+.brand-chip img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(1);opacity:.55;transition:filter .25s var(--ease),opacity .25s var(--ease)}
+.brand-chip:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.brand-chip:hover img{filter:none;opacity:1}
+
+/* ============ 10. footer ============ */
+.site-footer{background:var(--ink);color:#fff;padding:70px 0 0}
+.site-footer__grid{display:grid;grid-template-columns:1.2fr repeat(3,1fr) 1.1fr;gap:32px;padding-bottom:54px}
+.site-footer h4{
+  font-family:'Archivo','IBM Plex Sans Thai',sans-serif;font-size:var(--t-xs);font-weight:800;
+  letter-spacing:.16em;text-transform:uppercase;color:#fff;margin-bottom:18px;
+}
+.site-footer li{margin-bottom:11px}
+.site-footer li a{font-size:var(--t-sm);color:rgba(255,255,255,.6);transition:color .18s var(--ease)}
+.site-footer li a:hover{color:var(--orange-lt)}
+.footer-brand img{height:28px;margin-bottom:18px;filter:brightness(0) invert(1)}
+.footer-brand p{font-size:var(--t-sm);color:rgba(255,255,255,.5);max-width:280px}
+.footer-cta{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.legal{
+  border-top:1px solid rgba(255,255,255,.1);padding:22px 0;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  font-size:var(--t-xs);color:rgba(255,255,255,.45);
+}
+.legal__links{display:flex;gap:24px}
+.legal a{transition:color .18s var(--ease)}
+.legal a:hover{color:var(--orange-lt)}
+
+/* ============ responsive ============ */
+@media (max-width:1200px){
+  :root{--section:80px;--t-h1:36px;--t-h2:28px}
+  .mainnav{gap:18px}
+  .mainnav a{font-size:13px}
+  .finder__title{display:none}
+  .brands__grid{grid-template-columns:repeat(6,1fr)}
+  .site-footer__grid{grid-template-columns:1fr 1fr 1fr;row-gap:40px}
+}
+@media (max-width:1024px){
+  .mainnav{display:none}
+  .hero{padding:24px 0 48px}
+  .finderwrap{margin-top:16px}
+  .finder__row{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:14px}
+  .finder__go{grid-column:1 / -1;width:100%}
+  .pillars__grid{grid-template-columns:repeat(2,1fr)}
+  .offers__grid,.posts{grid-template-columns:repeat(2,1fr)}
+  .offers__grid .offer:last-child,.posts .post:last-child{grid-column:span 2}
+  .offers__grid .offer:last-child .offer__media,.posts .post:last-child .post__media{aspect-ratio:32/9}
+  .products{grid-template-columns:repeat(2,1fr)}
+  .tips__grid{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  :root{--section:56px;--gutter:18px;--t-h1:28px;--t-h2:23px;--t-h3:18px;--r-lg:16px}
+  .utility__right a:not(.js-keep){display:none}
+  .site-header .wrap{gap:14px;height:66px}
+  .site-header .btn{height:42px;padding:0 18px;font-size:13px}
+  .icon-btn{width:40px;height:40px}
+  .brand img{height:24px}
+  .hero__banner{aspect-ratio:2/1}
+  .hero__ui{padding:0 14px 12px}
+  .hero__arrows{display:none}
+  .finderwrap{margin-top:12px}
+  .finder{padding:18px}
+  .finder__top{gap:12px;margin-bottom:14px}
+  .finder__tabs{width:100%}
+  .finder__tabs button{flex:1;min-width:0;padding:0 6px;font-size:13px}
+  .finder__meta{margin-left:0;width:100%;justify-content:space-between}
+  .finder__row{grid-template-columns:1fr}
+  .finder__alt{flex-direction:column;gap:12px}
+  .pillars__grid{grid-template-columns:1fr}
+  .pillar{min-height:0}
+  .offers__grid,.posts{grid-template-columns:1fr}
+  .offers__grid .offer:last-child,.posts .post:last-child{grid-column:auto}
+  .offers__grid .offer:last-child .offer__media,.posts .post:last-child .post__media{aspect-ratio:16/9}
+  .products{grid-template-columns:1fr}
+  .product__media{aspect-ratio:4/3;padding:16px}
+  .product__name{min-height:0}
+  .tip{grid-template-columns:1fr}
+  .tip__media{min-height:0;aspect-ratio:16/9}
+  .brands__grid{grid-template-columns:repeat(4,1fr)}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:14px}
+  .shop__tabsrow{flex-direction:column;align-items:stretch;gap:16px}
+  .shop__tabsrow .link-arrow{display:none}
+  .site-footer__grid{grid-template-columns:1fr 1fr}
+  .legal{flex-direction:column;align-items:flex-start;gap:12px}
+  .legal__links{flex-wrap:wrap;gap:16px}
+  .tile__ghost{font-size:100px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ 1. utility bar ============ -->
+<div class="utility">
+  <div class="wrap">
+    <a href="#">ลูกค้าธุรกิจ</a>
+    <div class="utility__right">
+      <a href="#">PT MAX Card Club</a>
+      <span class="sep"></span>
+      <a href="#">เข้าสู่ระบบ</a>
+      <a href="#" class="js-keep" aria-label="ค้นหา">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="4.6"/><path d="M10.4 10.4L14 14" stroke-linecap="round"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 2. header ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="wrap">
+    <button class="burger" aria-label="เมนู"><span></span><span></span><span></span></button>
+    <a class="brand" href="#" aria-label="AUTOBACS"><img src="assets/logo.svg" alt="AUTOBACS"></a>
+    <nav class="mainnav">
+      <a href="#shop">สินค้าและบริการ</a>
+      <a href="#offers">โปรโมชั่น</a>
+      <a href="#news">ข่าวสาร</a>
+      <a href="#tips">เคล็ดลับเรื่องรถ</a>
+      <a href="#">ค้นหาสาขา</a>
+    </nav>
+    <div class="header-actions">
+      <a href="#" class="icon-btn" aria-label="ตะกร้าสินค้า">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h2.2l1.9 9.4a1.5 1.5 0 0 0 1.5 1.2h7a1.5 1.5 0 0 0 1.5-1.2L17.5 6H5.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8.5" cy="17" r="1.2"/><circle cx="15" cy="17" r="1.2"/></svg>
+        <span class="dot num">2</span>
+      </a>
+      <a href="#" class="btn btn--ink">จองบริการ</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 3. hero ============ -->
+<section class="band--orange hero">
+  <div class="wrap">
+    <div class="hero__banner" id="heroBanner">
+      <div class="hero__slide on"><img src="assets/promo/slide-brand.jpg" alt="AUTOBACS ศูนย์บริการรถยนต์ครบวงจร มาตรฐานญี่ปุ่น" fetchpriority="high"></div>
+      <div class="hero__slide"><img src="assets/promo/slide-deal.jpg" alt="Your Drive Your Way — ยางแบรนด์ดัง 3 แถม 1" loading="lazy"></div>
+      <div class="hero__slide"><img src="assets/promo/slide-store.jpg" alt="ออโต้แบคส์ เรื่องรถของคุณ ให้เป็นเรื่องของเรา" loading="lazy"></div>
+
+      <div class="hero__ui">
+        <div class="hero__dots" id="heroDots">
+          <button aria-current="true" aria-label="แบนเนอร์ที่ 1"></button>
+          <button aria-current="false" aria-label="แบนเนอร์ที่ 2"></button>
+          <button aria-current="false" aria-label="แบนเนอร์ที่ 3"></button>
+        </div>
+        <div class="hero__arrows">
+          <button id="heroPrev" aria-label="แบนเนอร์ก่อนหน้า"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 8H4M7.5 3.5L3 8l4.5 4.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button id="heroNext" aria-label="แบนเนอร์ถัดไป"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 3.5L13 8l-4.5 4.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap finderwrap">
+    <div class="finder" id="finder">
+      <div class="finder__top">
+        <h2 class="finder__title">รถของคุณต้องการอะไร?</h2>
+        <div class="finder__tabs" role="tablist">
+          <button role="tab" aria-selected="true" data-fin="tire">ยาง</button>
+          <button role="tab" aria-selected="false" data-fin="oil">น้ำมันเครื่อง</button>
+          <button role="tab" aria-selected="false" data-fin="battery">แบตเตอรี่</button>
+        </div>
+        <div class="finder__meta">
+          <span id="finHint">ระบุรุ่นรถเพื่อดูยางที่แนะนำ</span>
+          <button type="button" id="finSwitch">ค้นหาจากขนาดยาง</button>
+        </div>
+      </div>
+
+      <div class="finder__row">
+        <div id="finFields" style="display:contents"></div>
+        <a href="#shop" class="btn btn--primary finder__go" id="finCta">
+          ดูยางที่เหมาะกับรถคุณ
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="finder__alt">
+        <a href="#">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="4" width="15" height="13.5" rx="2"/><path d="M2.5 8h15M6.5 2.5V5M13.5 2.5V5" stroke-linecap="round"/></svg>
+          จองบริการล่วงหน้า
+        </a>
+        <a href="#">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 17.5s5.8-5.4 5.8-9.6a5.8 5.8 0 1 0-11.6 0c0 4.2 5.8 9.6 5.8 9.6z" stroke-linejoin="round"/><circle cx="10" cy="7.9" r="2.2"/></svg>
+          ค้นหาสาขาใกล้ฉัน
+        </a>
+        <a href="#">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 10a7 7 0 1 1 7 7H3.6l1.6-1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 6.5V10l2.4 1.6" stroke-linecap="round"/></svg>
+          ประวัติการใช้บริการ
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. pillars ============ -->
+<section class="band--cream pillars">
+  <div class="wrap">
+    <div class="pillars__head reveal">
+      <span class="kicker">Autobacs Thailand</span>
+      <h2>ศูนย์บริการรถยนต์ครบวงจร มาตรฐานญี่ปุ่น</h2>
+      <p>ค้นหาสินค้า บริการ และสาขาที่เหมาะกับรถของคุณ พร้อมจองบริการออนไลน์ได้ง่ายในที่เดียว</p>
+    </div>
+
+    <div class="pillars__grid">
+      <article class="card pillar reveal">
+        <div class="pillar__top">
+          <span class="pillar__icon"><svg width="24" height="24" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="13" cy="13" r="9.5"/><circle cx="13" cy="13" r="3.6"/><path d="M13 3.5v6M13 16.4v6M3.5 13h6M16.4 13h6"/></svg></span>
+          <span class="pillar__no">01</span>
+        </div>
+        <h3>สินค้าและบริการ</h3>
+        <p>ยาง แบตเตอรี่ น้ำมันเครื่อง ผ้าเบรก โช้คอัพ และบริการซ่อมบำรุงครบวงจร</p>
+        <a href="#shop" class="link-arrow">ดูสินค้าและบริการทั้งหมด <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+
+      <article class="card pillar reveal">
+        <div class="pillar__top">
+          <span class="pillar__icon"><svg width="24" height="24" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 23s7.5-7 7.5-12.4A7.5 7.5 0 0 0 5.5 10.6C5.5 16 13 23 13 23z" stroke-linejoin="round"/><circle cx="13" cy="10.4" r="2.8"/></svg></span>
+          <span class="pillar__no">02</span>
+        </div>
+        <h3>ค้นหาสาขาใกล้คุณ</h3>
+        <p>ค้นหาสาขา AUTOBACS พร้อมเวลาทำการ บริการที่เปิดรับ และคิวว่างแบบเรียลไทม์</p>
+        <a href="#" class="link-arrow">ค้นหาสาขา <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+
+      <article class="card pillar reveal">
+        <div class="pillar__top">
+          <span class="pillar__icon"><svg width="24" height="24" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="7" width="20" height="13" rx="1.6"/><path d="M8.5 7V5.2A1.2 1.2 0 0 1 9.7 4h6.6a1.2 1.2 0 0 1 1.2 1.2V7M3 12.4h20"/></svg></span>
+          <span class="pillar__no">03</span>
+        </div>
+        <h3>ลูกค้าธุรกิจ</h3>
+        <p>ดูแลรถประจำองค์กรและฟลีต ด้วยราคาพิเศษ เครดิตเทอม และรายงานการซ่อมบำรุง</p>
+        <a href="#" class="link-arrow">ดูบริการสำหรับลูกค้าธุรกิจ <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+
+      <article class="card pillar reveal">
+        <div class="pillar__top">
+          <span class="pillar__icon"><svg width="24" height="24" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="6" width="21" height="14" rx="2"/><path d="M2.5 10.6h21M6.4 15.6h4.6"/></svg></span>
+          <span class="pillar__no">04</span>
+        </div>
+        <h3>PT MAX Card Club</h3>
+        <p>สะสมแต้ม รับส่วนลดสมาชิก และสิทธิพิเศษเฉพาะผู้ถือบัตรที่สาขาทั่วประเทศ</p>
+        <a href="#" class="link-arrow">ดูสิทธิของฉัน <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. offers ============ -->
+<section class="band--ink offers" id="offers">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker">Offers</span>
+        <h2>ข้อเสนอและสิทธิพิเศษสำหรับคุณ</h2>
+        <p>ดีลประจำเดือน ส่วนลดสมาชิก และแพ็กเกจบริการที่คุ้มที่สุด</p>
+      </div>
+      <a href="#" class="link-arrow">ดูโปรโมชั่นทั้งหมด <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+
+    <div class="offers__grid">
+      <article class="card offer reveal">
+        <div class="offer__media">
+          <span class="chip chip--orange offer__badge">แคมเปญปัจจุบัน</span>
+          <img src="assets/promo/offer-care.jpg" alt="แคมเปญ ยิ่งดูแล ยิ่งคุ้ม รับคูปองส่วนลดสูงสุด 1,500 บาท" loading="lazy">
+        </div>
+        <div class="offer__body">
+          <h3>ยิ่งดูแล ยิ่งคุ้ม — รับคูปองสูงสุด ฿1,500</h3>
+          <p>ทุกยอดใช้จ่ายครบตามเงื่อนไข รับคูปองส่วนลดใช้ได้ที่สาขาทั่วประเทศ</p>
+          <a href="#" class="link-arrow">ดูรายละเอียด <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+
+      <article class="card offer reveal">
+        <div class="offer__media tile">
+          <span class="chip chip--orange offer__badge">PT MAX Card Club</span>
+          <span class="tile__label">Members</span>
+          <span class="tile__ghost num">MAX</span>
+          <span class="tile__mark">
+            <svg width="34" height="34" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="6" width="21" height="14" rx="2"/><path d="M2.5 10.6h21M6.4 15.6h4.6"/></svg>
+          </span>
+        </div>
+        <div class="offer__body">
+          <h3>ใช้สิทธิสมาชิก รับข้อเสนอพิเศษที่ AUTOBACS</h3>
+          <p>สะสมแต้มทุกการใช้จ่าย แลกส่วนลดค่าบริการ และรับดีลเฉพาะสมาชิกทุกเดือน</p>
+          <a href="#" class="link-arrow">ดูสิทธิพิเศษ <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+
+      <article class="card offer reveal">
+        <div class="offer__media offer__media--fit">
+          <img src="assets/cat/Engineoil.jpg" alt="บริการเปลี่ยนน้ำมันเครื่องที่ AUTOBACS" loading="lazy">
+        </div>
+        <div class="offer__body">
+          <h3>เปลี่ยนน้ำมันเครื่อง พร้อมตรวจเช็ค 20 จุด</h3>
+          <p>เลือกเกรดน้ำมันที่เหมาะกับรถของคุณ พร้อมเปลี่ยนไส้กรองโดยช่างมาตรฐานญี่ปุ่น</p>
+          <a href="#" class="link-arrow">ดูบริการ <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. shop ============ -->
+<section class="band--cream shop" id="shop">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-bottom:26px">
+      <div>
+        <span class="kicker">Online Store</span>
+        <h2>สินค้าพร้อมจัดส่งถึงบ้าน</h2>
+        <p>สั่งซื้อออนไลน์ จัดส่งทั่วประเทศ หรือรับที่สาขาใกล้คุณ</p>
+      </div>
+    </div>
+
+    <div class="shop__tabsrow">
+      <div class="shop__tabs" role="tablist" id="shopTabs">
+        <button role="tab" aria-selected="true" data-cat="promo">โปรโมชั่น</button>
+        <button role="tab" aria-selected="false" data-cat="tire">ยาง</button>
+        <button role="tab" aria-selected="false" data-cat="oil">น้ำมันเครื่อง</button>
+        <button role="tab" aria-selected="false" data-cat="battery">แบตเตอรี่</button>
+        <button role="tab" aria-selected="false" data-cat="chassis">เบรกและช่วงล่าง</button>
+      </div>
+      <a href="#" class="link-arrow">ดูสินค้าทั้งหมด <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+
+    <div class="products" id="products"><!-- rendered by script --></div>
+  </div>
+</section>
+
+<!-- ============ 7. news ============ -->
+<section class="editorial" id="news">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker">News</span>
+        <h2>ข่าวสารและบทความ</h2>
+        <p>อัปเดตกิจกรรม โปรโมชั่น และข่าวสารจาก AUTOBACS</p>
+      </div>
+      <a href="#" class="link-arrow">ดูทั้งหมด <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+
+    <div class="posts">
+      <article class="card post reveal">
+        <div class="post__media"><img src="assets/news/n1.jpg" alt="ทีมงาน AUTOBACS ร่วมกิจกรรมกับชุมชน" loading="lazy"></div>
+        <div class="post__body">
+          <span class="chip">กิจกรรม</span>
+          <h3>AUTOBACS ร่วมกิจกรรมชุมชน ส่งมอบความห่วงใยให้คนใช้รถ</h3>
+          <p>ทีมงานลงพื้นที่ให้บริการตรวจเช็ครถเบื้องต้นฟรี พร้อมให้คำแนะนำการดูแลรถ</p>
+          <div class="post__foot">
+            <span class="post__date">19 ส.ค. 2568</span>
+            <a href="#" class="link-arrow">อ่านต่อ <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card post reveal">
+        <div class="post__media"><img src="assets/news/n2.jpg" alt="กิจกรรมมอบของที่ระลึกจาก AUTOBACS" loading="lazy"></div>
+        <div class="post__body">
+          <span class="chip">CSR</span>
+          <h3>ส่งมอบถุงผ้า AUTOBACS ให้กับผู้ร่วมกิจกรรม</h3>
+          <p>ต่อยอดแคมเปญลดใช้ถุงพลาสติก พร้อมกิจกรรมร่วมสนุกที่หน้าสาขา</p>
+          <div class="post__foot">
+            <span class="post__date">19 ส.ค. 2568</span>
+            <a href="#" class="link-arrow">อ่านต่อ <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card post reveal">
+        <div class="post__media"><img src="assets/news/n3.jpg" alt="ทีมงาน AUTOBACS ที่หน้าสาขา" loading="lazy"></div>
+        <div class="post__body">
+          <span class="chip">ข่าวสาร</span>
+          <h3>AUTOBACS เปิดสาขาใหม่ พร้อมให้บริการครบวงจรแล้ววันนี้</h3>
+          <p>สาขาใหม่ล่าสุดพร้อมบริการทั้งยาง แบตเตอรี่ ผ้าเบรก และงานซ่อมบำรุงทั่วไป</p>
+          <div class="post__foot">
+            <span class="post__date">19 ส.ค. 2568</span>
+            <a href="#" class="link-arrow">อ่านต่อ <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. tips ============ -->
+<section class="band--cream tips" id="tips">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker">Car Care</span>
+        <h2>เคล็ดลับน่ารู้เรื่องรถ</h2>
+        <p>ความรู้จากช่างมืออาชีพ ที่ช่วยให้รถของคุณอยู่กับคุณได้นานขึ้น</p>
+      </div>
+      <a href="#" class="link-arrow">ดูทั้งหมด <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+
+    <div class="tips__grid">
+      <article class="card tip reveal">
+        <div class="tip__media"><img src="assets/hero-service.jpg" alt="ช่างตรวจเช็คสภาพรถในศูนย์บริการ AUTOBACS" loading="lazy"></div>
+        <div class="tip__body">
+          <span class="chip">เคล็ดลับดูแลรถ</span>
+          <h3>เช็คลมยางอย่างไรให้ถูกวิธี และควรเช็คบ่อยแค่ไหน</h3>
+          <p>ลมยางที่เหมาะสมช่วยประหยัดน้ำมันและยืดอายุยางได้จริง มาดูวิธีเช็คที่ถูกต้อง</p>
+          <div class="tip__foot">
+            <span class="post__date">15 ส.ค. 2568</span>
+            <a href="#" class="link-arrow">อ่านต่อ <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card tip reveal">
+        <div class="tip__media"><img src="assets/cat/Battery.jpg" alt="แบตเตอรี่รถยนต์ที่จำหน่ายใน AUTOBACS" loading="lazy"></div>
+        <div class="tip__body">
+          <span class="chip">แบตเตอรี่</span>
+          <h3>แบตเตอรี่รถใกล้หมดอายุ สังเกตจากอะไรได้บ้าง</h3>
+          <p>สตาร์ทติดยาก ไฟหน้าหรี่ลง หรือแบตบวม คือสัญญาณที่ไม่ควรปล่อยผ่าน</p>
+          <div class="tip__foot">
+            <span class="post__date">1 ส.ค. 2568</span>
+            <a href="#" class="link-arrow">อ่านต่อ <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. brands ============ -->
+<section class="brands">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="kicker">Partners</span>
+      <h2 style="font-size:var(--t-h2);margin-top:14px">แบรนด์พันธมิตรของเรา</h2>
+      <p style="color:var(--muted);font-size:var(--t-sm);margin-top:8px">AUTOBACS คัดสรรสินค้าจากแบรนด์ชั้นนำระดับโลก เพื่อรถของคุณ</p>
+    </div>
+    <div class="brands__grid reveal" id="brandsGrid"><!-- rendered by script --></div>
+  </div>
+</section>
+
+<!-- ============ 10. footer ============ -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__grid">
+      <div class="footer-brand">
+        <img src="assets/logo.svg" alt="AUTOBACS">
+        <p>ศูนย์บริการรถยนต์ครบวงจร มาตรฐานญี่ปุ่น ให้บริการทั่วประเทศไทย</p>
+      </div>
+
+      <div>
+        <h4>สินค้าและบริการ</h4>
+        <ul>
+          <li><a href="#shop">ยาง</a></li>
+          <li><a href="#shop">แบตเตอรี่</a></li>
+          <li><a href="#shop">น้ำมันเครื่อง</a></li>
+          <li><a href="#shop">ผ้าเบรก</a></li>
+          <li><a href="#shop">โช้คอัพ</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>AUTOBACS</h4>
+        <ul>
+          <li><a href="#">สาขา</a></li>
+          <li><a href="#offers">โปรโมชั่น</a></li>
+          <li><a href="#">ลูกค้าธุรกิจ</a></li>
+          <li><a href="#news">ข่าวสาร</a></li>
+          <li><a href="#">ร่วมงานกับเรา</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>สมาชิกและบริการ</h4>
+        <ul>
+          <li><a href="#">PT MAX Card Club</a></li>
+          <li><a href="#">ประวัติการใช้บริการ</a></li>
+          <li><a href="#">จองบริการ</a></li>
+          <li><a href="#">ติดตามคำสั่งซื้อ</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>ติดต่อเรา</h4>
+        <ul>
+          <li><a href="tel:0655048000">โทร 065-504-8000</a></li>
+          <li><a href="#">LINE Official</a></li>
+          <li><a href="#">Facebook Page</a></li>
+        </ul>
+        <div class="footer-cta">
+          <a href="#" class="btn btn--primary">จองบริการ</a>
+          <a href="#" class="btn btn--outline">ค้นหาสาขาใกล้ฉัน</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="legal">
+      <span>© 2025 AUTOBACS Thailand. All Rights Reserved.</span>
+      <span class="legal__links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">PDPA</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- sticky header ---------- */
+  var header = document.getElementById('siteHeader');
+  var onScroll = function(){ header.classList.toggle('is-stuck', window.scrollY > 8); };
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* ---------- reveal on scroll ---------- */
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduced) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e, i){
+        if (e.isIntersecting) {
+          e.target.style.transitionDelay = (i * 60) + 'ms';
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+    reveals.forEach(function(el){ io.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---------- hero banner ---------- */
+  var slides = document.querySelectorAll('.hero__slide');
+  var dots   = document.querySelectorAll('#heroDots button');
+  var banner = document.getElementById('heroBanner');
+  var slide = 0, timer = null;
+
+  function show(i){
+    slide = (i + slides.length) % slides.length;
+    slides.forEach(function(s, n){ s.classList.toggle('on', n === slide); });
+    dots.forEach(function(d, n){ d.setAttribute('aria-current', String(n === slide)); });
+  }
+  function play(){ clearInterval(timer); if (!reduced) timer = setInterval(function(){ show(slide + 1); }, 6000); }
+
+  dots.forEach(function(d, n){ d.addEventListener('click', function(){ show(n); play(); }); });
+  document.getElementById('heroPrev').addEventListener('click', function(){ show(slide - 1); play(); });
+  document.getElementById('heroNext').addEventListener('click', function(){ show(slide + 1); play(); });
+  banner.addEventListener('mouseenter', function(){ clearInterval(timer); });
+  banner.addEventListener('mouseleave', play);
+  play();
+
+  /* ---------- car finder ---------- */
+  var FINDER = {
+    tire:    {hint:'ระบุรุ่นรถเพื่อดูยางที่แนะนำ',          cta:'ดูยางที่เหมาะกับรถคุณ',          alt:'ค้นหาจากขนาดยาง'},
+    oil:     {hint:'ระบุรุ่นรถเพื่อดูเกรดน้ำมันที่แนะนำ',     cta:'ดูน้ำมันเครื่องที่เหมาะกับรถคุณ', alt:null},
+    battery: {hint:'ระบุรุ่นรถเพื่อดูขนาดแบตเตอรี่ที่แนะนำ',  cta:'ดูแบตเตอรี่ที่เหมาะกับรถคุณ',     alt:null}
+  };
+  var CAR_FIELDS = [
+    {label:'ยี่ห้อรถ', options:['Toyota','Honda','Isuzu','Mazda','Mitsubishi','Nissan','Ford','BYD']},
+    {label:'รุ่นรถ',   options:['Corolla Cross','Yaris Ativ','Fortuner','Hilux Revo','Camry']},
+    {label:'ปี',       options:['2025','2024','2023','2022','2021','2020']}
+  ];
+  var SIZE_FIELDS = [
+    {label:'ความกว้างยาง', options:['185','195','205','215','225','235','265']},
+    {label:'ซีรีส์',        options:['45','50','55','60','65','70']},
+    {label:'ขอบล้อ',       options:['R15','R16','R17','R18','R19','R20']}
+  ];
+
+  var finFields = document.getElementById('finFields');
+  var finHint   = document.getElementById('finHint');
+  var finCta    = document.getElementById('finCta');
+  var finSwitch = document.getElementById('finSwitch');
+  var finTabs   = document.querySelectorAll('[data-fin]');
+  var bySize = false, activeFin = 'tire';
+
+  function renderFinder(){
+    var cfg = FINDER[activeFin];
+    var defs = bySize ? SIZE_FIELDS : CAR_FIELDS;
+    finFields.innerHTML = defs.map(function(f, i){
+      return '<div class="field"><label for="ff' + i + '">' + f.label + '</label>' +
+             '<select id="ff' + i + '">' +
+             f.options.map(function(o){ return '<option>' + o + '</option>'; }).join('') +
+             '</select></div>';
+    }).join('');
+    finHint.textContent = bySize ? 'ระบุขนาดยางที่ใช้อยู่ (ดูได้จากแก้มยาง)' : cfg.hint;
+    finCta.childNodes[0].nodeValue = (bySize ? 'ค้นหายางตามขนาด' : cfg.cta) + ' ';
+    if (cfg.alt) {
+      finSwitch.style.display = '';
+      finSwitch.textContent = bySize ? 'ค้นหาจากรุ่นรถ' : cfg.alt;
+    } else {
+      finSwitch.style.display = 'none';
+    }
+  }
+
+  finTabs.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      finTabs.forEach(function(b){ b.setAttribute('aria-selected', String(b === btn)); });
+      activeFin = btn.dataset.fin;
+      bySize = false;
+      renderFinder();
+    });
+  });
+  finSwitch.addEventListener('click', function(){ bySize = !bySize; renderFinder(); });
+  renderFinder();
+
+  /* ---------- แบรนด์พันธมิตร (โลโก้จาก autobacs.co.th) ---------- */
+  var BRANDS = ['bridgestone','michelin','yakohama','dunlop','deestone','pirelli','continental','bf-goodrich',
+                'pt-maxnitron','eneos','mobil','motul','valvoline','gs-battery','bosch','bendix','tokico','hks'];
+  document.getElementById('brandsGrid').innerHTML = BRANDS.map(function(b){
+    var name = b.replace(/-/g,' ').toUpperCase();
+    return '<a class="brand-chip" href="#" title="' + name + '">' +
+           '<img src="assets/brand/' + b + '.png" alt="' + name + '" loading="lazy"></a>';
+  }).join('');
+
+  /* ---------- สินค้า ----------
+     ยาง: รูปและขนาดจริงจาก autobacs.co.th
+     หมวดอื่น: โลโก้แบรนด์ที่ AUTOBACS จำหน่ายจริง
+     ราคาทั้งหมดเป็นตัวอย่างสำหรับ mockup */
+  var PRODUCTS = [
+    {cat:'tire', promo:true,  brand:'Deestone', name:'Deestone T88',            spec:'215/70 R15', price:2590, member:2390, img:'assets/tire-deestone-t88.jpg',   flag:'ลด 15%'},
+    {cat:'tire', promo:true,  brand:'Michelin', name:'Michelin Agilis 3',       spec:'215/70 R15', price:3800, member:3500, img:'assets/tire-michelin-agilis3.jpg'},
+    {cat:'tire', promo:false, brand:'Dunlop',   name:'Dunlop ENASAVE EC300+',   spec:'185/60 R15', price:2900, member:2650, img:'assets/tire-dunlop-ec300.jpg'},
+    {cat:'tire', promo:false, brand:'Deestone', name:'Deestone Power Cruz M/T', spec:'265/65 R17', price:4290, member:3990, img:'assets/tire-deestone-mt431.jpg', flag:'ขายดี'},
+
+    {cat:'oil', promo:true,  brand:'PT Maxnitron', name:'PT Maxnitron Racing 5W-30', spec:'สังเคราะห์แท้ 4 ลิตร', price:1490, member:1330, logo:'pt-maxnitron', flag:'ลด 10%'},
+    {cat:'oil', promo:false, brand:'ENEOS',        name:'ENEOS Sustina 5W-40',       spec:'สังเคราะห์แท้ 4 ลิตร', price:1890, member:1690, logo:'eneos'},
+    {cat:'oil', promo:false, brand:'Mobil',        name:'Mobil Super 3000 5W-30',    spec:'สังเคราะห์แท้ 4 ลิตร', price:1790, member:1590, logo:'mobil'},
+    {cat:'oil', promo:false, brand:'Motul',        name:'Motul 8100 X-clean 5W-40',  spec:'สังเคราะห์แท้ 4 ลิตร', price:2190, member:1990, logo:'motul'},
+
+    {cat:'battery', promo:true,  brand:'GS Battery', name:'GS MFX-90L',           spec:'12V 75Ah · แบตแห้ง',  price:3200, member:2950, logo:'gs-battery'},
+    {cat:'battery', promo:false, brand:'GS Battery', name:'GS Prime 75D23L',      spec:'12V 65Ah · กึ่งแห้ง',  price:2890, member:2650, logo:'gs-battery'},
+    {cat:'battery', promo:false, brand:'Bosch',      name:'Bosch S4 DIN65',       spec:'12V 65Ah · แบตแห้ง',  price:3590, member:3290, logo:'bosch'},
+    {cat:'battery', promo:false, brand:'Bosch',      name:'Bosch Hightec 80D26L', spec:'12V 70Ah · แบตแห้ง',  price:3890, member:3550, logo:'bosch'},
+
+    {cat:'chassis', promo:false, brand:'Bendix', name:'Bendix General CT',    spec:'ผ้าเบรกหน้า · เก๋ง',       price:1690, member:1520, logo:'bendix'},
+    {cat:'chassis', promo:true,  brand:'Bendix', name:'Bendix 4WD/SUV',       spec:'ผ้าเบรกหน้า · กระบะ/SUV',  price:2290, member:2050, logo:'bendix'},
+    {cat:'chassis', promo:false, brand:'Tokico', name:'Tokico โช้คอัพมาตรฐาน', spec:'ต่อคู่ · หน้า',            price:3990, member:3690, logo:'tokico'},
+    {cat:'chassis', promo:false, brand:'HKS',    name:'HKS Hipermax S',        spec:'โช้คอัพสปอร์ต · ต่อคู่',    price:4590, member:4250, logo:'hks'}
+  ];
+
+  var baht = function(n){ return '฿' + n.toLocaleString('en-US'); };
+
+  function productCard(p){
+    var media = p.img
+      ? '<div class="product__media"><img src="' + p.img + '" alt="' + p.name + '" loading="lazy"></div>'
+      : '<div class="product__media product__media--brand"><img src="assets/brand/' + p.logo + '.png" alt="' + p.brand + '" loading="lazy"></div>';
+
+    return '<article class="card product">' + media +
+      '<div class="product__body">' +
+        '<span class="product__brand">' + p.brand + '</span>' +
+        '<h3 class="product__name">' + p.name + '</h3>' +
+        '<span class="product__spec">' + p.spec + '</span>' +
+        '<div class="product__price"><span class="amt">' + baht(p.price) + '</span><span class="unit">ราคาปกติ</span></div>' +
+        '<div class="product__member">สมาชิก PT MAX เหลือ <strong>' + baht(p.member) + '</strong></div>' +
+        '<button class="btn btn--ink btn--block">เพิ่มลงตะกร้า</button>' +
+      '</div></article>';
+  }
+
+  function renderProducts(cat){
+    var list = (cat === 'promo')
+      ? PRODUCTS.filter(function(p){ return p.promo; })
+      : PRODUCTS.filter(function(p){ return p.cat === cat; });
+    list = list.slice(0, 4);
+
+    var grid = document.getElementById('products');
+    grid.innerHTML = list.map(productCard).join('');
+    list.forEach(function(p, i){
+      if (!p.flag) return;
+      var flag = document.createElement('span');
+      flag.className = 'chip chip--orange product__flag';
+      flag.textContent = p.flag;
+      grid.children[i].querySelector('.product__media').appendChild(flag);
+    });
+  }
+
+  var shopTabs = document.querySelectorAll('#shopTabs button');
+  shopTabs.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      shopTabs.forEach(function(b){ b.setAttribute('aria-selected', String(b === btn)); });
+      renderProducts(btn.dataset.cat);
+    });
+  });
+  renderProducts('promo');
+
+})();
+</script>
+</body>
+</html>

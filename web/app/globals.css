@@ -1,0 +1,290 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Autobacs design tokens — generated from Figma file PFvLzLsDtQ7oQebvETOc7Z
+   Layer 1 Primitives -> Layer 2 Semantic. Never use a primitive directly in
+   markup; only the semantic names below are exposed as Tailwind utilities.
+   --------------------------------------------------------------------------- */
+
+:root,
+.light {
+  /* --- Primitives ------------------------------------------------------- */
+  --orange-50: #fef4ec;
+  --orange-100: #fde4d2;
+  --orange-200: #fbc7a5;
+  --orange-300: #f8a56f;
+  --orange-400: #f68a47;
+  --orange-500: #f36f21; /* Autobacs CI */
+  --orange-600: #d95c15;
+  --orange-700: #c4500f;
+  --orange-800: #9c3f0c;
+  --orange-900: #7a3209;
+
+  --neutral-0: #ffffff;
+  --neutral-50: #fafaf9;
+  --neutral-100: #f5f4f2;
+  --neutral-200: #e8e6e3;
+  --neutral-300: #d6d3ce;
+  --neutral-400: #a8a29b;
+  --neutral-500: #7c766e;
+  --neutral-600: #5c574f;
+  --neutral-700: #44403a;
+  --neutral-800: #2c2925;
+  --neutral-900: #1a1a1a;
+
+  --green-300: #6ce9a6;
+  --green-50: #ecfdf3;
+  --green-500: #12b76a;
+  --green-600: #039855;
+  --green-700: #027a48;
+  --gold-50: #fefae8;
+  --gold-500: #ca8a04;
+  --gold-600: #a16207;
+  --gold-700: #854d0e;
+  --red-50: #fef3f2;
+  --red-300: #fda29b;
+  --red-500: #f04438;
+  --red-600: #d92d20;
+  --red-700: #b42318;
+  --blue-50: #eff8ff;
+  --blue-500: #2e90fa;
+  --blue-600: #1570ef;
+  --blue-700: #175cd3;
+
+  /* --- Semantic · Light ------------------------------------------------- */
+  --surface: var(--neutral-0);
+  --subtle: var(--neutral-50);
+  --muted: var(--neutral-100);
+  --inverse: var(--neutral-900);
+  --brand-subtle: var(--orange-50);
+
+  --ink: var(--neutral-900);
+  --ink-2: var(--neutral-700);
+  --ink-3: var(--neutral-600);
+  --ink-inv: var(--neutral-0);
+  --ink-brand: var(--orange-800); /* 6.71:1 on white — the raw CI orange fails AA as text */
+  --ink-danger: var(--red-700);
+  --ink-success: var(--green-700);
+
+  --line: var(--neutral-200);
+  --line-strong: var(--neutral-300);
+  --line-brand: var(--orange-500);
+
+  --brand: var(--orange-500);
+  --brand-hover: var(--orange-600);
+  --on-brand: var(--neutral-900); /* ink on orange = 5.89:1; white would be 2.95:1 */
+
+  --stock-in: var(--green-600);
+  --stock-in-bg: var(--green-50);
+  --stock-low: var(--gold-600);
+  --stock-low-bg: var(--gold-50);
+  --stock-out: var(--red-600);
+  --stock-out-bg: var(--red-50);
+  --slot-open: var(--green-600);
+  --slot-open-bg: var(--green-50);
+  --slot-full: var(--neutral-400);
+  --slot-full-bg: var(--neutral-100);
+  --slot-closed: var(--neutral-300);
+  --info: var(--blue-600);
+  --info-bg: var(--blue-50);
+}
+
+/* --- Semantic · Dark ---------------------------------------------------
+   Applied per-section with class="dark", mirroring the mode override used on
+   the dark bands in Figma. There is no site-wide dark theme.
+   ----------------------------------------------------------------------- */
+.dark {
+  --surface: var(--neutral-900);
+  --subtle: var(--neutral-800);
+  --muted: var(--neutral-700);
+  --inverse: var(--neutral-0);
+  --brand-subtle: var(--orange-900);
+
+  --ink: var(--neutral-50);
+  --ink-2: var(--neutral-200);
+  --ink-3: var(--neutral-300);
+  --ink-inv: var(--neutral-900);
+  --ink-brand: var(--orange-300);
+  --ink-danger: var(--red-300);
+  --ink-success: var(--green-300);
+
+  --line: var(--neutral-700);
+  --line-strong: var(--neutral-600);
+
+  --stock-in: var(--green-500);
+  --stock-in-bg: var(--green-700);
+  --stock-low: var(--gold-500);
+  --stock-low-bg: var(--gold-700);
+  --stock-out: var(--red-500);
+  --stock-out-bg: var(--red-700);
+  --slot-open: var(--green-500);
+  --slot-open-bg: var(--green-700);
+  --slot-full: var(--neutral-600);
+  --slot-full-bg: var(--neutral-800);
+  --slot-closed: var(--neutral-700);
+  --info: var(--blue-500);
+  --info-bg: var(--blue-700);
+}
+
+@theme inline {
+  --color-surface: var(--surface);
+  --color-subtle: var(--subtle);
+  --color-muted: var(--muted);
+  --color-inverse: var(--inverse);
+  --color-brand-subtle: var(--brand-subtle);
+
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-ink-inv: var(--ink-inv);
+  --color-ink-brand: var(--ink-brand);
+  --color-ink-danger: var(--ink-danger);
+  --color-ink-success: var(--ink-success);
+
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-line-brand: var(--line-brand);
+
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-on-brand: var(--on-brand);
+
+  --color-stock-in: var(--stock-in);
+  --color-stock-in-bg: var(--stock-in-bg);
+  --color-stock-low: var(--stock-low);
+  --color-stock-low-bg: var(--stock-low-bg);
+  --color-stock-out: var(--stock-out);
+  --color-stock-out-bg: var(--stock-out-bg);
+  --color-slot-open: var(--slot-open);
+  --color-slot-open-bg: var(--slot-open-bg);
+  --color-slot-full: var(--slot-full);
+  --color-slot-full-bg: var(--slot-full-bg);
+  --color-slot-closed: var(--slot-closed);
+  --color-info: var(--info);
+  --color-info-bg: var(--info-bg);
+
+  --font-sans: var(--font-plex-thai), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  --spacing: 4px;
+}
+
+/* --- Elevation — a real scale, not just a hover state ------------------- */
+:root,
+.light {
+  --shadow-xs: 0 1px 2px rgb(26 23 21 / 0.05);
+  --shadow-sm: 0 1px 3px rgb(26 23 21 / 0.06), 0 1px 2px -1px rgb(26 23 21 / 0.05);
+  --shadow-md: 0 6px 16px -4px rgb(26 23 21 / 0.10), 0 2px 6px -2px rgb(26 23 21 / 0.06);
+  --shadow-lg: 0 16px 40px -8px rgb(26 23 21 / 0.16), 0 4px 12px -4px rgb(26 23 21 / 0.08);
+  --shadow-brand: 0 10px 28px -8px rgb(243 111 33 / 0.42);
+}
+.dark {
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.5);
+  --shadow-md: 0 6px 16px -4px rgb(0 0 0 / 0.55);
+  --shadow-lg: 0 16px 40px -8px rgb(0 0 0 / 0.6);
+}
+
+/* --- Type ramp — wider display range than the Figma spec so the page has
+       a real top note; body sizes unchanged. -------------------------------- */
+@layer components {
+  .t-display-xl { font-size: 44px; line-height: 48px; letter-spacing: -0.025em; font-weight: 700; }
+  .t-display-l  { font-size: 34px; line-height: 40px; letter-spacing: -0.022em; font-weight: 700; }
+  .t-heading-xl { font-size: 28px; line-height: 36px; letter-spacing: -0.015em; font-weight: 700; }
+  .t-heading-l  { font-size: 24px; line-height: 32px; letter-spacing: -0.01em; font-weight: 700; }
+  .t-heading-m  { font-size: 20px; line-height: 28px; letter-spacing: -0.005em; font-weight: 600; }
+  .t-heading-s  { font-size: 18px; line-height: 26px; font-weight: 600; }
+  .t-body-l     { font-size: 17px; line-height: 28px; font-weight: 400; }
+  .t-body-m     { font-size: 16px; line-height: 26px; font-weight: 400; }
+  .t-body-s     { font-size: 14px; line-height: 22px; font-weight: 400; }
+  .t-label-l    { font-size: 16px; line-height: 24px; font-weight: 500; }
+  .t-label-m    { font-size: 14px; line-height: 20px; font-weight: 500; }
+  .t-label-s    { font-size: 12px; line-height: 18px; letter-spacing: 0.005em; font-weight: 500; }
+  .t-num-xl     { font-size: 34px; line-height: 38px; letter-spacing: -0.02em; font-weight: 700; }
+  .t-num-l      { font-size: 24px; line-height: 28px; letter-spacing: -0.01em; font-weight: 700; }
+  .t-num-m      { font-size: 18px; line-height: 24px; font-weight: 600; }
+  /* Eyebrow: the small all-caps line that sets up a section */
+  .t-eyebrow {
+    font-size: 12px; line-height: 18px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+  }
+
+  @media (min-width: 768px) {
+    .t-display-xl { font-size: 76px; line-height: 80px; }
+    .t-display-l  { font-size: 56px; line-height: 62px; }
+    .t-heading-xl { font-size: 40px; line-height: 48px; }
+    .t-heading-l  { font-size: 30px; line-height: 38px; }
+    .t-heading-m  { font-size: 22px; line-height: 30px; }
+    .t-body-l     { font-size: 18px; }
+    .t-num-xl     { font-size: 44px; line-height: 48px; }
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+  .lift {
+    transition: box-shadow 200ms ease-out, border-color 200ms ease-out, transform 200ms ease-out;
+    cursor: pointer;
+  }
+  .lift:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+  }
+  .shell { width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: 16px; }
+  @media (min-width: 768px) { .shell { padding-inline: 40px; } }
+  @media (min-width: 1280px) { .shell { padding-inline: 60px; } }
+
+  /* Tread texture — gives the dark bands a surface instead of flat black. */
+  .tread {
+    background-image:
+      repeating-linear-gradient(
+        115deg,
+        rgb(255 255 255 / 0.028) 0 2px,
+        transparent 2px 22px
+      );
+  }
+  /* Faint engineering grid for light sections that would otherwise read empty. */
+  .grid-faint {
+    background-image:
+      linear-gradient(to right, rgb(26 23 21 / 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(26 23 21 / 0.035) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  /* Scroll reveal — opt-in per element, disabled under reduced motion. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 520ms cubic-bezier(0.16, 1, 0.3, 1), transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .reveal.is-in { opacity: 1; transform: none; }
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--surface);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Motion budget: transitions only, no keyframe loops, nothing above 520ms. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+:where(a, button, input, select, summary):focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
