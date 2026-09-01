@@ -1029,7 +1029,11 @@ ul{margin:0;padding:0;list-style:none}
 .step__row{display:flex;align-items:stretch}
 .step__item{flex:1 1 0;text-align:center;padding:0 4px;min-width:0}
 .step__ico{
-  display:grid;place-items:center;width:64px;height:64px;border-radius:50%;
+  /* ทรงเดียวกับ .pillar__ico ของ section ที่ 2 — สี่เหลี่ยมตัดมุมขวาบน ไม่ใช่วงกลม
+     สัดส่วนรอยตัดคุมด้วย --ico-cut ให้เท่ากับของ pillar (10/46 ≈ 22% ของด้าน) เมื่อกล่องย่อลงจอเล็ก */
+  --ico-cut:14px;
+  display:grid;place-items:center;width:64px;height:64px;
+  clip-path:polygon(0 0, calc(100% - var(--ico-cut)) 0, 100% var(--ico-cut), 100% 100%, 0 100%);
   background:var(--orange-tint);color:var(--ink);margin:0 auto 14px;
 }
 /* ไอคอนเป็นไฟล์ภาพจากอาร์ตเวิร์ก — ทุกไฟล์ผืนผ้าใบจัตุรัสเท่ากันและปรับ "พื้นที่หมึก" มาเท่ากันตอน export
@@ -1063,12 +1067,13 @@ ul{margin:0;padding:0;list-style:none}
 
 /* เล่นกับแต่ละขั้นตอนตอนชี้ — วงไอคอนลอยขึ้นและโตขึ้นเล็กน้อย ตัวหนังสือเข้มขึ้น
    ไอคอนเด้งเองทีละช่อง ไม่ใช่ยกทั้งการ์ด (การ์ดมี translateY(-4px) ของมันอยู่แล้ว ซ้อนกันได้) */
-.step__ico{transition:transform .3s var(--ease-out),box-shadow .3s var(--ease-out)}
+.step__ico{transition:transform .3s var(--ease-out)}
 .step__item h4{transition:color .22s var(--ease)}
-.step__item:hover .step__ico{transform:translateY(-6px) scale(1.06);box-shadow:0 10px 20px -10px rgba(30,30,30,.35)}
+/* ไม่ใส่เงาตอน hover เพราะ clip-path ตัดเงาทิ้งไปพร้อมมุม (เหตุผลเดียวกับ .ways__grid ที่ต้องยกเงาไปไว้ที่ตัวแม่) */
+.step__item:hover .step__ico{transform:translateY(-6px) scale(1.06)}
 .step__item:hover h4{color:var(--orange)}
 @media (prefers-reduced-motion:reduce){
-  .step__item:hover .step__ico{transform:none;box-shadow:none}
+  .step__item:hover .step__ico{transform:none}
 }
 
 /* ============ 7-8. editorial ============ */
@@ -1295,8 +1300,14 @@ ul{margin:0;padding:0;list-style:none}
    ใช้โมทีฟร่วมแค่ แสงส้มเรืองจากมุม กับ ป้าย Archivo ตัวใหญ่มีขีดส้มนำ
    ลำดับการอ่าน 2 ชั้น: คอลัมน์ลิงก์ → บรรทัดกฎหมาย (แถวชวนติดต่อย้ายไปอยู่กล่องส้มเหนือฟุตเตอร์) */
 .site-footer{
-  position:relative;background:var(--ink);color:#fff;overflow:hidden;
+  position:relative;color:#fff;overflow:hidden;
   padding:calc(var(--partner-over) + 78px) 0 0;
+  /* ภาพร้านโทนมืดวางชิดขวา เป็นเลเยอร์ล่างสุด (แสงส้มของ ::before กับเนื้อหาใน .wrap อยู่เหนือขึ้นไป)
+     ไฟล์เป็นภาพที่หรี่มาแล้ว เฉดดำที่ทับอีกชั้นจึงมีไว้กันภาพแย่งสายตาจากลิงก์เท่านั้น
+     ทึบสุดที่ขอบซ้ายซึ่งเป็นโลโก้กับคำโปรย แล้วค่อยจางไปทางขวาให้เห็นตัวร้าน */
+  background:
+    linear-gradient(90deg, var(--ink) 0%, rgba(30,30,30,.94) 34%, rgba(30,30,30,.82) 100%),
+    url("assets/footer-bg.jpg") right center / cover no-repeat var(--ink);
 }
 /* แสงส้มมุมขวาบน — ค่าชุดเดียวกับ .band--ink แผ่นดำสองแผ่นของหน้าจะได้อ่านเป็นวัสดุเดียวกัน */
 .site-footer::before{
@@ -1444,7 +1455,7 @@ ul{margin:0;padding:0;list-style:none}
   .step__head{margin-left:-20px;gap:14px}
   .step__no{width:52px;height:52px}
   .step__no svg{width:26px;height:26px}
-  .step__ico{width:56px;height:56px}
+  .step__ico{width:56px;height:56px;--ico-cut:12px}
   .step__ico img,.step__ico svg{width:34px;height:34px}
   .step__sep svg{margin-top:14px}
   .nf__side{grid-template-columns:1fr}
