@@ -574,10 +574,10 @@ ul{margin:0;padding:0;list-style:none}
   /* แผง 25% เหลือช่องแท็บละ ~85px ป้าย "น้ำมันเครื่อง" ที่ 14px กว้าง 71px เฉียดขอบมาก
      ลดเป็น 13px (--t-2xs) กับ padding 4px เพื่อให้มีระยะเหลือจริง */
   .finder__tabs button[data-fin]{
-    flex-direction:column;justify-content:center;gap:8px;
-    height:104px;padding:12px 4px;font-size:var(--t-2xs);
+    flex-direction:column;justify-content:center;gap:6px;
+    height:90px;padding:10px 4px;font-size:var(--t-2xs);
   }
-  .finder__tabs button[data-fin] svg{width:32px;height:32px}
+  .finder__tabs button[data-fin] svg{width:28px;height:28px}
 }
 .finder__tabs button[data-fin]:hover{background:var(--orange-dk);color:#fff}
 .finder__tabs button[data-fin]:hover::before{background:var(--orange-dk)}
@@ -637,8 +637,9 @@ ul{margin:0;padding:0;list-style:none}
 /* ภาพอธิบายขนาดยาง — กินขอบการ์ดทั้งสองข้างด้วย margin ติดลบเท่า padding การ์ด
    ผูก aspect-ratio ไว้กับสัดส่วนไฟล์ → การ์ดกว้างเท่าไหร่สัดส่วนก็คงที่ ไม่ตัดหมุดทิ้ง */
 /* ภาพประกอบ ไม่ใช่พระเอกของการ์ด — ล็อกความสูงไว้แทนการอิงสัดส่วนต้นฉบับ ให้การ์ดไม่ยืดเกินแบนเนอร์ */
-/* ความสูง section แรกถูกกำหนดโดยแผงค้นหา เพดานที่ตกลงกันไว้คือ 900px */
-.tirefig{margin:10px calc(var(--fpad) * -1) 0;height:130px;overflow:hidden}
+/* เพดานที่ตกลงกันคือ แถบเมนู (143px) + section แรก รวมกันไม่เกิน 900px
+   ความสูง section แรกมาจากแผงค้นหา ทุกค่าในแผงจึงถูกบีบให้พอดีเพดานนั้น */
+.tirefig{margin:8px calc(var(--fpad) * -1) 0;height:88px;overflow:hidden}
 .tirefig[hidden]{display:none}
 .tirefig img{display:block;width:100%;height:100%;object-fit:cover}
 
@@ -662,12 +663,12 @@ ul{margin:0;padding:0;list-style:none}
    กรอบเส้นบนพื้นขาว ไม่ใช่ปุ่มทึบ เพราะไม่ใช่ปุ่มหลักของแผง (ปุ่มหลักคือ "ค้นหาเลย") */
 .finder__extra{
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;
-  margin-top:16px;padding-top:16px;border-top:1px solid var(--line);
+  margin-top:12px;padding-top:12px;border-top:1px solid var(--line);
 }
 /* ใช้ .btn--ghost เป็นฐาน — มันทำมุมเฉียงพร้อมกรอบด้วยพื้นสองชั้นไว้แล้ว
    (เขียน border ตรง ๆ ไม่ได้ เพราะ clip-path ตัด border ทิ้งไปพร้อมมุม)
    ที่นี่แค่คุมขนาดให้พอดีแผงแคบ */
-.finder__xbtn{width:100%;height:44px;padding:0 8px;font-size:var(--t-2xs)}
+.finder__xbtn{width:100%;height:42px;padding:0 8px;font-size:var(--t-2xs)}
 
 .finder__toggle{
   display:inline-flex;align-items:center;gap:6px;margin-top:14px;
