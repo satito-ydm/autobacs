@@ -266,19 +266,8 @@ ul{margin:0;padding:0;list-style:none}
   position:fixed;top:0;left:0;right:0;z-index:60;
   transition:transform .3s var(--ease);
 }
-/* fade สีเข้มหลังแถบ — แถวโลโก้ทึบทับส่วนบนไว้ จึงเห็นเฉพาะช่วงแถวเมนูลงไป
-   ทึบพอให้เมนูสีขาวอ่านชัด แล้วจางหายก่อนถึงอาร์ตเวิร์ก */
-.topbar::before{
-  content:"";position:absolute;left:0;right:0;top:0;bottom:-92px;pointer-events:none;
-  /* 0-61% = ช่วงแถบทั้งสองแถว → คงความเข้มไว้ให้เมนูอ่านชัด แล้วจึงจางใน 92px สุดท้าย */
-  background:linear-gradient(180deg,
-    rgba(18,17,16,.87) 0%,
-    rgba(18,17,16,.80) 61%,
-    rgba(18,17,16,.42) 79%,
-    rgba(18,17,16,0) 100%);
-  opacity:0;transition:opacity .3s var(--ease);
-}
-.topbar.is-clear::before{opacity:1}
+/* ไม่มี fade ดำหลังแถบแล้ว — แถบเมนูเป็นพื้นขาวทึบตลอด ไม่ลอยทับอาร์ตเวิร์ก
+   คลาส is-clear ที่ JS ยังใส่ให้ตอนอยู่บนสุดจึงไม่มีผลกับหน้าตาอีกต่อไป */
 /* ซ่อนตอนเลื่อนลง โผล่ตอนเลื่อนขึ้น */
 .topbar.is-hidden{transform:translateY(-100%)}
 @media (prefers-reduced-motion:reduce){.topbar.is-hidden{transform:none}}
@@ -398,35 +387,13 @@ ul{margin:0;padding:0;list-style:none}
    จอ ≤ 1024px อาร์ต hero เต็มใบ 2:1 ถ้าเอาเมนูไปทับจะกินหัวรูป → จอเล็กใช้เมนูทึบกินที่ตามปกติ
    ของทึบเป็นค่าตั้งต้น โปร่งใสเป็น modifier → จอเล็กไม่ต้อง override กลับทีละอัน */
 @media (min-width:1025px){
-  /* กันที่เท่าแถวโลโก้ทึบ (68px) → banner เริ่มที่ขอบบนของแถวเมนูโปร่งพอดี
-     แถวเมนู (74px) ยังลอยทับหัวอาร์ตเหมือนเดิม */
-  .topbar-spacer{height:68px}
+  /* กันที่เต็มความสูง topbar (แถวโลโก้ 68 + แถวเมนู 75 = 143) — แถบทึบแล้ว ถ้ากันแค่ 68
+     แถบเมนูขาวจะทับหัวอาร์ตเวิร์กหายไป 75px */
+  .topbar-spacer{height:143px}
 
 
-  /* แถวโลโก้คงทึบดำเสมอ — โปร่งใสเฉพาะแถวเมนู
-     scrim อยู่ใต้ .utility (z-index 1) จึงโผล่เฉพาะช่วงแถวเมนูลงไป ไล่จางลงบนอาร์ตเวิร์กพอดี */
-  /* โปร่งล้วน — ความอ่านมาจาก fade สีเข้มที่ .topbar::before ล้วนๆ ไม่เบลอ */
-  .topbar.is-clear .site-header{
-    background:transparent;border-bottom-color:transparent;box-shadow:none;
-    -webkit-backdrop-filter:none;backdrop-filter:none;
-  }
-
-  .topbar.is-clear .mainnav a{color:#fff}
-  .topbar.is-clear .mainnav a:hover{color:var(--orange-lt)}
-  .topbar.is-clear .mainnav a::after{background:var(--orange-lt)}
-
-  .topbar.is-clear .hsearch{border-bottom-color:rgba(255,255,255,.45)}
-  .topbar.is-clear .hsearch:focus-within{border-bottom-color:var(--orange-lt)}
-  .topbar.is-clear .hsearch input{color:#fff}
-  .topbar.is-clear .hsearch input::placeholder{color:rgba(255,255,255,.66)}
-  .topbar.is-clear .hsearch__go{color:#fff}
-  .topbar.is-clear .hsearch__go:hover{color:var(--orange-lt)}
-
-  .topbar.is-clear .icon-btn--bare{color:#fff}
-  .topbar.is-clear .icon-btn--bare:hover{color:var(--orange-lt)}
-
-  /* จุดบอกตำแหน่งสไลด์อยู่มุมขวาบน — ต้องหลบใต้แถวเมนู (74px) ไม่งั้นจะกดไม่ได้ */
-  .hero__dots{top:90px}
+  /* แถบเมนูเป็นพื้นขาวทึบและกินที่จริงในโฟลว์ ไม่ลอยทับอาร์ตเวิร์กแล้ว
+     สีตัวอักษร/ไอคอนจึงใช้ค่าตั้งต้น (ink บนขาว) ไม่ต้อง override เป็นสีขาวอีก */
 }
 .icon-btn .dot{
   position:absolute;top:-4px;right:-4px;min-width:19px;height:19px;padding:0 5px;
@@ -437,15 +404,13 @@ ul{margin:0;padding:0;list-style:none}
 
 /* ============ 3. hero — แบนเนอร์เต็มจอ + กล่องค้นหาซ้อนฝั่งซ้าย ============ */
 .hero{
-  /* topbar สูง 143px แต่ .topbar-spacer กันที่ไว้แค่ 68px — ที่เหลือ 75px มันลอยทับ hero อยู่
-     ที่ต้องเผื่อจริง ๆ ไม่ใช่แค่ตัวแถบ แต่รวม fade ดำของ .topbar::before ที่ยื่นลงมาอีก 92px
-     (bottom:-92px) รวมเป็น 235px · แถบเมนู z-index:60 สูงกว่าการ์ด เงานี้จึงทาบทับหัวการ์ด
-     170px ทำให้หัวการ์ดอยู่ที่ 238px คือพ้นปลายเงาที่ 235px แล้วจริง ๆ */
+  /* .topbar-spacer กันที่ให้เต็มความสูง topbar แล้ว และไม่มี fade ดำยื่นลงมาอีก
+     padding บนจึงเป็นแค่ระยะหายใจของการ์ดจากขอบบนแบนเนอร์ ไม่ใช่ระยะหลบแถบเมนู */
   /* padding ล่าง = --notch เพราะ .pillars ถูกดึงขึ้นมาทับขอบล่างของ hero เท่านั้นพอดี (margin-top:-88px)
      และมัน z-index สูงกว่า — ถ้าไม่กันที่ไว้ การ์ดค้นหาที่จัดกึ่งกลางจะโดนพื้นขาวทับมุมล่างหายไป */
   /* overflow ย้ายไปไว้ที่ .hero__banner แทน — อาร์ตกับปุ่มเลื่อนอยู่ในนั้นทั้งหมด ยังถูกเฉือนเหมือนเดิม
      ส่วน .hero ต้องปล่อยให้ล้นได้ เพราะการ์ดค้นหาตอนฟอร์มเป็นแนวตั้งสูงเกินกรอบแบนเนอร์ */
-  position:relative;padding:170px 0 var(--notch);overflow:visible;background:var(--ink-soft);
+  position:relative;padding:56px 0 var(--notch);overflow:visible;background:var(--ink-soft);
   /* height ตายตัวไม่ใช่ min-height — ถ้าปล่อยให้ยืดตามการ์ด แบนเนอร์จะสูงขึ้นจนอาร์ตที่เป็น
      object-fit:cover ถูกขยายแล้วครอปด้านข้างหนักมาก (เคยวัดได้ข้างละ 270px = 27.5% ของภาพ
      ข้อความ YOUR DRIVE YOUR WAY ฝั่งซ้ายขาด) · ล็อกไว้ตามสัดส่วนอาร์ตแล้วให้การ์ดยื่นพ้นแทน */
@@ -1258,8 +1223,10 @@ ul{margin:0;padding:0;list-style:none}
 
 /* ============ 9. brands — โลโก้พันธมิตร ============ */
 /* วางนิ่ง จัดกลาง ไม่วิ่งแล้ว (ลูกค้าขอ) — รางเลื่อนกับ mask ไล่จางจึงถูกถอดออกทั้งชุด */
-.brands{position:relative;background:var(--orange-tint);padding:var(--section) 0}
-.brands__head{text-align:center;max-width:60ch;margin:0 auto 40px}
+/* section นี้เป็นแค่แถบโลโก้ ไม่ใช่เนื้อหาหลัก — ระยะบน-ล่างใช้ 55% ของ --section
+   ผูกกับตัวแปรไม่ใช่ px ตายตัว จอเล็กที่ --section หดลงจะหดตามไปเอง */
+.brands{position:relative;background:var(--orange-tint);padding:calc(var(--section) * .55) 0}
+.brands__head{text-align:center;max-width:60ch;margin:0 auto 26px}
 .brands__head h2{font-size:var(--t-h2);margin-top:14px}
 .brands__head p{color:var(--muted);font-size:var(--t-xs);margin-top:12px}
 /* จัดกลางแบบ flex wrap ไม่ใช่ grid — แถวสุดท้ายที่ไม่เต็มจะได้อยู่กึ่งกลาง ไม่ค้างชิดซ้าย */
@@ -1267,8 +1234,8 @@ ul{margin:0;padding:0;list-style:none}
 /* ไม่มีกรอบขาวแล้ว — พื้นใสไปเลย โลโก้จึงวางอยู่บนพื้นส้มอ่อนของ section ตรง ๆ
    ไม่ใช้ background:var(--orange-tint) เพราะถ้าวันหลังเปลี่ยนสีพื้น section ต้องมาแก้สองที่ */
 .brand-chip{
-  flex:0 0 auto;width:160px;height:88px;
-  display:grid;place-items:center;padding:10px 14px;
+  flex:0 0 auto;width:150px;height:60px;
+  display:grid;place-items:center;padding:6px 12px;
   border-radius:var(--r);background:transparent;
   transition:transform .2s var(--ease);
 }
@@ -2431,8 +2398,9 @@ ul{margin:0;padding:0;list-style:none}
   /* ปรับขนาดโลโก้ให้ดู "เท่ากัน" ด้วยตา ไม่ใช่เท่ากันด้วยกรอบ
      โลโก้ยาว (5.5:1) กับโลโก้ป้อม (1.4:1) ถ้า contain กรอบเดียวกัน ตัวป้อมจะสูงกว่าเกือบ 3 เท่า
      จึงล็อก "พื้นที่" ให้เท่ากันแทน: w*h = A · w = h*r  ->  h = sqrt(A/r)
-     A=3000 คือค่าที่ใหญ่สุดที่โลโก้ยาวสุดยังไม่ชนขอบเนื้อในกรอบ (132x68) */
-  var BRAND_AREA = 3000, BRAND_H_MIN = 20, BRAND_H_MAX = 52;
+     กรอบเตี้ยลงเหลือ 150x60 (เนื้อใน 126x48) A จึงต้องลดจาก 3000 เป็น 2400 ตามไปด้วย
+     ไม่งั้นโลโก้ยาวสุด (อัตราส่วน 5.5:1) จะกว้าง 129px ชนขอบเนื้อในที่ 126px */
+  var BRAND_AREA = 2400, BRAND_H_MIN = 18, BRAND_H_MAX = 44;
   function fitBrandLogo(img){
     var r = img.naturalWidth / img.naturalHeight;
     if (!r || !isFinite(r)) return;                       /* รูปโหลดไม่ขึ้น — ปล่อยให้ fallback CSS ทำงาน */
