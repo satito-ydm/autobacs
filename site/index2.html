@@ -946,9 +946,7 @@ ul{margin:0;padding:0;list-style:none}
 .step{
   position:relative;background:#fff;padding:0 30px 26px;
   clip-path:polygon(0 0, calc(100% - var(--ccut)) 0, 100% var(--ccut), 100% 100%, 0 100%);
-  transition:transform .22s var(--ease);
 }
-.step:hover{transform:translateY(-4px)}
 /* ไอคอนกับหัวข้ออยู่แถวเดียวกัน · ไอคอนถอย margin ออกไปเท่า padding การ์ด จึงนั่งชิดมุมซ้ายบนพอดี
    เดิมเป็นเลข 1/2 — ตอนนี้การ์ดสองใบเป็น "ทางเลือก" ไม่ใช่ลำดับขั้น จึงใช้ไอคอนบอกประเภทแทนเลข */
 .step__head{display:flex;align-items:center;gap:18px;margin:0 0 20px -30px}
@@ -1007,14 +1005,8 @@ ul{margin:0;padding:0;list-style:none}
 
 /* เล่นกับแต่ละขั้นตอนตอนชี้ — วงไอคอนลอยขึ้นและโตขึ้นเล็กน้อย ตัวหนังสือเข้มขึ้น
    ไอคอนเด้งเองทีละช่อง ไม่ใช่ยกทั้งการ์ด (การ์ดมี translateY(-4px) ของมันอยู่แล้ว ซ้อนกันได้) */
-.step__ico{transition:transform .3s var(--ease-out)}
-.step__item h4{transition:color .22s var(--ease)}
-/* ไม่ใส่เงาตอน hover เพราะ clip-path ตัดเงาทิ้งไปพร้อมมุม (เหตุผลเดียวกับ .ways__grid ที่ต้องยกเงาไปไว้ที่ตัวแม่) */
-.step__item:hover .step__ico{transform:translateY(-6px) scale(1.06)}
-.step__item:hover h4{color:var(--orange)}
-@media (prefers-reduced-motion:reduce){
-  .step__item:hover .step__ico{transform:none}
-}
+/* section นี้ไม่มี hover — การ์ดกับขั้นตอนเป็นข้อมูลอ่านอย่างเดียว ไม่ได้กดไปไหน
+   ยังเหลือ animation ตอนเลื่อนถึงไว้ (ดู .step.in .step__row ด้านบน) */
 
 /* ============ 7-8. editorial ============ */
 /* ใช้คลาส .band--ink ตัวเดียวกับ section ข้อเสนอ — ได้พื้นดำ + แสงส้มกลางแถบ
@@ -2252,6 +2244,24 @@ ul{margin:0;padding:0;list-style:none}
     }
   }
 
+  /* ล็อกความสูงแผงไว้ที่ค่าสูงสุดที่เคยวัดได้ — หมวดยางสูงกว่าอีกสองหมวด 182px
+     (รูปขนาดยาง 150 + ลิงก์ "ค้นหาจากขนาดยาง" ที่มีเฉพาะหมวดยาง) ถ้าไม่ล็อก
+     สลับหมวดทีแผงจะหด ความสูง hero เปลี่ยนตาม แล้วทั้งหน้าเลื่อนขึ้นลง
+     เก็บเป็นค่าสูงสุดที่เคยเจอ ไม่ใช่ px ตายตัว จะได้ถูกต้องทุก breakpoint โดยไม่ต้องเรนเดอร์ซ้ำเพื่อวัด */
+  var finderMinH = 0;
+  function lockFinderHeight(){
+    finderBox.style.minHeight = '';          /* ปลดก่อนวัด ไม่งั้นได้ค่าเก่ากลับมา */
+    var h = finderBox.offsetHeight;
+    if (h > finderMinH) finderMinH = h;
+    finderBox.style.minHeight = finderMinH + 'px';
+  }
+  /* เปลี่ยนความกว้างจอแล้วความสูงที่ล็อกไว้ใช้ไม่ได้ ต้องเริ่มวัดใหม่ */
+  var lockTimer = null;
+  window.addEventListener('resize', function(){
+    clearTimeout(lockTimer);
+    lockTimer = setTimeout(function(){ finderMinH = 0; lockFinderHeight(); }, 160);
+  });
+
   /* ---------- ไอคอนขยับตอนค้างหน้าจอไว้นาน ---------- */
   var idleTimer = null, heroSeen = true;
   function armIdle(){
@@ -2274,6 +2284,7 @@ ul{margin:0;padding:0;list-style:none}
     renderFinder();
     finderBox.classList.add('is-open');
     finToggle.setAttribute('aria-expanded', 'true');
+    lockFinderHeight();
   }
 
   finTabs.forEach(function(btn){
@@ -2285,7 +2296,7 @@ ul{margin:0;padding:0;list-style:none}
       armIdle();
     });
   });
-  finSwitch.addEventListener('click', function(){ bySize = !bySize; renderFinder(); });
+  finSwitch.addEventListener('click', function(){ bySize = !bySize; renderFinder(); lockFinderHeight(); });
 
   /* ถอดโหมดลอยมุมจอออกแล้ว — การ์ดอยู่ในแบนเนอร์ที่เดียว มุมขวาล่างเป็นที่ของปุ่มแชทแทน
      แผงจึงกางค้างเสมอ ไม่มีเงื่อนไขหุบอีก */
