@@ -1299,8 +1299,18 @@ ul{margin:0;padding:0;list-style:none}
    display:flow-root กัน margin ติดลบนั้นรั่วออกไปนอกกล่อง ถ้าปล่อยให้รั่ว ความสูงของ section
    จะยังนับรวมกล่องเต็มใบ แล้วพื้นของมันจะไปทับหัวฟุตเตอร์แทนที่จะให้กล่องทับ
    z-index ต้องสูงกว่าฟุตเตอร์ ไม่งั้นพื้นดำจะทับครึ่งล่างของกล่องหายไป */
-.ctaband{position:relative;z-index:2;background:var(--orange-tint);padding:112px 0 0;display:flow-root}
-.cta{position:relative;margin-bottom:calc(var(--partner-over) * -1)}
+/* overflow-x:clip ไม่ใช่ hidden — hidden จะสร้าง scroll container แล้วตัดส่วนที่กล่องส้ม
+   ยื่นลงไปทับฟุตเตอร์ทิ้งด้วย · clip ตัดเฉพาะแกน x ปล่อยแกน y ให้ยื่นได้ตามเดิม
+   มีไว้กัน margin ที่คำนวณจาก 100vw (ซึ่งรวมความกว้าง scrollbar) ทำให้เกิด scroll แนวนอน */
+.ctaband{position:relative;z-index:2;background:var(--orange-tint);padding:112px 0 0;display:flow-root;overflow-x:clip}
+/* ยืดกล่องไปชนขอบซ้ายของจอ ไม่ใช่แค่ขอบคอนเทนเนอร์ 1320px ที่จัดกึ่งกลางไว้
+   ระยะที่ต้องดัน = ครึ่งหนึ่งของส่วนที่จอกว้างกว่าคอนเทนเนอร์ บวก gutter ของ .wrap
+   min กับ 0 ไว้เพราะจอที่แคบกว่าคอนเทนเนอร์จะได้ค่าบวก ซึ่งจะดันผิดทาง
+   ขอบขวาไม่ขยับ เพราะกล่องเป็น block ที่กินความกว้างที่เหลือ ยืดซ้ายอย่างเดียว */
+.cta{
+  position:relative;margin-bottom:calc(var(--partner-over) * -1);
+  margin-left:min(0px, calc((var(--container) - 100vw) / 2 - var(--gutter)));
+}
 .cta__panel{
   background:linear-gradient(150deg,var(--orange-lt) 0%,var(--orange) 46%,var(--orange-dk) 100%);
   color:#fff;padding:48px 500px 46px 48px;
