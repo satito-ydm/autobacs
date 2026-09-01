@@ -483,7 +483,9 @@ ul{margin:0;padding:0;list-style:none}
   clip-path:polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 0 100%);
   transition:background .18s var(--ease);
 }
-.hero__arrow:hover{background:var(--orange);color:#fff}
+/* ตอน hover ชั้นขอบต้องเป็นคนละสีกับชั้นใน ไม่งั้นเส้นขอบที่วิ่งตามรอยเฉียงจะหายไป
+   แล้วรูปทรงมุมตัดอ่านไม่ออก (ตอนปกติเห็นได้เพราะขอบขาวจางตัดกับพื้นดำโปร่ง) */
+.hero__arrow:hover{background:var(--orange-dk);color:#fff}
 .hero__arrow:hover::before{background:var(--orange)}
 .hero__arrow--prev{left:22px}
 .hero__arrow--next{right:22px}
@@ -850,7 +852,7 @@ ul{margin:0;padding:0;list-style:none}
   clip-path:polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 0 100%);
   transition:background .18s var(--ease);
 }
-.promo__nav:hover{background:var(--orange);color:#fff}
+.promo__nav:hover{background:var(--orange-dk);color:#fff}
 .promo__nav:hover::before{background:var(--orange)}
 .promo__nav--prev{left:clamp(12px, 4vw, 72px)}
 .promo__nav--next{right:clamp(12px, 4vw, 72px)}
