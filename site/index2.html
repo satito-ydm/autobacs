@@ -1034,11 +1034,15 @@ ul{margin:0;padding:0;list-style:none}
   --ico-cut:14px;
   display:grid;place-items:center;width:64px;height:64px;
   clip-path:polygon(0 0, calc(100% - var(--ico-cut)) 0, 100% var(--ico-cut), 100% 100%, 0 100%);
-  background:var(--orange-tint);color:var(--ink);margin:0 auto 14px;
+  background:var(--orange-tint);color:var(--orange-dk);margin:0 auto 14px;
 }
 /* ไอคอนเป็นไฟล์ภาพจากอาร์ตเวิร์ก — ทุกไฟล์ผืนผ้าใบจัตุรัสเท่ากันและปรับ "พื้นที่หมึก" มาเท่ากันตอน export
    จึงวางเป็นสี่เหลี่ยมจัตุรัสตรงๆ ได้เลย ไม่ต้องตั้งขนาดรายตัว */
-.step__ico img,.step__ico svg{width:40px;height:40px;object-fit:contain;display:block}
+/* ไอคอนเส้นชุดเดียวกับ .pillar__ico ของ section ที่ 2
+   stroke-width ต้องตั้งใน CSS ไม่ใช่ attribute เพราะกล่องนี้ 64px ใหญ่กว่า pillar (46px)
+   viewBox 24 ที่วาดออกมา 34px ถูกสเกลขึ้น 1.417 เท่า — ใส่ 1.6 ตรงๆ เส้นจะหนา 2.27px
+   ตั้ง 1.13 เพื่อให้เส้นที่เห็นจริงหนา 1.6px เท่ากับ section ที่ 2 พอดี */
+.step__ico svg{width:34px;height:34px;stroke-width:1.13;display:block}
 .step__item h4{font-size:var(--t-xs);font-weight:700;line-height:1.45;margin-bottom:0}
 .step__item p{font-size:var(--t-xs);color:var(--muted);line-height:1.55}
 .step__sep{
@@ -1305,10 +1309,12 @@ ul{margin:0;padding:0;list-style:none}
   /* ภาพร้านโทนมืดวางชิดขวา เป็นเลเยอร์ล่างสุด (แสงส้มของ ::before กับเนื้อหาใน .wrap อยู่เหนือขึ้นไป)
      ไฟล์เป็นภาพที่หรี่มาแล้ว เฉดดำที่ทับอีกชั้นจึงมีไว้กันภาพแย่งสายตาจากลิงก์เท่านั้น
      ทึบสุดที่ขอบซ้ายซึ่งเป็นโลโก้กับคำโปรย แล้วค่อยจางไปทางขวาให้เห็นตัวร้าน
-     ค่าชุดนี้หรี่ลงจากเดิม 20% (1.00/.94/.82 → .80/.75/.66) ตามที่ขอให้ภาพชัดขึ้น */
+     ค่าชุดนี้หรี่ลงจากเดิม 20% (1.00/.94/.82 → .80/.75/.66) ตามที่ขอให้ภาพชัดขึ้น
+     ยึดขอบบนของภาพ (right top) ไม่ใช่กึ่งกลาง — ป้ายชื่อโชว์รูมอยู่ช่วงบนของไฟล์
+     ถ้า center จะถูกครอปขึ้นไปซ่อนอยู่หลังกล่องส้มที่เกยขอบบน footer */
   background:
     linear-gradient(90deg, rgba(30,30,30,.80) 0%, rgba(30,30,30,.75) 34%, rgba(30,30,30,.66) 100%),
-    url("assets/footer-bg.jpg") right center / cover no-repeat var(--ink);
+    url("assets/footer-bg.jpg") right top / cover no-repeat var(--ink);
 }
 /* แสงส้มมุมขวาบน — ค่าชุดเดียวกับ .band--ink แผ่นดำสองแผ่นของหน้าจะได้อ่านเป็นวัสดุเดียวกัน */
 .site-footer::before{
@@ -1457,7 +1463,7 @@ ul{margin:0;padding:0;list-style:none}
   .step__no{width:52px;height:52px}
   .step__no svg{width:26px;height:26px}
   .step__ico{width:56px;height:56px;--ico-cut:12px}
-  .step__ico img,.step__ico svg{width:34px;height:34px}
+  .step__ico svg{width:30px;height:30px;stroke-width:1.28}
   .step__sep svg{margin-top:14px}
   .nf__side{grid-template-columns:1fr}
   .nf__main .ncard{aspect-ratio:4/3}
@@ -1775,22 +1781,22 @@ ul{margin:0;padding:0;list-style:none}
         <header class="step__head"><span class="step__no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><h3>ซื้อสินค้าพร้อมเข้ารับบริการ</h3></header>
         <div class="step__row">
         <div class="step__item">
-          <span class="step__ico"><img src="assets/icon/howto-pick.png" alt="โน้ตบุ๊กแสดงรถและเคอร์เซอร์" loading="lazy" width="240" height="240"></span>
+          <span class="step__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><rect x="2.6" y="4.2" width="18.8" height="12.4" rx="1.8"/><path d="M1.4 19.8h21.2" stroke-linecap="round"/><path d="m10 8.2 5.6 3.3-2.4.8-.9 2.4L10 8.2Z" stroke-linejoin="round"/></svg></span>
           <h4>เลือกสินค้า</h4>
         </div>
         <span class="step__sep" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <div class="step__item">
-          <span class="step__ico"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M8.5 19.5h31V38a2.5 2.5 0 0 1-2.5 2.5H11A2.5 2.5 0 0 1 8.5 38V19.5Z" fill="#1E1E1E"/><path d="M10.6 7.5h26.8a2.5 2.5 0 0 1 2.4 1.8l2.2 7.2H5L7.2 9.3a2.5 2.5 0 0 1 2.4-1.8Z" fill="#1E1E1E"/><rect x="19" y="26" width="10" height="14.5" rx="1.4" fill="#F36F21"/></svg></span>
+          <span class="step__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3.6 9.2h16.8V19a1.4 1.4 0 0 1-1.4 1.4H5A1.4 1.4 0 0 1 3.6 19V9.2Z"/><path d="M2.4 9.2 4.3 4.4a1.2 1.2 0 0 1 1.1-.8h13.2a1.2 1.2 0 0 1 1.1.8l1.9 4.8" stroke-linejoin="round"/><path d="M9.9 20.4v-6.1h4.2v6.1" stroke-linejoin="round"/></svg></span>
           <h4>เลือกสาขา</h4>
         </div>
         <span class="step__sep" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <div class="step__item">
-          <span class="step__ico"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="5" y="10" width="38" height="33" rx="4.5" fill="#1E1E1E"/><rect x="10" y="21.5" width="28" height="16.5" rx="2" fill="#fff"/><path d="M15 5.5v8M33 5.5v8" stroke="#1E1E1E" stroke-width="5" stroke-linecap="round"/><circle cx="34.5" cy="34.5" r="9" fill="#F36F21" stroke="#fff" stroke-width="3"/><path d="M34.5 29.8v4.7l3.2 2" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="step__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.4 12.4V6.6a1.6 1.6 0 0 0-1.6-1.6H5.2a1.6 1.6 0 0 0-1.6 1.6v12a1.6 1.6 0 0 0 1.6 1.6h6.2"/><path d="M8 3v4M16 3v4M3.6 9.8h16.8" stroke-linecap="round"/><circle cx="17.4" cy="17.4" r="4.2"/><path d="M17.4 15.5v2l1.4.9" stroke-linecap="round"/></svg></span>
           <h4>จองวันเวลาเข้ารับบริการ</h4>
         </div>
         <span class="step__sep" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <div class="step__item">
-          <span class="step__ico"><img src="assets/icon/howto-pay.png" alt="บัตรเครดิตและมือถือยืนยันการชำระเงิน" loading="lazy" width="240" height="240"></span>
+          <span class="step__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><rect x="2.4" y="5.2" width="19.2" height="13.6" rx="2"/><path d="M2.4 9.9h19.2M6.2 14.8h3.6" stroke-linecap="round"/></svg></span>
           <h4>ชำระเงิน</h4>
         </div>
         </div>
@@ -1799,17 +1805,17 @@ ul{margin:0;padding:0;list-style:none}
         <header class="step__head"><span class="step__no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3.5" width="14" height="12"/><path d="M15 8h4.2l3.3 3.3v4.2H15z"/><circle cx="5.5" cy="18.5" r="2.4"/><circle cx="18.5" cy="18.5" r="2.4"/></svg></span><h3>ซื้อสินค้าพร้อมจัดส่งถึงบ้าน</h3></header>
         <div class="step__row">
         <div class="step__item">
-          <span class="step__ico"><img src="assets/icon/howto-cart.png" alt="รถเข็นช้อปปิ้งกับกล่องสินค้า" loading="lazy" width="240" height="240"></span>
+          <span class="step__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="9.8" cy="20" r="1.4"/><circle cx="17.8" cy="20" r="1.4"/><path d="M2.2 3.2h2.6l2.4 11.1a1.6 1.6 0 0 0 1.6 1.3h8.5a1.6 1.6 0 0 0 1.6-1.3L20.8 7.4H5.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           <h4>สั่งซื้อ</h4>
         </div>
         <span class="step__sep" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <div class="step__item">
-          <span class="step__ico"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4c-8.1 0-14.6 6.3-14.6 14.1 0 10.4 12.7 23.6 13.2 24.1a2 2 0 0 0 2.8 0c.5-.5 13.2-13.7 13.2-24.1C38.6 10.3 32.1 4 24 4Z" fill="#1E1E1E"/><path d="m24 11 7.4 6.2v8.1c0 .7-.6 1.2-1.3 1.2h-3.8v-5.3h-4.6v5.3h-3.8c-.7 0-1.3-.5-1.3-1.2v-8.1L24 11Z" fill="#F36F21"/></svg></span>
+          <span class="step__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20 10.4c0 5.4-8 11.6-8 11.6S4 15.8 4 10.4a8 8 0 0 1 16 0Z" stroke-linejoin="round"/><path d="m8.8 10.7 3.2-2.8 3.2 2.8v3.7a.8.8 0 0 1-.8.8H9.6a.8.8 0 0 1-.8-.8v-3.7Z" stroke-linejoin="round"/></svg></span>
           <h4>ระบุที่จัดส่ง</h4>
         </div>
         <span class="step__sep" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <div class="step__item">
-          <span class="step__ico"><img src="assets/icon/howto-pay.png" alt="บัตรเครดิตและมือถือยืนยันการชำระเงิน" loading="lazy" width="240" height="240"></span>
+          <span class="step__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><rect x="2.4" y="5.2" width="19.2" height="13.6" rx="2"/><path d="M2.4 9.9h19.2M6.2 14.8h3.6" stroke-linecap="round"/></svg></span>
           <h4>ชำระเงิน</h4>
         </div>
         </div>
