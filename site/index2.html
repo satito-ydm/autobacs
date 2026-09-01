@@ -442,13 +442,18 @@ ul{margin:0;padding:0;list-style:none}
      (สูง ~700px) จะถูกจัดกึ่งกลางจนหัวการ์ดมุดเข้าไปใต้แถบเมนู */
   /* padding ล่าง = --notch เพราะ .pillars ถูกดึงขึ้นมาทับขอบล่างของ hero เท่านั้นพอดี (margin-top:-88px)
      และมัน z-index สูงกว่า — ถ้าไม่กันที่ไว้ การ์ดค้นหาที่จัดกึ่งกลางจะโดนพื้นขาวทับมุมล่างหายไป */
-  position:relative;padding:104px 0 var(--notch);overflow:hidden;background:var(--ink-soft);
-  /* min- ไม่ใช่ height ตายตัว — การ์ดค้นหาตอนกางฟอร์มสูงกว่าแบนเนอร์ได้ ถ้าล็อกความสูงไว้
-     .hero{overflow:hidden} จะเฉือนหัวการ์ด (ชื่อ + ปุ่มเลือกหมวด) หายไปเลย */
-  min-height:min(calc(100vw / var(--hero-ar) + var(--hero-extra)), 840px);   /* ผูกความสูงกับสัดส่วนอาร์ตเวิร์ก · เพดาน 840px */
-  display:flex;align-items:center;   /* กล่องค้นหาอยู่กึ่งกลางแนวตั้งของแบนเนอร์ */
+  /* overflow ย้ายไปไว้ที่ .hero__banner แทน — อาร์ตกับปุ่มเลื่อนอยู่ในนั้นทั้งหมด ยังถูกเฉือนเหมือนเดิม
+     ส่วน .hero ต้องปล่อยให้ล้นได้ เพราะการ์ดค้นหาตอนฟอร์มเป็นแนวตั้งสูงเกินกรอบแบนเนอร์ */
+  position:relative;padding:104px 0 var(--notch);overflow:visible;background:var(--ink-soft);
+  /* height ตายตัวไม่ใช่ min-height — ถ้าปล่อยให้ยืดตามการ์ด แบนเนอร์จะสูงขึ้นจนอาร์ตที่เป็น
+     object-fit:cover ถูกขยายแล้วครอปด้านข้างหนักมาก (เคยวัดได้ข้างละ 270px = 27.5% ของภาพ
+     ข้อความ YOUR DRIVE YOUR WAY ฝั่งซ้ายขาด) · ล็อกไว้ตามสัดส่วนอาร์ตแล้วให้การ์ดยื่นพ้นแทน */
+  height:min(calc(100vw / var(--hero-ar) + var(--hero-extra)), 840px);   /* ผูกความสูงกับสัดส่วนอาร์ตเวิร์ก · เพดาน 840px */
+  /* ยึดขอบบน ไม่ใช่จัดกึ่งกลาง — การ์ดค้นหาสูงไม่เท่ากันในแต่ละหมวด (ยางมีรูปขนาดยางเพิ่มมา)
+     ถ้าจัดกึ่งกลาง หัวการ์ดจะเด้งขึ้นลงทุกครั้งที่สลับหมวด · ยึดบนแล้วมันยืด-หดลงล่างอย่างเดียว */
+  display:flex;align-items:flex-start;
 }
-.hero__banner{animation:bannerIn 1.6s var(--ease-out) both;position:absolute;inset:0;z-index:0}
+.hero__banner{animation:bannerIn 1.6s var(--ease-out) both;position:absolute;inset:0;z-index:0;overflow:hidden}
 /* สไลด์: ซ้อนทับกันแล้วสลับด้วย opacity — ไม่ใช้ transform เพราะจะสร้าง containing block
    ให้การ์ดค้นหาที่เป็น position:fixed ตอนลอย */
 .hero__slide{position:absolute;inset:0;opacity:0;transition:opacity .8s var(--ease)}
@@ -518,11 +523,12 @@ ul{margin:0;padding:0;list-style:none}
 }
 /* กล่องค้นหาอยู่ฝั่งขวาของแบนเนอร์ — ข้อความโปรฯ ย้ายไปชิดซ้ายแทน จะได้ไม่ทับกัน */
 .hero__inner{position:relative;z-index:3;width:100%;padding-top:0;padding-bottom:0;display:flex;justify-content:flex-end}
-/* margin-bottom ดันการ์ดขึ้นครึ่งหนึ่งของค่าที่ใส่ (เพราะ .hero จัดกึ่งกลางแนวตั้ง)
-   60px = ขยับขึ้น 30px ซึ่งเป็นเพดานจริง ๆ แล้ว — เหลือระยะจากขอบล่าง topbar อีกแค่ ~16px */
+/* ไม่ต้องใช้ margin ดันแล้ว — .hero ยึดขอบบนให้ หัวการ์ดจึงนิ่งที่ padding-top ของ hero (172px)
+   ก้นการ์ดยื่นพ้นขอบล่างแบนเนอร์ลงไปทับ section ขาวถัดไป ซึ่งเป็นสิ่งที่ตั้งใจ
+   .hero__inner มี z-index:3 อยู่แล้ว สูงกว่า .pillars (z-index:2) การ์ดจึงอยู่บนสุด */
 /* การ์ดกว้าง 470px ไม่ใช่ 400px — ของข้างในถูกไล่ขยายตามด้วย (padding, หัวข้อ, แท็บ, ช่องกรอก, รูปยาง, ปุ่ม)
    46vw คือเพดานตอนจอแคบลง สัดส่วนเท่าเดิมกับ 42vw ที่คู่กับ 400px */
-.hero__col{max-width:min(470px, 46vw);margin-bottom:60px;filter:drop-shadow(0 16px 30px rgba(30,30,30,.30))}
+.hero__col{max-width:min(470px, 46vw);margin-bottom:0;filter:drop-shadow(0 16px 30px rgba(30,30,30,.30))}
 /* ตอนการ์ดลอย (position:fixed) ต้องปิด filter — element ที่มี filter จะกลายเป็น containing block
    ของลูกที่ position:fixed ทำให้การ์ดไปเกาะกล่องนี้แทนที่จะเกาะขอบจอ */
 .hero__col.is-floating{filter:none}
@@ -602,9 +608,10 @@ ul{margin:0;padding:0;list-style:none}
 /* ตอนการ์ดลอยไปมุมจอ กว้างแค่ 300px — คืนเป็นขนาดเดิม ไม่งั้นข้อความตกสองบรรทัด */
 .finder.is-stuck .finder__sub,.finder.is-stuck .finder__sub button{font-size:var(--t-xs)}
 
-/* 3 ช่องเรียงแนวนอนเหมือนกันทุกหมวด — ตรงกับหมุด 1-2-3 ในภาพขนาดยางที่ไล่ซ้ายไปขวา
-   และประหยัดความสูงกว่าเรียงลงเป็น 3 แถว 128px (การ์ดตอนกางเคยสูงเกินแบนเนอร์จนหัวการ์ดโดนเฉือน) */
-.finder__row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px;text-align:left}
+/* 3 ช่องเรียงลงเป็นแนวตั้ง — ช่องกว้างเต็มการ์ดจึงอ่านป้ายได้เต็ม ไม่ต้องบีบตัวอักษร
+   แลกมาด้วยความสูงที่เพิ่มขึ้น ต้องคุมไม่ให้การ์ดสูงเกินแบนเนอร์จนหัวการ์ดโดนแถบเมนูเฉือน
+   (ดู .tirefig กับ .field select ที่ถูกลดขนาดลงชดเชยไว้) */
+.finder__row{display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px;text-align:left}
 .field{position:relative;min-width:0}
 /* เลขลำดับซ้อนอยู่ในช่อง ไม่ใช่ label ด้านบน — การ์ดแคบ ถ้ามี label แยกบรรทัดจะสูงเกินไป */
 .field__no{
