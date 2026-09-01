@@ -49,7 +49,8 @@
   --mcut:38px;              /* ระยะเฉียงของเส้นแบ่งรูปสินค้ากับข้อความ (= ความสูงที่ป้ายโลโก้เกยขึ้นไป) */
   --notch:88px;
   --partner-over:112px;     /* ระยะที่กล่องส้มชวนติดต่อยื่นลงไปทับฟุตเตอร์ ≈ ครึ่งความสูงกล่อง (223px ที่จอ 1440) */
-  --notch-x:50%;            /* จุดหักของรอยเฉียงขอบบน (รอยต่อ hero → ครีม · ขอบบนของ How to) */
+  --notch-x:50%;            /* จุดหักของรอยเฉียงขอบบนของ How to */
+  --notch-x-hero:36%;       /* จุดหักของรอยเฉียงใต้ hero — แยกตัวแปรจาก How to เพราะขยับคนละทิศกัน */
   --split-x:65%;            /* จุดแบ่งดำ-ขาวของ section ข่าว และปลายลิ่มล่างของ How to ต้องตรงแนวกัน */
   --section:104px;
   --shadow:0 2px 4px rgba(30,30,30,.04), 0 14px 30px -16px rgba(30,30,30,.20);
@@ -706,8 +707,8 @@ ul{margin:0;padding:0;list-style:none}
   padding:calc(var(--section) * .62 + var(--notch) + 30px + var(--pillars-air)) 0 calc(var(--section) * .62 + 30px + var(--pillars-air));
   clip-path:polygon(
     0 var(--notch),
-    calc(var(--notch-x) - var(--notch)) var(--notch),
-    var(--notch-x) 0,
+    calc(var(--notch-x-hero) - var(--notch)) var(--notch),
+    var(--notch-x-hero) 0,
     100% 0,
     100% 100%,
     0 100%
@@ -995,7 +996,9 @@ ul{margin:0;padding:0;list-style:none}
    เพราะลำดับเรนเดอร์คือ filter ก่อนแล้วค่อย clip-path — เงาที่ตัวการ์ดจะโดนมุมเฉียงตัดหายไปด้วย
    drop-shadow อ่านจาก alpha ของสิ่งที่เรนเดอร์ออกมา จึงได้เงาตามรูปทรงที่ตัดเฉียงแล้วพอดี */
 .ways__grid{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:32px;
+  /* 4fr/3fr ตามจำนวนขั้นตอนในการ์ด (4 กับ 3) ช่องต่อหนึ่งขั้นตอนจึงกว้างเท่ากันทั้งสองใบ
+     ถ้าแบ่งครึ่งเท่ากัน ใบซ้ายที่มี 4 ขั้นตอนจะแคบกว่าใบขวาอย่างเห็นได้ชัด */
+  display:grid;grid-template-columns:4fr 3fr;gap:20px;margin-top:32px;
   filter:drop-shadow(0 2px 3px rgba(30,30,30,.04)) drop-shadow(0 16px 30px rgba(30,30,30,.09));
 }
 
@@ -1010,34 +1013,37 @@ ul{margin:0;padding:0;list-style:none}
   transition:transform .22s var(--ease);
 }
 .step:hover{transform:translateY(-4px)}
-/* เลขกับหัวข้ออยู่แถวเดียวกัน · เลขถอย margin ออกไปเท่า padding การ์ด จึงนั่งชิดมุมซ้ายบนพอดี */
+/* ไอคอนกับหัวข้ออยู่แถวเดียวกัน · ไอคอนถอย margin ออกไปเท่า padding การ์ด จึงนั่งชิดมุมซ้ายบนพอดี
+   เดิมเป็นเลข 1/2 — ตอนนี้การ์ดสองใบเป็น "ทางเลือก" ไม่ใช่ลำดับขั้น จึงใช้ไอคอนบอกประเภทแทนเลข */
 .step__head{display:flex;align-items:center;gap:18px;margin:0 0 20px -30px}
 .step__no{
   display:grid;place-items:center;width:62px;height:62px;flex:0 0 auto;
   background:var(--orange);color:var(--ink);
-  font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--t-num);line-height:1;
 }
+/* ไอคอนในกรอบส้มเป็น SVG เส้น สีตาม currentColor (= --ink) ได้คอนทราสต์เท่าเลขเดิมที่เคยอยู่ตรงนี้ */
+.step__no svg{width:30px;height:30px;display:block}
 .step__head h3{font-size:var(--t-h3);line-height:1.3;min-width:0}
 
-/* สองจังหวะในการ์ด คั่นด้วยเส้นตั้งเต็มความสูง + ลูกศรทับตรงกลางที่ระดับไอคอน */
-.step__row{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:start}
-.step__item{text-align:center;padding:0 6px;min-width:0}
+/* ขั้นตอนในการ์ดคั่นด้วยเส้นตั้งเต็มความสูง + ลูกศรทับตรงกลางที่ระดับไอคอน
+   เป็น flex ไม่ใช่ grid 3 ช่องตายตัว เพราะการ์ดสองใบมีจำนวนขั้นตอนไม่เท่ากัน (4 กับ 3) */
+.step__row{display:flex;align-items:stretch}
+.step__item{flex:1 1 0;text-align:center;padding:0 4px;min-width:0}
 .step__ico{
-  display:grid;place-items:center;width:86px;height:86px;border-radius:50%;
-  background:var(--orange-tint);color:var(--ink);margin:0 auto 18px;
+  display:grid;place-items:center;width:64px;height:64px;border-radius:50%;
+  background:var(--orange-tint);color:var(--ink);margin:0 auto 14px;
 }
 /* ไอคอนเป็นไฟล์ภาพจากอาร์ตเวิร์ก — ทุกไฟล์ผืนผ้าใบจัตุรัสเท่ากันและปรับ "พื้นที่หมึก" มาเท่ากันตอน export
    จึงวางเป็นสี่เหลี่ยมจัตุรัสตรงๆ ได้เลย ไม่ต้องตั้งขนาดรายตัว */
-.step__ico img{width:52px;height:52px;object-fit:contain;display:block}
-.step__item h4{font-size:var(--t-sm);font-weight:700;line-height:1.4;margin-bottom:8px}
+.step__ico img,.step__ico svg{width:40px;height:40px;object-fit:contain;display:block}
+.step__item h4{font-size:var(--t-xs);font-weight:700;line-height:1.45;margin-bottom:0}
 .step__item p{font-size:var(--t-xs);color:var(--muted);line-height:1.55}
 .step__sep{
   position:relative;align-self:stretch;display:flex;justify-content:center;align-items:flex-start;
-  width:34px;flex:0 0 auto;color:var(--orange);
+  width:22px;flex:0 0 auto;color:var(--orange);
 }
 .step__sep::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--line)}
-/* ลูกศรมีพื้นขาวรองเพื่อเจาะเส้นตั้งให้ขาด · 31px = กึ่งกลางวงไอคอน (86/2) ลบครึ่งความสูงลูกศรกับ padding */
-.step__sep svg{position:relative;margin-top:31px;background:#fff;padding:6px 0;display:block}
+/* ลูกศรมีพื้นขาวรองเพื่อเจาะเส้นตั้งให้ขาด · 18px = กึ่งกลางวงไอคอน (64/2) ลบครึ่งความสูงลูกศรกับ padding */
+.step__sep svg{position:relative;margin-top:18px;background:#fff;padding:6px 0;display:block}
 
 /* ============ 7-8. editorial ============ */
 /* ใช้คลาส .band--ink ตัวเดียวกับ section ข้อเสนอ — ได้พื้นดำ + แสงส้มกลางแถบ
@@ -1364,7 +1370,7 @@ ul{margin:0;padding:0;list-style:none}
   .hero__inner{padding-top:26px;padding-bottom:0}
   .hero__col{max-width:none;margin-inline:0}
   .finder.is-stuck{position:static;width:auto;box-shadow:none;animation:none}
-  :root{--notch:64px;--notch-x:50%}
+  :root{--notch:64px;--notch-x:50%;--notch-x-hero:36%}
   .pillars__grid{grid-template-columns:repeat(2,1fr)}
   /* จอแคบไม่มีที่พอให้ภาพอยู่ข้างเนื้อหา — ซ่อนแล้วคืนความกว้างเต็มให้การ์ด */
   .ways__bg{display:none}
@@ -1399,7 +1405,7 @@ ul{margin:0;padding:0;list-style:none}
   .hsearch.is-open{flex:1;width:auto;border-bottom-color:rgba(30,30,30,.22);padding:8px 2px;gap:10px}
   .hsearch.is-open input{display:block}
   .hsearch.is-open ~ .icon-btn,.hsearch.is-open ~ .btn{display:none}
-  :root{--notch:40px;--notch-x:52%}
+  :root{--notch:40px;--notch-x:52%;--notch-x-hero:40%}
   .hero__inner{padding-top:20px}
   .hero__arrow{display:none}   /* จอเล็กใช้จุดบอกตำแหน่งแทน ลูกศรบังรูป */
   .finder{--fpad:18px}
@@ -1410,10 +1416,11 @@ ul{margin:0;padding:0;list-style:none}
   .pillar{min-height:0}
   .step{padding:0 20px 26px}
   .step__head{margin-left:-20px;gap:14px}
-  .step__no{width:52px;height:52px;font-size:var(--t-h3)}
-  .step__ico{width:72px;height:72px}
-  .step__ico svg{width:40px;height:40px}
-  .step__sep svg{margin-top:24px}
+  .step__no{width:52px;height:52px}
+  .step__no svg{width:26px;height:26px}
+  .step__ico{width:56px;height:56px}
+  .step__ico img,.step__ico svg{width:34px;height:34px}
+  .step__sep svg{margin-top:14px}
   .nf__side{grid-template-columns:1fr}
   .nf__main .ncard{aspect-ratio:4/3}
   .ncard__body{padding:18px}
@@ -1426,7 +1433,7 @@ ul{margin:0;padding:0;list-style:none}
   .product__media{aspect-ratio:1/1;padding:16px}
   .product__name{min-height:0}
   /* สองจังหวะในการ์ดซ้อนลง — เส้นคั่นกับลูกศรหมุนเป็นแนวนอน */
-  .step__row{grid-template-columns:1fr;gap:26px}
+  .step__row{flex-direction:column;gap:22px}
   .step__sep{align-self:center;align-items:center;width:auto;height:1px;margin:2px 0}
   .step__sep::before{top:50%;bottom:auto;left:0;right:0;width:auto;height:1px}
   .step__sep svg{margin-top:0;transform:rotate(90deg);padding:0 6px;background:#fff}
@@ -1721,41 +1728,51 @@ ul{margin:0;padding:0;list-style:none}
    <div class="ways__body">
     <div class="ways__head reveal">
       <span class="kicker kicker--both">How to</span>
-      <h2>ช้อปกับ <span class="hl">AUTOBACS</span> ง่าย ๆ ใน 2 ขั้นตอน</h2>
-      <p>ช้อปสินค้าและบริการที่ร้าน AUTOBACS หรือเลือกจัดส่งถึงบ้าน สะดวก รวดเร็ว ปลอดภัย</p>
+      <h2>ช้อปกับ <span class="hl">AUTOBACS</span> เลือกได้มากกว่าการจัดส่ง</h2>
+      <p>ช้อปสินค้าแล้วเลือกเข้ารับบริการที่สาขา AUTOBACS หรือเลือกจัดส่งถึงบ้าน</p>
     </div>
 
     <div class="ways__grid">
       <article class="step reveal">
-        <header class="step__head"><span class="step__no num">1</span><h3>เลือกสินค้าและบริการ</h3></header>
+        <header class="step__head"><span class="step__no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><h3>ซื้อสินค้าพร้อมเข้ารับบริการ</h3></header>
         <div class="step__row">
         <div class="step__item">
           <span class="step__ico"><img src="assets/icon/howto-pick.png" alt="โน้ตบุ๊กแสดงรถและเคอร์เซอร์" loading="lazy" width="240" height="240"></span>
-          <h4>เลือกสิ่งที่ต้องการ</h4>
-          <p>ค้นหาสินค้าหรือบริการที่ใช่ ทั้งหน้าร้านและออนไลน์</p>
+          <h4>เลือกสินค้า</h4>
         </div>
         <span class="step__sep" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <div class="step__item">
-          <span class="step__ico"><img src="assets/icon/howto-cart.png" alt="รถเข็นช้อปปิ้งกับกล่องสินค้า" loading="lazy" width="240" height="240"></span>
+          <span class="step__ico"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M8.5 19.5h31V38a2.5 2.5 0 0 1-2.5 2.5H11A2.5 2.5 0 0 1 8.5 38V19.5Z" fill="#1E1E1E"/><path d="M10.6 7.5h26.8a2.5 2.5 0 0 1 2.4 1.8l2.2 7.2H5L7.2 9.3a2.5 2.5 0 0 1 2.4-1.8Z" fill="#1E1E1E"/><rect x="19" y="26" width="10" height="14.5" rx="1.4" fill="#F36F21"/></svg></span>
           <h4>เลือกสาขา</h4>
-          <p>เลือกสาขา AUTOBACS ที่สะดวก หรือสั่งซื้อออนไลน์</p>
+        </div>
+        <span class="step__sep" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div class="step__item">
+          <span class="step__ico"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="5" y="10" width="38" height="33" rx="4.5" fill="#1E1E1E"/><rect x="10" y="21.5" width="28" height="16.5" rx="2" fill="#fff"/><path d="M15 5.5v8M33 5.5v8" stroke="#1E1E1E" stroke-width="5" stroke-linecap="round"/><circle cx="34.5" cy="34.5" r="9" fill="#F36F21" stroke="#fff" stroke-width="3"/><path d="M34.5 29.8v4.7l3.2 2" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h4>จองวันเวลาเข้ารับบริการ</h4>
+        </div>
+        <span class="step__sep" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div class="step__item">
+          <span class="step__ico"><img src="assets/icon/howto-pay.png" alt="บัตรเครดิตและมือถือยืนยันการชำระเงิน" loading="lazy" width="240" height="240"></span>
+          <h4>ชำระเงิน</h4>
         </div>
         </div>
       </article>
-
       <article class="step reveal">
-        <header class="step__head"><span class="step__no num">2</span><h3>รับสินค้าและบริการ</h3></header>
+        <header class="step__head"><span class="step__no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3.5" width="14" height="12"/><path d="M15 8h4.2l3.3 3.3v4.2H15z"/><circle cx="5.5" cy="18.5" r="2.4"/><circle cx="18.5" cy="18.5" r="2.4"/></svg></span><h3>ซื้อสินค้าพร้อมจัดส่งถึงบ้าน</h3></header>
         <div class="step__row">
         <div class="step__item">
-          <span class="step__ico"><img src="assets/icon/howto-service.png" alt="รถกับประแจ" loading="lazy" width="240" height="240"></span>
-          <h4>เข้ารับบริการ</h4>
-          <p>นำรถเข้ารับบริการที่ร้าน AUTOBACS โดยช่างผู้เชี่ยวชาญ</p>
+          <span class="step__ico"><img src="assets/icon/howto-cart.png" alt="รถเข็นช้อปปิ้งกับกล่องสินค้า" loading="lazy" width="240" height="240"></span>
+          <h4>สั่งซื้อ</h4>
         </div>
         <span class="step__sep" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <div class="step__item">
-          <span class="step__ico"><img src="assets/icon/howto-ship.png" alt="รถบรรทุกส่งของถึงบ้าน" loading="lazy" width="240" height="240"></span>
-          <h4>รับสินค้าจัดส่งถึงบ้าน</h4>
-          <p>รับสินค้าได้ที่ร้าน หรือจัดส่งถึงบ้านตามที่คุณสะดวก</p>
+          <span class="step__ico"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4c-8.1 0-14.6 6.3-14.6 14.1 0 10.4 12.7 23.6 13.2 24.1a2 2 0 0 0 2.8 0c.5-.5 13.2-13.7 13.2-24.1C38.6 10.3 32.1 4 24 4Z" fill="#1E1E1E"/><path d="m24 11 7.4 6.2v8.1c0 .7-.6 1.2-1.3 1.2h-3.8v-5.3h-4.6v5.3h-3.8c-.7 0-1.3-.5-1.3-1.2v-8.1L24 11Z" fill="#F36F21"/></svg></span>
+          <h4>ระบุที่จัดส่ง</h4>
+        </div>
+        <span class="step__sep" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div class="step__item">
+          <span class="step__ico"><img src="assets/icon/howto-pay.png" alt="บัตรเครดิตและมือถือยืนยันการชำระเงิน" loading="lazy" width="240" height="240"></span>
+          <h4>ชำระเงิน</h4>
         </div>
         </div>
       </article>
