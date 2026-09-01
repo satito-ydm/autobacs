@@ -642,6 +642,10 @@ ul{margin:0;padding:0;list-style:none}
 .tirefig[hidden]{display:none}
 .tirefig img{display:block;width:100%;height:100%;object-fit:cover}
 
+/* ล้างค่าที่เลือกไว้ทั้งสามช่อง — ชิดขวาใต้ฟอร์ม เป็นทางออกเล็ก ๆ ไม่ใช่ปุ่มหลัก */
+.finder__clear{display:block;margin:8px 0 0 auto;font-size:var(--t-2xs);color:var(--muted);border-bottom:1px solid currentColor;padding-bottom:1px;transition:color .18s var(--ease)}
+.finder__clear:hover{color:var(--ink)}
+
 .finder__go{width:100%;height:50px;margin-top:10px}
 
 /* ลิงก์ข้ามการกรอง — ขีดเส้นใต้เฉพาะตัวอักษร ลูกศรไม่โดนขีด จึงห่อข้อความไว้ใน span */
@@ -660,13 +664,10 @@ ul{margin:0;padding:0;list-style:none}
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;
   margin-top:16px;padding-top:16px;border-top:1px solid var(--line);
 }
-.finder__xbtn{
-  width:100%;height:46px;padding:0 10px;
-  background:#fff;color:var(--ink);border:1px solid var(--ink);
-  font-size:var(--t-xs);font-weight:700;white-space:nowrap;
-  transition:background .18s var(--ease),color .18s var(--ease);
-}
-.finder__xbtn:hover{background:var(--ink);color:#fff}
+/* ใช้ .btn--ghost เป็นฐาน — มันทำมุมเฉียงพร้อมกรอบด้วยพื้นสองชั้นไว้แล้ว
+   (เขียน border ตรง ๆ ไม่ได้ เพราะ clip-path ตัด border ทิ้งไปพร้อมมุม)
+   ที่นี่แค่คุมขนาดให้พอดีแผงแคบ */
+.finder__xbtn{width:100%;height:44px;padding:0 8px;font-size:var(--t-2xs)}
 
 .finder__toggle{
   display:inline-flex;align-items:center;gap:6px;margin-top:14px;
@@ -1602,6 +1603,7 @@ ul{margin:0;padding:0;list-style:none}
             <div class="finder__row">
               <div id="finFields" style="display:contents"></div>
             </div>
+            <button type="button" class="finder__clear" id="finClear">ล้างทั้งหมด</button>
 
             <!-- ปุ่มหลัก — ส้มเต็มกว้าง ข้อความล้วนไม่มีลูกศร -->
             <a href="#shop" class="btn btn--primary finder__go" id="finCta">ค้นหาเลย</a>
@@ -1613,8 +1615,8 @@ ul{margin:0;padding:0;list-style:none}
 
             <!-- ทางลัดที่ไม่เกี่ยวกับการค้นหาสินค้า — คั่นด้วยเส้นให้อ่านเป็นคนละกลุ่มกับปุ่มค้นหา -->
             <div class="finder__extra">
-              <a href="#" class="btn finder__xbtn">จองบริการ</a>
-              <a href="#branches" class="btn finder__xbtn">ค้นหาสาขาใกล้ฉัน</a>
+              <a href="#" class="btn btn--ghost finder__xbtn">จองบริการ</a>
+              <a href="#branches" class="btn btn--ghost finder__xbtn">ค้นหาสาขาใกล้ฉัน</a>
             </div>
 
             <button type="button" class="finder__toggle" id="finToggle" aria-controls="finPanel" aria-expanded="false">
@@ -2241,6 +2243,19 @@ ul{margin:0;padding:0;list-style:none}
     {label:'ปี',       short:'ปี',     options:['2025','2024','2023','2022','2021','2020']}
   ];
   /* short = ป้ายในช่องตอนเรียงแนวนอน (ช่องแคบ) · label = ชื่อเต็มที่ screen reader อ่าน */
+  /* หมวดน้ำมันเครื่องไม่ได้ค้นจากรุ่นรถ แต่ค้นจากสเปกน้ำมัน */
+  var OIL_FIELDS = [
+    {label:'ประเภทน้ำมัน', short:'น้ำมันเครื่อง', options:['น้ำมันเครื่อง','น้ำมันเกียร์','น้ำมันเบรก','น้ำมันพวงมาลัย']},
+    {label:'ชนิดเครื่องยนต์', short:'เบนซิน', options:['เบนซิน','ดีเซล','ไฮบริด']},
+    {label:'เกรดน้ำมัน', short:'เกรดหมื่นกิโล', options:['เกรดหมื่นกิโล','เกรดหมื่นห้าพันกิโล','เกรดสองหมื่นกิโล']}
+  ];
+  /* หมวดแบตเตอรี่ค้นจากรุ่นรถเหมือนหมวดยาง ต่างที่ช่องที่สามเป็น "ปีที่ผลิต" */
+  var BATTERY_FIELDS = [
+    {label:'ยี่ห้อรถ', short:'ยี่ห้อ', options:['Toyota','Honda','Isuzu','Mazda','Mitsubishi','Nissan','Ford','BYD']},
+    {label:'รุ่นรถ',   short:'รุ่นรถ', options:['Corolla Cross','Yaris Ativ','Fortuner','Hilux Revo','Camry']},
+    {label:'ปีที่ผลิต', short:'ปีที่ผลิต', options:['2025','2024','2023','2022','2021','2020']}
+  ];
+
   var SIZE_FIELDS = [
     {label:'ขนาดหน้ายาง', short:'หน้ายาง', options:['185','195','205','215','225','235','265']},
     {label:'ขนาดแก้มยาง', short:'แก้มยาง', options:['45','50','55','60','65','70']},
@@ -2254,6 +2269,7 @@ ul{margin:0;padding:0;list-style:none}
   var finCta    = document.getElementById('finCta');
   var finAllTxt = document.getElementById('finAllTxt');
   var finSwitch = document.getElementById('finSwitch');
+  var finClear  = document.getElementById('finClear');
   var finToggle = document.getElementById('finToggle');
   var finTabs   = document.querySelectorAll('[data-fin]');
   var finderBox = document.getElementById('finder');
@@ -2262,7 +2278,11 @@ ul{margin:0;padding:0;list-style:none}
   function renderFinder(){
     if (!activeFin) return;
     var cfg = FINDER[activeFin];
-    var defs = bySize ? SIZE_FIELDS : CAR_FIELDS;
+    /* แต่ละหมวดใช้ชุดช่องกรอกคนละชุด — ยางค้นจากรุ่นรถหรือขนาดยาง
+       น้ำมันเครื่องค้นจากสเปกน้ำมัน แบตเตอรี่ค้นจากรุ่นรถแต่ช่องที่สามเป็นปีที่ผลิต */
+    var defs = activeFin === 'oil'     ? OIL_FIELDS
+             : activeFin === 'battery' ? BATTERY_FIELDS
+             : (bySize ? SIZE_FIELDS : CAR_FIELDS);
     /* โชว์รูปยางทุกครั้งที่อยู่แท็บยาง ไม่ว่าจะค้นจากรุ่นรถหรือจากขนาด
        (เดิมผูกไว้กับโหมดขนาดอย่างเดียว เพราะหมุด 1-2-3 อธิบายการอ่านแก้มยาง) */
     var sizeMode = bySize && activeFin === 'tire';
@@ -2339,6 +2359,10 @@ ul{margin:0;padding:0;list-style:none}
     });
   });
   finSwitch.addEventListener('click', function(){ bySize = !bySize; renderFinder(); lockFinderHeight(); });
+  /* คืนทุกช่องกลับไปที่ตัวเลือกว่าง (ตัวแรก) ไม่ต้องเรนเดอร์ใหม่ ความสูงจึงไม่ขยับ */
+  finClear.addEventListener('click', function(){
+    Array.prototype.forEach.call(finFields.querySelectorAll('select'), function(sel){ sel.value = ''; });
+  });
 
   /* ถอดโหมดลอยมุมจอออกแล้ว — การ์ดอยู่ในแบนเนอร์ที่เดียว มุมขวาล่างเป็นที่ของปุ่มแชทแทน
      แผงจึงกางค้างเสมอ ไม่มีเงื่อนไขหุบอีก */
