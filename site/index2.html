@@ -595,9 +595,16 @@ ul{margin:0;padding:0;list-style:none}
    (จนต้องไป animate padding ซึ่งกระตุ้น layout) — แยกชั้น clip กับชั้นเนื้อหาแล้วจบ */
 .finder__panelInner{padding-top:18px;text-align:center}
 
-.finder__sub{font-size:var(--t-xs);color:var(--muted);line-height:1.55}
-/* ที่ 14px ข้อความ + ลิงก์บรรทัดเดียวกว้างเกินการ์ด — ดันลิงก์ลงบรรทัดของตัวเอง ได้พื้นที่กดใหญ่ขึ้นด้วย */
-.finder__sub button{display:block;margin:7px auto 0;font-size:var(--t-xs);font-weight:700;color:var(--orange);border-bottom:1px solid currentColor;padding-bottom:1px}
+/* คำโปรยกับลิงก์สลับโหมดอยู่แถวเดียวกัน — คำโปรยชิดซ้าย ลิงก์ชิดขวา
+   ที่ 14px สองก้อนรวมกัน 280px เกินความกว้างการ์ด (272px) จึงลดเป็น 13px
+   คำโปรยเป็นตัวยืด (min-width:0) พอจอแคบลงมันจะตกบรรทัดในคอลัมน์ตัวเอง
+   แต่ลิงก์ยังอยู่แถวเดียวกันเสมอ ไม่ถูกดันลงไปข้างล่าง */
+.finder__sub{
+  display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  font-size:var(--t-2xs);color:var(--muted);line-height:1.5;text-align:left;
+}
+.finder__sub > span{min-width:0}
+.finder__sub button{flex:0 0 auto;margin:0;font-size:var(--t-2xs);font-weight:700;color:var(--orange);border-bottom:1px solid currentColor;padding-bottom:1px;white-space:nowrap}
 
 /* 3 ช่องเรียงลงเป็นแนวตั้ง — ช่องกว้างเต็มการ์ดจึงอ่านป้ายได้เต็ม ไม่ต้องบีบตัวอักษร
    แลกมาด้วยความสูงที่เพิ่มขึ้น ต้องคุมไม่ให้การ์ดสูงเกินแบนเนอร์จนหัวการ์ดโดนแถบเมนูเฉือน
