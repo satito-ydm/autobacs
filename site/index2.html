@@ -427,9 +427,11 @@ ul{margin:0;padding:0;list-style:none}
   /* สองคอลัมน์เต็มความสูงเท่ากัน — ซ้ายแบนเนอร์ 70% ขวาแผงค้นหา 30%
      เลิกใช้แบบการ์ดลอยทับแบนเนอร์แล้ว จึงไม่ต้องมี padding หลบแถบเมนู ไม่ต้องล็อกความสูง
      ความสูงมาจากแผงค้นหาซึ่งเป็นฝั่งที่สูงกว่า · overflow:hidden ได้แล้วเพราะไม่มีอะไรยื่นพ้นกรอบ */
-  /* พื้นของ .hero มองเห็นได้เฉพาะตรงลิ่มที่เฉือนออกจากมุมล่างซ้ายของแบนเนอร์
-     ตั้งเป็นขาวให้อ่านต่อเนื่องกับ section ขาวที่อยู่ถัดลงไป ไม่ใช่ช่องดำแปลกปลอม */
-  position:relative;overflow:hidden;background:#fff;
+  /* พื้นโปร่ง ไม่ใช่สีตายตัว — ลิ่มที่เฉือนจากมุมล่างซ้ายของแบนเนอร์ต้องเผยพื้นจริงของ
+     .pillars ที่ถูกดึงขึ้นมาซ้อนอยู่ข้างใต้ (ดูคอมเมนต์ที่ .pillars) ถ้าทาสีขาวไว้ตรงนี้
+     ลิ่มจะเป็นสีขาวล้วนขณะที่ section ข้างล่างเป็นเทาอ่อนพร้อมอาร์ตเวิร์ก มองแล้วแหว่ง
+     z-index ต้องสูงกว่า .pillars ไม่งั้นพื้นของมันจะขึ้นมาทับแบนเนอร์ทั้งแถบ ไม่ใช่แค่ในลิ่ม */
+  position:relative;z-index:2;overflow:hidden;background:transparent;
   display:flex;align-items:stretch;
 }
 
@@ -689,14 +691,17 @@ ul{margin:0;padding:0;list-style:none}
 .finder__toggle{display:none}
 
 /* ============ 4. pillars ============ */
-/* รอยต่อ hero → section ไอคอน เป็นเส้นตรงแล้ว ไม่มีรอยเฉียง
-   จึงไม่ต้องดึงตัวเองขึ้นไปซ้อนใต้ hero และไม่ต้องเผื่อ --notch ไว้ใน padding บน */
+/* ดึงตัวเองขึ้นไปซ้อนใต้ hero เท่าความลึกของลิ่ม (--notch) เพื่อให้ลิ่มที่เฉือนจาก
+   มุมล่างซ้ายของแบนเนอร์เผยพื้นจริงของ section นี้ (เทาอ่อน + อาร์ตเวิร์ก) ต่อเนื่องกันพอดี
+   z-index ต่ำกว่า .hero เพราะต้องอยู่ "ใต้" แบนเนอร์ โผล่เฉพาะช่องที่ถูกเฉือน
+   padding บนเผื่อ --notch ไว้ เนื้อหาจะได้ไม่ขยับขึ้นตามระยะที่ดึง */
 .pillars{
-  position:relative;z-index:2;
+  position:relative;z-index:1;
+  margin-top:calc(var(--notch) * -1);
   /* ถอดรูปในการ์ดออกแล้ว การ์ดเหลือแค่ไอคอน+ข้อความ — section จึงเป็นแถบสั้นตามที่ลูกค้าขอ
      ไม่เติมระยะหายใจพิเศษอีก เหลือแต่ padding ปกติของ section */
   --pillars-air:0px;
-  padding:calc(var(--section) * .62 + 30px + var(--pillars-air)) 0 calc(var(--section) * .62 + 30px + var(--pillars-air));
+  padding:calc(var(--section) * .62 + var(--notch) + 30px + var(--pillars-air)) 0 calc(var(--section) * .62 + 30px + var(--pillars-air));
 }
 /* พื้นหลัง section — อาร์ตเวิร์กโทนขาว-ส้ม เต็มความกว้าง */
 .pillars{background:#fff url("assets/section-bg.jpg") center top / cover no-repeat}
@@ -1218,6 +1223,9 @@ ul{margin:0;padding:0;list-style:none}
 .brands__head p{color:var(--muted);font-size:var(--t-xs);margin-top:12px}
 /* จัดกลางแบบ flex wrap ไม่ใช่ grid — แถวสุดท้ายที่ไม่เต็มจะได้อยู่กึ่งกลาง ไม่ค้างชิดซ้าย */
 .brands__grid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+/* ตัวคั่นบรรทัดของแถวโลโก้ — กว้างเต็มแถว สูง 0 จึงไม่เพิ่มความสูงให้ section
+   ต้องหักช่องไฟแนวตั้งของ gap ออกด้วย margin ติดลบ ไม่งั้นแถวจะห่างกันเป็นสองเท่า */
+.brands__break{flex:0 0 100%;height:0;margin:-10px 0 0}
 /* ไม่มีกรอบขาวแล้ว — พื้นใสไปเลย โลโก้จึงวางอยู่บนพื้นส้มอ่อนของ section ตรง ๆ
    ไม่ใช้ background:var(--orange-tint) เพราะถ้าวันหลังเปลี่ยนสีพื้น section ต้องมาแก้สองที่ */
 .brand-chip{
@@ -2442,7 +2450,18 @@ ul{margin:0;padding:0;list-style:none}
     return '<a class="brand-chip" href="#" title="' + name + '">' +
            '<img src="assets/brand/' + b + '.png" alt="' + name + '" loading="lazy"></a>';
   }
-  document.getElementById('brandsTrack').innerHTML = BRANDS.map(brandChip).join('');
+  /* บังคับตัดบรรทัดเป็น 7 / 6 / 5 — ถ้าปล่อยให้ flex-wrap ตัดเองตามความกว้าง
+     จะได้ 8/8/2 ซึ่งแถวสุดท้ายเหลือสองอันแล้วดูแหว่ง
+     ตัวคั่นเป็น flex item ที่กว้างเต็มแถวแต่สูง 0 จึงดันตัวถัดไปลงบรรทัดใหม่โดยไม่กินที่ */
+  var BRAND_ROWS = [7, 6, 5];
+  var brandHtml = '', cut = 0;
+  BRAND_ROWS.forEach(function(n, i){
+    brandHtml += BRANDS.slice(cut, cut + n).map(brandChip).join('');
+    cut += n;
+    if (i < BRAND_ROWS.length - 1) brandHtml += '<div class="brands__break" aria-hidden="true"></div>';
+  });
+  brandHtml += BRANDS.slice(cut).map(brandChip).join('');   /* เผื่อเพิ่มแบรนด์เกินที่แบ่งไว้ */
+  document.getElementById('brandsTrack').innerHTML = brandHtml;
 
   /* ปรับขนาดโลโก้ให้ดู "เท่ากัน" ด้วยตา ไม่ใช่เท่ากันด้วยกรอบ
      โลโก้ยาว (5.5:1) กับโลโก้ป้อม (1.4:1) ถ้า contain กรอบเดียวกัน ตัวป้อมจะสูงกว่าเกือบ 3 เท่า
