@@ -605,8 +605,16 @@ ul{margin:0;padding:0;list-style:none}
 .finder__tabs button[data-fin]:hover{background:var(--orange-dk);color:#fff}
 .finder__tabs button[data-fin]:hover::before{background:var(--orange-dk)}
 .finder__tabs button[data-fin]:hover svg{color:#fff}
-.finder__tabs button[data-fin][aria-selected="true"]{background:var(--orange);color:#fff}
-.finder__tabs button[data-fin][aria-selected="true"]::before{background:var(--orange)}
+/* ตัวที่ถูกเลือกตัดมุมขวาบน 45 องศาตามโมทีฟของหน้า — ต้องตัดทั้งสองชั้น
+   ชั้นในตัดน้อยกว่า 1px ตามระยะที่มันหดเข้ามา ขอบจึงหนาเท่ากันตลอดรวมด้านเฉียง */
+.finder__tabs button[data-fin][aria-selected="true"]{
+  background:var(--orange);color:#fff;
+  clip-path:polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+.finder__tabs button[data-fin][aria-selected="true"]::before{
+  background:var(--orange);
+  clip-path:polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 0 100%);
+}
 .finder__tabs button[data-fin][aria-selected="true"] svg{color:#fff}
 
 
