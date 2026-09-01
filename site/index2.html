@@ -427,14 +427,20 @@ ul{margin:0;padding:0;list-style:none}
   /* สองคอลัมน์เต็มความสูงเท่ากัน — ซ้ายแบนเนอร์ 70% ขวาแผงค้นหา 30%
      เลิกใช้แบบการ์ดลอยทับแบนเนอร์แล้ว จึงไม่ต้องมี padding หลบแถบเมนู ไม่ต้องล็อกความสูง
      ความสูงมาจากแผงค้นหาซึ่งเป็นฝั่งที่สูงกว่า · overflow:hidden ได้แล้วเพราะไม่มีอะไรยื่นพ้นกรอบ */
-  position:relative;overflow:hidden;background:var(--ink-soft);
+  /* พื้นของ .hero มองเห็นได้เฉพาะตรงลิ่มที่เฉือนออกจากมุมล่างซ้ายของแบนเนอร์
+     ตั้งเป็นขาวให้อ่านต่อเนื่องกับ section ขาวที่อยู่ถัดลงไป ไม่ใช่ช่องดำแปลกปลอม */
+  position:relative;overflow:hidden;background:#fff;
   display:flex;align-items:stretch;
 }
 
 /* aspect-ratio มีผลเฉพาะตอนจอเล็กที่ .hero กลายเป็น display:block — ในโหมดสองคอลัมน์
    align-items:stretch กำหนดความสูงให้อยู่แล้ว ค่านี้จึงถูกมองข้าม */
 .hero__banner{animation:bannerIn 1.6s var(--ease-out) both;position:relative;flex:0 0 75%;min-width:0;
-  aspect-ratio:var(--hero-ar);overflow:hidden;z-index:0}
+  aspect-ratio:var(--hero-ar);overflow:hidden;z-index:0;
+  /* เฉือนมุมล่างซ้ายออกเป็นลิ่ม — เส้นเฉียงลากจากขอบซ้ายที่ระดับ (100% - --notch)
+     ลงไปจบที่ 40% ของขอบล่าง · ลึกเท่า --notch เท่ากับรอยเฉียงอื่นของหน้า
+     ช่องที่เฉือนออกเผยพื้นของ .hero ซึ่งตั้งเป็นขาว จึงอ่านเป็น section ขาวข้างล่างกินขึ้นมา */
+  clip-path:polygon(0 0, 100% 0, 100% 100%, 40% 100%, 0 calc(100% - var(--notch)));}
 /* สไลด์: ซ้อนทับกันแล้วสลับด้วย opacity — ไม่ใช้ transform เพราะจะสร้าง containing block
    ให้การ์ดค้นหาที่เป็น position:fixed ตอนลอย */
 .hero__slide{position:absolute;inset:0;opacity:0;transition:opacity .8s var(--ease)}
@@ -1373,6 +1379,8 @@ ul{margin:0;padding:0;list-style:none}
   /* แท็บเล็ต/มือถือ: จอแคบเกินกว่าจะซ้อนกล่องบนรูปโดยไม่ crop อาร์ตเวิร์ก
      จึงวางรูปเต็มใบ 2:1 แล้ววางกล่องค้นหาไว้ใต้รูปบนแถบเข้มแทน */
   .hero{display:block;height:auto;background:var(--ink-soft)}
+  /* จอนี้แบนเนอร์สูงแค่ ~178px ลิ่มลึก --notch จะกินไปครึ่งรูป จึงไม่ตัดเฉียง */
+  .hero__banner{clip-path:none}
   /* จอนี้แบนเนอร์กับการ์ดเรียงลงกัน ไม่ได้ซ้อนทับกันแล้ว การ์ดจึงควรมีระยะขอบเท่ากันทั้งสองข้าง
      คืน padding ขวาให้ .wrap ที่จอใหญ่ถอดออกไปเพื่อดันการ์ดชิดขอบจอ */
   .hero > .wrap{padding-right:var(--gutter)}
