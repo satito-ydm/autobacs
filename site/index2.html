@@ -1536,8 +1536,12 @@ ul{margin:0;padding:0;list-style:none}
   .utility{height:52px}
   .utility__right{gap:0}
   .ulink--ptmax{display:none}          /* จอเล็กเหลือแค่ไอคอนโทร + ไอคอนเข้าสู่ระบบ */
-  /* จอเล็ก: call center กับ เข้าสู่ระบบ เหลือแค่ไอคอน — กันชนโลโก้กลาง (ชื่ออยู่ที่ aria-label / เบอร์อยู่ที่ href) */
-  .ucall__txt{display:none}
+  /* จอเล็ก: เข้าสู่ระบบเหลือแค่ไอคอน (ชื่ออยู่ที่ aria-label) — แต่ "ศูนย์บริการใกล้คุณ" ยังต้องมีข้อความ
+     ที่ว่างฝั่งซ้ายเหลือ ~100px ก่อนชนโลโก้กลาง จึงตัดเป็นสองบรรทัดและลดขนาดลงหนึ่งขั้น
+     ช่องว่างระหว่างสองสแปนหายไปเองเมื่อกล่องเป็น flex column (text node ที่มีแต่ช่องว่างไม่นับเป็นไอเทม) */
+  .ucall{gap:6px}
+  .ucall .uico{width:20px;height:20px}
+  .ucall__num{display:flex;flex-direction:column;font-size:12px;line-height:1.2}
   .ulink--login span:not(.uico){display:none}
   .brand img{height:26px}
   .topbar-spacer{height:114px}
@@ -1675,6 +1679,16 @@ ul{margin:0;padding:0;list-style:none}
   .legal__links{flex-wrap:wrap;gap:16px}
   .tile__ghost{font-size:100px}
 }
+/* จอ ≤400px: ช่องซ้ายของแถบ utility = (กว้างจอ - gutter - โลโก้) / 2 ซึ่งแคบกว่าไอคอนหมุด+ข้อความสองบรรทัด
+   ย่อโลโก้ลงหนึ่งขั้น (26 → 22px) คืนที่ให้ข้างละ ~11px ข้อความจึงไม่ไปชนโลโก้กลาง */
+@media (max-width:400px){
+  .utility .brand img{height:22px}
+}
+/* แคบกว่า 340px ย่อโลโก้แล้วยังไม่พอ — ตัดไอคอนหมุดทิ้ง เหลือข้อความอย่างเดียว
+   (ความหมายอยู่ที่ข้อความอยู่แล้ว ไอคอนเป็นแค่ตัวช่วยอ่าน) */
+@media (max-width:340px){
+  .ucall .uico{display:none}
+}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
@@ -1694,7 +1708,7 @@ ul{margin:0;padding:0;list-style:none}
           <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 1.8c2.3 0 4.2 1.9 4.2 4.2 0 3-4.2 8.2-4.2 8.2S3.8 9 3.8 6c0-2.3 1.9-4.2 4.2-4.2Z" stroke-linejoin="round"/><circle cx="8" cy="6" r="1.6"/></svg>
         </span>
         <span class="ucall__txt">
-          <span class="ucall__num">ศูนย์บริการใกล้คุณ</span>
+          <span class="ucall__num"><span>ศูนย์บริการ</span> <span>ใกล้คุณ</span></span>
         </span>
       </a>
       <a class="brand" href="#" aria-label="AUTOBACS — กลับหน้าแรก"><img src="assets/logo.svg" alt="AUTOBACS"></a>
