@@ -2206,6 +2206,21 @@ ul{margin:0;padding:0;list-style:none}
     },
     battery: null
   };
+  /* โหลดรูปของทุกหมวดไว้ล่วงหน้าตอนเบราว์เซอร์ว่าง — กดแท็บครั้งแรกจะได้ไม่เห็นแบนเนอร์ว่าง
+     ก่อนรูปจะมา · ไม่แตะ src ของ <img> จริง ปล่อยให้ browser cache ทำงานแทน */
+  var catReady = {};
+  function preloadCatHeroes(){
+    Object.keys(HERO_BY_CAT).forEach(function(k){
+      var cfg = HERO_BY_CAT[k];
+      if (!cfg) return;
+      var im = new Image();
+      im.onload = function(){ catReady[cfg.src] = true; };
+      im.src = cfg.src;
+    });
+  }
+  if ('requestIdleCallback' in window) requestIdleCallback(preloadCatHeroes, {timeout:3000});
+  else setTimeout(preloadCatHeroes, 1200);
+
   function showCatHero(kind){
     var cfg = HERO_BY_CAT[kind];
     if (!cfg) {                                    /* หมวดนี้ยังไม่มีอาร์ตเวิร์ก — คืนสไลด์โปรฯ */
@@ -2213,10 +2228,26 @@ ul{margin:0;padding:0;list-style:none}
       return;
     }
     clearInterval(slideTimer);                     /* ค้างไว้ที่แบนเนอร์ของหมวด ไม่วนต่อ ไม่งั้นภาพจะเปลี่ยนเองจนผู้ใช้งง */
-    if (catImg.getAttribute('src') !== cfg.src) { catImg.src = cfg.src; catImg.alt = cfg.alt; }
-    slides.forEach(function(el){ el.classList.remove('is-on'); });
-    catSlide.classList.add('is-on');
-    heroDots.forEach(function(d){ d.setAttribute('aria-current', 'false'); });
+
+    /* สลับสไลด์ก็ต่อเมื่อรูปพร้อมแล้ว — ถ้าสลับทันทีตอนยังโหลดไม่เสร็จ
+       ผู้ใช้จะเห็นแบนเนอร์ว่างแวบหนึ่งแล้วรูปค่อยโผล่ */
+    function swap(){
+      slides.forEach(function(el){ el.classList.remove('is-on'); });
+      catSlide.classList.add('is-on');
+      heroDots.forEach(function(d){ d.setAttribute('aria-current', 'false'); });
+    }
+    if (catImg.getAttribute('src') !== cfg.src) {
+      catImg.alt = cfg.alt;
+      if (catReady[cfg.src]) { catImg.src = cfg.src; swap(); }   /* พรีโหลดไว้แล้ว สลับได้เลย */
+      else {
+        var pending = new Image();
+        pending.onload = function(){ catReady[cfg.src] = true; catImg.src = cfg.src; swap(); };
+        pending.onerror = function(){ catImg.src = cfg.src; swap(); };   /* โหลดไม่ขึ้นก็ยังสลับ ดีกว่าค้าง */
+        pending.src = cfg.src;
+      }
+    } else {
+      swap();
+    }
   }
   heroDots.forEach(function(d, n){
     d.addEventListener('click', function(){ showSlide(n); playSlides(); });
