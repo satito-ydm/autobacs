@@ -1607,6 +1607,10 @@ ul{margin:0;padding:0;list-style:none}
       </div>
     </div>
 
+    <!-- สไลด์ของหมวดที่เลือกในการ์ดค้นหา — ไม่นับรวมในสไลด์โปรฯ ที่วนอัตโนมัติ
+         ไม่มี src ตั้งแต่แรก JS จะใส่ให้ตอนผู้ใช้กดแท็บ ภาพจึงไม่ถูกโหลดถ้าไม่มีใครกด -->
+    <div class="hero__slide hero__slide--cat"><img alt=""></div>
+
     <button type="button" class="hero__arrow hero__arrow--prev" id="heroPrev" aria-label="แบนเนอร์ก่อนหน้า">
       <svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M13 8H4M7.5 3.5L3 8l4.5 4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
@@ -2206,20 +2210,52 @@ ul{margin:0;padding:0;list-style:none}
   revealScan();
 
   /* ---------- hero slider ---------- */
-  var slides   = document.querySelectorAll('.hero__slide');
+  /* :not(--cat) — สไลด์ของหมวดไม่ใช่ส่วนหนึ่งของวงจรสไลด์โปรฯ ถ้านับรวม จุดบอกตำแหน่งกับ
+     การวนจะเพี้ยนไปหนึ่งใบ และการวนจะพาผู้ใช้ไปเจอแบนเนอร์หมวดโดยที่ไม่ได้กดเลือก */
+  var slides   = document.querySelectorAll('.hero__slide:not(.hero__slide--cat)');
+  var catSlide = document.querySelector('.hero__slide--cat');
+  var catImg   = catSlide.querySelector('img');
   var heroDots = document.querySelectorAll('#heroDots button');
   var heroBox  = document.getElementById('heroBanner');
   var slideIx  = 0, slideTimer = null;
 
+  function catPinned(){ return catSlide.classList.contains('is-on'); }
+
   function showSlide(i){
     slideIx = (i + slides.length) % slides.length;
+    /* กดจุดหรือลูกศรเมื่อไหร่ = เลิกปักหมุดแบนเนอร์หมวด กลับเข้าวงจรสไลด์โปรฯ */
+    catSlide.classList.remove('is-on');
     slides.forEach(function(el, n){ el.classList.toggle('is-on', n === slideIx); });
     heroDots.forEach(function(d, n){ d.setAttribute('aria-current', String(n === slideIx)); });
   }
   function playSlides(){
     clearInterval(slideTimer);
+    if (catPinned()) return;                       /* ปักหมุดแบนเนอร์หมวดอยู่ ห้ามวนทับ */
     if (reduced || slides.length < 2) return;      /* ผู้ใช้ที่ปิดการเคลื่อนไหวไว้ ให้ค้างสไลด์แรก */
     slideTimer = setInterval(function(){ showSlide(slideIx + 1); }, 6000);
+  }
+
+  /* แบนเนอร์ประจำหมวด — เติม path ตรงนี้เมื่ออาร์ตเวิร์กพร้อม
+     หมวดที่ยังเป็น null จะไม่สลับแบนเนอร์ ปล่อยสไลด์โปรฯ วนตามเดิม */
+  var HERO_BY_CAT = {
+    tire: {
+      src: 'assets/hero-tire.jpg',
+      alt: 'ยางใหม่แบรนด์ดัง 2025 ลดสูงสุด 50% เฉพาะรุ่นที่ร่วมรายการ ฟรีแพ็กเกจดูแลรถยนต์ AUTOBACS DRIVE SURE มูลค่า 3,990 บาทตลอดปี'
+    },
+    oil:     null,
+    battery: null
+  };
+  function showCatHero(kind){
+    var cfg = HERO_BY_CAT[kind];
+    if (!cfg) {                                    /* หมวดนี้ยังไม่มีอาร์ตเวิร์ก — คืนสไลด์โปรฯ */
+      if (catPinned()) { showSlide(slideIx); playSlides(); }
+      return;
+    }
+    clearInterval(slideTimer);                     /* ค้างไว้ที่แบนเนอร์ของหมวด ไม่วนต่อ ไม่งั้นภาพจะเปลี่ยนเองจนผู้ใช้งง */
+    if (catImg.getAttribute('src') !== cfg.src) { catImg.src = cfg.src; catImg.alt = cfg.alt; }
+    slides.forEach(function(el){ el.classList.remove('is-on'); });
+    catSlide.classList.add('is-on');
+    heroDots.forEach(function(d){ d.setAttribute('aria-current', 'false'); });
   }
   heroDots.forEach(function(d, n){
     d.addEventListener('click', function(){ showSlide(n); playSlides(); });
@@ -2317,7 +2353,13 @@ ul{margin:0;padding:0;list-style:none}
   }
 
   finTabs.forEach(function(btn){
-    btn.addEventListener('click', function(){ openFin(btn.dataset.fin); armIdle(); });
+    btn.addEventListener('click', function(){
+      openFin(btn.dataset.fin);
+      /* เรียกตรงนี้ ไม่ใช่ใน openFin — openFin('tire') ถูกเรียกตอนโหลดหน้าด้วย
+         ถ้าไปสลับในนั้น แบนเนอร์โปรฯ สองใบจะโดนทับตั้งแต่วินาทีแรกจนไม่มีวันได้แสดง */
+      showCatHero(btn.dataset.fin);
+      armIdle();
+    });
   });
   finSwitch.addEventListener('click', function(){ bySize = !bySize; renderFinder(); });
 
