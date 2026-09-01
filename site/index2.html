@@ -433,7 +433,7 @@ ul{margin:0;padding:0;list-style:none}
 
 /* aspect-ratio มีผลเฉพาะตอนจอเล็กที่ .hero กลายเป็น display:block — ในโหมดสองคอลัมน์
    align-items:stretch กำหนดความสูงให้อยู่แล้ว ค่านี้จึงถูกมองข้าม */
-.hero__banner{animation:bannerIn 1.6s var(--ease-out) both;position:relative;flex:0 0 70%;min-width:0;
+.hero__banner{animation:bannerIn 1.6s var(--ease-out) both;position:relative;flex:0 0 80%;min-width:0;
   aspect-ratio:var(--hero-ar);overflow:hidden;z-index:0}
 /* สไลด์: ซ้อนทับกันแล้วสลับด้วย opacity — ไม่ใช้ transform เพราะจะสร้าง containing block
    ให้การ์ดค้นหาที่เป็น position:fixed ตอนลอย */
@@ -509,9 +509,11 @@ ul{margin:0;padding:0;list-style:none}
 .hero__inner{position:relative;z-index:3;width:100%;padding-top:0;padding-bottom:0}
 /* .wrap ของ section นี้คือแผงค้นหาคอลัมน์ขวา ไม่ใช่คอนเทนเนอร์จัดกึ่งกลางแบบ section อื่น */
 .hero > .wrap{
-  flex:0 0 30%;min-width:0;max-width:none;margin:0;padding:36px 28px;
+  flex:0 0 20%;min-width:0;max-width:none;margin:0;padding:32px 20px;
   background:#fff;display:flex;align-items:center;
 }
+/* แผงแคบลงมาก ระยะในการ์ดต้องหดตามไม่งั้นเนื้อหาเหลือความกว้างไม่พอ */
+.hero .finder{--fpad:16px}
 /* ไม่ต้องใช้ margin ดันแล้ว — .hero ยึดขอบบนให้ หัวการ์ดจึงนิ่งที่ padding-top ของ hero (172px)
    ก้นการ์ดยื่นพ้นขอบล่างแบนเนอร์ลงไปทับ section ขาวถัดไป ซึ่งเป็นสิ่งที่ตั้งใจ
    .hero__inner มี z-index:3 อยู่แล้ว สูงกว่า .pillars (z-index:2) การ์ดจึงอยู่บนสุด */
@@ -563,6 +565,14 @@ ul{margin:0;padding:0;list-style:none}
 .finder.is-idle .finder__tabs button[data-fin] svg{animation:finderNudge 4.8s var(--ease) infinite}
 .finder.is-idle .finder__tabs button[data-fin]:nth-child(2) svg{animation-delay:.24s}
 .finder.is-idle .finder__tabs button[data-fin]:nth-child(3) svg{animation-delay:.48s}
+/* โหมดสองคอลัมน์: แผงค้นหากว้าง 20% เหลือเนื้อในราว 213px — 3 แท็บเรียงนอนได้ช่องละ 64px
+   แต่ป้าย "น้ำมันเครื่อง" กว้าง 71px ล้นออกนอกปุ่ม จึงเรียงลงเป็น 3 แถวแทน
+   ไอคอนอยู่ซ้ายป้ายและชิดซ้ายเหมือนรายการเลือก อ่านง่ายกว่าจัดกลางในปุ่มแคบ ๆ
+   ต้องอยู่หลังกฎฐานในไฟล์ ไม่งั้น specificity เท่ากันแล้วกฎฐานชนะ */
+@media (min-width:1025px){
+  .finder__tabs{grid-template-columns:1fr;gap:8px}
+  .finder__tabs button[data-fin]{height:46px;justify-content:flex-start;padding:0 14px;font-size:var(--t-xs)}
+}
 .finder__tabs button[data-fin]:hover{background:var(--orange-dk);color:#fff}
 .finder__tabs button[data-fin]:hover::before{background:var(--orange-dk)}
 .finder__tabs button[data-fin]:hover svg{color:#fff}
