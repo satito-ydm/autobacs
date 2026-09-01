@@ -520,7 +520,9 @@ ul{margin:0;padding:0;list-style:none}
 .hero__inner{position:relative;z-index:3;width:100%;padding-top:0;padding-bottom:0;display:flex;justify-content:flex-end}
 /* margin-bottom ดันการ์ดขึ้นครึ่งหนึ่งของค่าที่ใส่ (เพราะ .hero จัดกึ่งกลางแนวตั้ง)
    60px = ขยับขึ้น 30px ซึ่งเป็นเพดานจริง ๆ แล้ว — เหลือระยะจากขอบล่าง topbar อีกแค่ ~16px */
-.hero__col{max-width:min(400px, 42vw);margin-bottom:60px;filter:drop-shadow(0 16px 30px rgba(30,30,30,.30))}
+/* การ์ดกว้าง 470px ไม่ใช่ 400px — ของข้างในถูกไล่ขยายตามด้วย (padding, หัวข้อ, แท็บ, ช่องกรอก, รูปยาง, ปุ่ม)
+   46vw คือเพดานตอนจอแคบลง สัดส่วนเท่าเดิมกับ 42vw ที่คู่กับ 400px */
+.hero__col{max-width:min(470px, 46vw);margin-bottom:60px;filter:drop-shadow(0 16px 30px rgba(30,30,30,.30))}
 /* ตอนการ์ดลอย (position:fixed) ต้องปิด filter — element ที่มี filter จะกลายเป็น containing block
    ของลูกที่ position:fixed ทำให้การ์ดไปเกาะกล่องนี้แทนที่จะเกาะขอบจอ */
 .hero__col.is-floating{filter:none}
@@ -528,22 +530,22 @@ ul{margin:0;padding:0;list-style:none}
 /* car finder — การ์ดขาวแคบ
    เปิดมาย่อไว้ก่อน: เห็นหัวข้อ + ปุ่มเลือกหมวด กดแล้วฟอร์มจึงกางลงมา */
 .finder{
-  position:relative;background:#fff;--fpad:22px;padding:var(--fpad);
+  position:relative;background:#fff;--fpad:26px;padding:var(--fpad);
   /* มุมขวาบนตัดเฉียง 45° ทิศเดียวกับรอยตัดระหว่าง section
      เงาย้ายไปไว้ที่ .hero__col เป็น drop-shadow แทน box-shadow เพราะ clip-path จะตัดเงาของตัวเองทิ้ง */
   clip-path:polygon(0 0, calc(100% - var(--fcut)) 0, 100% var(--fcut), 100% 100%, 0 100%);
 }
 
 /* หัวข้อของการ์ดค้นหา — เป็น h3 เท่ากับหัวข้อการ์ดใบอื่น ไม่ใช่ h2 ที่สงวนไว้ให้หัวข้อ section */
-.finder__title{font-size:var(--t-h3);color:var(--orange);line-height:1.35;text-align:center;margin-bottom:12px}
+.finder__title{font-size:calc(var(--t-h3) + 2px);color:var(--orange);line-height:1.35;text-align:center;margin-bottom:12px}
 
 .finder__tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .finder__tabs button[data-fin]{
   /* เรียงไอคอน-ป้ายเป็นแถวนอน เตี้ยกว่าแบบซ้อนลงครึ่งหนึ่ง — การ์ดกางค้างตลอดจึงต้องคุมความสูง */
   display:flex;align-items:center;justify-content:center;gap:8px;
-  position:relative;min-width:0;height:48px;padding:0 8px;
+  position:relative;min-width:0;height:54px;padding:0 8px;
   border:0;background:var(--orange);      /* พื้นกล่องนอกทำหน้าที่เป็นเส้นขอบ 1px */
-  font-size:var(--t-xs);font-weight:700;color:var(--ink);white-space:nowrap;
+  font-size:var(--t-sm);font-weight:700;color:var(--ink);white-space:nowrap;
   transition:background .18s var(--ease),color .18s var(--ease);
 }
 /* เส้นขอบทำด้วยการซ้อนพื้นในที่หดเข้ามา 1px — คงไว้แม้เลิกมุมตัดเฉียงแล้ว เพราะคุมสีพื้น/ขอบแยกกันได้ง่ายกว่า */
@@ -553,7 +555,7 @@ ul{margin:0;padding:0;list-style:none}
 }
 .finder__tabs button[data-fin] > *{position:relative;z-index:1}
 .finder__tabs button[data-fin] svg{
-  width:20px;height:20px;flex:0 0 auto;color:var(--ink);
+  width:22px;height:22px;flex:0 0 auto;color:var(--ink);
   transform-box:fill-box;transform-origin:center;   /* SVG ตั้งต้นหมุนรอบ view-box ต้องบังคับให้หมุนรอบตัวเอง */
 }
 
@@ -607,13 +609,14 @@ ul{margin:0;padding:0;list-style:none}
 /* เลขลำดับซ้อนอยู่ในช่อง ไม่ใช่ label ด้านบน — การ์ดแคบ ถ้ามี label แยกบรรทัดจะสูงเกินไป */
 .field__no{
   position:absolute;left:7px;top:50%;transform:translateY(-50%);pointer-events:none;
-  display:grid;place-items:center;width:22px;height:22px;
+  display:grid;place-items:center;width:24px;height:24px;
   background:var(--ink);color:#fff;
   font-family:'Archivo',sans-serif;font-size:var(--t-2xs);font-weight:800;
 }
 .field select{
-  /* 14px ไม่ใช่ 16px ของ control ทั่วไป — ช่องกว้าง ~113px ป้ายชื่อที่ 16px จะตกบรรทัด */
-  height:52px;padding:0 24px 0 36px;width:100%;font-size:var(--t-xs);
+  /* การ์ดกว้างขึ้นเป็น 470px แล้ว ช่องละ ~134px ป้ายชื่อที่ 16px จึงอยู่บรรทัดเดียวได้
+     (ตอนกว้าง 400px ช่องเหลือ ~113px ต้องใช้ 14px ไม่งั้นตกบรรทัด) */
+  height:58px;padding:0 26px 0 40px;width:100%;font-size:var(--t-sm);
   background:var(--cream);border:1px solid transparent;
   font-weight:600;color:var(--ink);appearance:none;cursor:pointer;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4.5L6 8.5L10 4.5' stroke='%23111114' stroke-width='1.6' fill='none' stroke-linecap='round'/></svg>");
@@ -629,13 +632,13 @@ ul{margin:0;padding:0;list-style:none}
 /* ภาพอธิบายขนาดยาง — กินขอบการ์ดทั้งสองข้างด้วย margin ติดลบเท่า padding การ์ด
    ผูก aspect-ratio ไว้กับสัดส่วนไฟล์ → การ์ดกว้างเท่าไหร่สัดส่วนก็คงที่ ไม่ตัดหมุดทิ้ง */
 /* ภาพประกอบ ไม่ใช่พระเอกของการ์ด — ล็อกความสูงไว้แทนการอิงสัดส่วนต้นฉบับ ให้การ์ดไม่ยืดเกินแบนเนอร์ */
-.tirefig{margin:12px calc(var(--fpad) * -1) 0;height:118px;overflow:hidden}
+.tirefig{margin:12px calc(var(--fpad) * -1) 0;height:138px;overflow:hidden}
 .tirefig[hidden]{display:none}
 .tirefig img{display:block;width:100%;height:100%;object-fit:cover}
 /* ตอนการ์ดลอยไปมุมจอ กว้างแค่ 300px — ตัดภาพออก ไม่งั้นแผงสูงเกินจอ */
 .finder.is-stuck .tirefig{display:none}
 
-.finder__go{width:100%;margin-top:12px}
+.finder__go{width:100%;height:54px;margin-top:12px}
 
 /* ลิงก์ข้ามการกรอง — ขีดเส้นใต้เฉพาะตัวอักษร ลูกศรไม่โดนขีด จึงห่อข้อความไว้ใน span */
 .finder__all{
@@ -678,7 +681,12 @@ ul{margin:0;padding:0;list-style:none}
 .finder.is-stuck .finder__panelInner{text-align:left}
 .finder.is-stuck .finder__sub button{margin-left:0;margin-right:auto}
 .finder.is-stuck .finder__all{justify-content:flex-start}
+/* แผงลอยยังกว้าง 380px เท่าเดิม ไม่ได้ขยายตามการ์ดในแบนเนอร์
+   จึงต้องคืนขนาดของข้างในกลับเป็นชุดเดิม ไม่งั้นแท็บกับช่องกรอกจะล้นกล่อง */
 .finder.is-stuck .finder__tabs{gap:7px}
+.finder.is-stuck .finder__tabs button[data-fin]{font-size:var(--t-xs)}
+.finder.is-stuck .field select{height:46px;padding:0 24px 0 36px;font-size:var(--t-xs)}
+.finder.is-stuck .field__no{width:22px;height:22px}
 .finder.is-stuck .finder__go{height:auto;min-height:46px;padding:12px 14px;font-size:var(--t-sm);white-space:normal;line-height:1.35}
 /* ตอนลอยการ์ดกว้าง 300px — 3 ช่องเรียงแนวนอนจะเหลือช่องละ 84px ป้ายชื่อโดนตัด
    คืนเป็นเรียงลงแทน ความสูงไม่เป็นปัญหาเพราะโหมดลอยเลื่อนในตัวได้อยู่แล้ว */
@@ -691,8 +699,6 @@ ul{margin:0;padding:0;list-style:none}
   flex-direction:column;gap:5px;height:auto;min-height:62px;padding:10px 4px 8px;
 }
 .finder.is-stuck .finder__tabs button[data-fin] svg{display:block;width:18px;height:18px}
-/* ช่องกรอกเรียงลง 3 แถวในแผงแคบ — ลดความสูงลงหน่อยไม่ให้แผงยาวเกินจอ */
-.finder.is-stuck .field select{height:46px}
 .finder.is-stuck .finder__panelInner{padding-top:14px}
 /* สองปุ่มเรียงข้างกันไม่พอกว้างตอนลอย — ซ้อนเป็นแถวเดียว */
 .finder.is-stuck .finder__extra{grid-template-columns:1fr;gap:8px}
@@ -1457,8 +1463,13 @@ ul{margin:0;padding:0;list-style:none}
   .hero__inner{padding-top:20px}
   .hero__arrow{display:none}   /* จอเล็กใช้จุดบอกตำแหน่งแทน ลูกศรบังรูป */
   .finder{--fpad:18px}
+  .field select{height:52px;padding:0 24px 0 36px;font-size:var(--t-xs)}
+  .field__no{width:22px;height:22px}
   .finder__tabs{gap:8px}
-  .finder__tabs button[data-fin]{height:88px;gap:7px}   /* ขนาดตัวเท่า desktop — การ์ดกว้างพอ */
+  /* จอนี้ปุ่มกว้างแค่ ~96px แต่ไอคอน 38px + ป้าย เรียงแนวนอนต้องใช้ถึง 132px จึงล้นออกนอกปุ่ม
+     ความสูง 88px ที่ตั้งไว้บ่งบอกว่าตั้งใจให้เรียงลงอยู่แล้ว แต่ไม่ได้ตั้ง flex-direction ไว้
+     เรียงไอคอนเหนือป้าย + ป้ายกลับเป็น 14px (16px ของจอใหญ่กว้างเกินปุ่มนี้) */
+  .finder__tabs button[data-fin]{flex-direction:column;height:88px;gap:7px;font-size:var(--t-xs)}
   .finder__tabs button[data-fin] svg{width:38px;height:38px}
   .pillars__grid{grid-template-columns:1fr}
   .pillar{min-height:0}
