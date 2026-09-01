@@ -2343,12 +2343,23 @@ ul{margin:0;padding:0;list-style:none}
      สลับหมวดทีแผงจะหด ความสูง hero เปลี่ยนตาม แล้วทั้งหน้าเลื่อนขึ้นลง
      เก็บเป็นค่าสูงสุดที่เคยเจอ ไม่ใช่ px ตายตัว จะได้ถูกต้องทุก breakpoint โดยไม่ต้องเรนเดอร์ซ้ำเพื่อวัด */
   var finderMinH = 0;
+  /* ประกาศตัวแปรเอง ไม่พึ่ง global ที่เบราว์เซอร์สร้างให้จาก id */
+  var finPanel      = document.getElementById('finPanel');
+  var finPanelInner = finderBox.querySelector('.finder__panelInner');
   function lockFinderHeight(){
     finderBox.style.minHeight = '';          /* ปลดก่อนวัด ไม่งั้นได้ค่าเก่ากลับมา */
-    var h = finderBox.offsetHeight;
+    /* .finder__panel กางด้วย grid-template-rows 0fr -> 1fr ใน .4s — ถ้าวัดกล่องตรง ๆ
+       ระหว่างที่มันยังกางไม่สุดจะได้ค่าต่ำกว่าจริงมาก (ตอนโหลดครั้งแรกวัดได้ 169px
+       ทั้งที่ของจริง 707px) แล้วค่าผิดนั้นถูกล็อกไว้ พอกดหมวดอื่น section จึงยุบ
+       จึงถอดความสูงของกล่องที่กำลังอนิเมตออก แล้วบวกความสูงจริงของเนื้อในเข้าไปแทน
+       วิธีนี้ได้ค่าถูกต้องทันทีโดยไม่ต้องรอ transition จบ */
+    var h = finderBox.offsetHeight - finPanel.offsetHeight + finPanelInner.offsetHeight;
     if (h > finderMinH) finderMinH = h;
     finderBox.style.minHeight = finderMinH + 'px';
   }
+  /* ฟอนต์เว็บโหลดเสร็จทีหลัง ความสูงข้อความเปลี่ยน — วัดซ้ำอีกรอบ (ค่าล็อกมีแต่โตขึ้น) */
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(lockFinderHeight);
+  window.addEventListener('load', lockFinderHeight);
   /* เปลี่ยนความกว้างจอแล้วความสูงที่ล็อกไว้ใช้ไม่ได้ ต้องเริ่มวัดใหม่ */
   var lockTimer = null;
   window.addEventListener('resize', function(){
