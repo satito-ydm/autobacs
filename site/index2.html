@@ -433,7 +433,7 @@ ul{margin:0;padding:0;list-style:none}
 
 /* aspect-ratio มีผลเฉพาะตอนจอเล็กที่ .hero กลายเป็น display:block — ในโหมดสองคอลัมน์
    align-items:stretch กำหนดความสูงให้อยู่แล้ว ค่านี้จึงถูกมองข้าม */
-.hero__banner{animation:bannerIn 1.6s var(--ease-out) both;position:relative;flex:0 0 70%;min-width:0;
+.hero__banner{animation:bannerIn 1.6s var(--ease-out) both;position:relative;flex:0 0 75%;min-width:0;
   aspect-ratio:var(--hero-ar);overflow:hidden;z-index:0}
 /* สไลด์: ซ้อนทับกันแล้วสลับด้วย opacity — ไม่ใช้ transform เพราะจะสร้าง containing block
    ให้การ์ดค้นหาที่เป็น position:fixed ตอนลอย */
@@ -509,7 +509,7 @@ ul{margin:0;padding:0;list-style:none}
 .hero__inner{position:relative;z-index:3;width:100%;padding-top:0;padding-bottom:0}
 /* .wrap ของ section นี้คือแผงค้นหาคอลัมน์ขวา ไม่ใช่คอนเทนเนอร์จัดกึ่งกลางแบบ section อื่น */
 .hero > .wrap{
-  flex:0 0 30%;min-width:0;max-width:none;margin:0;padding:22px 28px;
+  flex:0 0 25%;min-width:0;max-width:none;margin:0;padding:22px 22px;
   background:#fff;display:flex;align-items:center;
 }
 /* แผงแคบกว่าการ์ดตอนลอยทับแบนเนอร์ (470px) ระยะในการ์ดจึงหดลงหน่อย */
@@ -565,13 +565,19 @@ ul{margin:0;padding:0;list-style:none}
 .finder.is-idle .finder__tabs button[data-fin] svg{animation:finderNudge 4.8s var(--ease) infinite}
 .finder.is-idle .finder__tabs button[data-fin]:nth-child(2) svg{animation-delay:.24s}
 .finder.is-idle .finder__tabs button[data-fin]:nth-child(3) svg{animation-delay:.48s}
-/* โหมดสองคอลัมน์: แผงค้นหากว้าง 20% เหลือเนื้อในราว 213px — 3 แท็บเรียงนอนได้ช่องละ 64px
-   แต่ป้าย "น้ำมันเครื่อง" กว้าง 71px ล้นออกนอกปุ่ม จึงเรียงลงเป็น 3 แถวแทน
-   ไอคอนอยู่ซ้ายป้ายและชิดซ้ายเหมือนรายการเลือก อ่านง่ายกว่าจัดกลางในปุ่มแคบ ๆ
+/* โหมดสองคอลัมน์: 3 แท็บเรียงนอนเป็นกล่องเกือบจัตุรัส ช่องละ ~104px
+   ไอคอนวางเหนือป้าย ไม่ใช่ข้างกันแบบเดิม — เรียงข้างกันต้องใช้ 117px ("น้ำมันเครื่อง" 71
+   + ไอคอน 22 + ช่องไฟ 8 + padding 16) ซึ่งล้นช่อง · วางซ้อนลงมาแล้วป้ายใช้แค่ 71px พอดี
    ต้องอยู่หลังกฎฐานในไฟล์ ไม่งั้น specificity เท่ากันแล้วกฎฐานชนะ */
 @media (min-width:1025px){
-  .finder__tabs{grid-template-columns:1fr;gap:8px}
-  .finder__tabs button[data-fin]{height:46px;justify-content:flex-start;padding:0 14px;font-size:var(--t-xs)}
+  .finder__tabs{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  /* แผง 25% เหลือช่องแท็บละ ~85px ป้าย "น้ำมันเครื่อง" ที่ 14px กว้าง 71px เฉียดขอบมาก
+     ลดเป็น 13px (--t-2xs) กับ padding 4px เพื่อให้มีระยะเหลือจริง */
+  .finder__tabs button[data-fin]{
+    flex-direction:column;justify-content:center;gap:8px;
+    height:104px;padding:12px 4px;font-size:var(--t-2xs);
+  }
+  .finder__tabs button[data-fin] svg{width:32px;height:32px}
 }
 .finder__tabs button[data-fin]:hover{background:var(--orange-dk);color:#fff}
 .finder__tabs button[data-fin]:hover::before{background:var(--orange-dk)}
@@ -624,8 +630,8 @@ ul{margin:0;padding:0;list-style:none}
 /* ภาพอธิบายขนาดยาง — กินขอบการ์ดทั้งสองข้างด้วย margin ติดลบเท่า padding การ์ด
    ผูก aspect-ratio ไว้กับสัดส่วนไฟล์ → การ์ดกว้างเท่าไหร่สัดส่วนก็คงที่ ไม่ตัดหมุดทิ้ง */
 /* ภาพประกอบ ไม่ใช่พระเอกของการ์ด — ล็อกความสูงไว้แทนการอิงสัดส่วนต้นฉบับ ให้การ์ดไม่ยืดเกินแบนเนอร์ */
-/* 108px ไม่ใช่ 138 — ความสูง section แรกถูกกำหนดโดยแผงค้นหา ต้องคุมไม่ให้เกิน 800px */
-.tirefig{margin:10px calc(var(--fpad) * -1) 0;height:108px;overflow:hidden}
+/* ความสูง section แรกถูกกำหนดโดยแผงค้นหา เพดานที่ตกลงกันไว้คือ 900px */
+.tirefig{margin:10px calc(var(--fpad) * -1) 0;height:130px;overflow:hidden}
 .tirefig[hidden]{display:none}
 .tirefig img{display:block;width:100%;height:100%;object-fit:cover}
 
@@ -640,6 +646,20 @@ ul{margin:0;padding:0;list-style:none}
 .finder__all span{border-bottom:1px solid currentColor;padding-bottom:1px}
 .finder__all svg{flex:0 0 auto}
 .finder__all:hover{color:var(--orange)}
+
+/* ทางลัดสองปุ่ม — คนละกลุ่มกับการค้นหาสินค้า จึงคั่นด้วยเส้นบาง
+   กรอบเส้นบนพื้นขาว ไม่ใช่ปุ่มทึบ เพราะไม่ใช่ปุ่มหลักของแผง (ปุ่มหลักคือ "ค้นหาเลย") */
+.finder__extra{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;
+  margin-top:16px;padding-top:16px;border-top:1px solid var(--line);
+}
+.finder__xbtn{
+  width:100%;height:46px;padding:0 10px;
+  background:#fff;color:var(--ink);border:1px solid var(--ink);
+  font-size:var(--t-xs);font-weight:700;white-space:nowrap;
+  transition:background .18s var(--ease),color .18s var(--ease);
+}
+.finder__xbtn:hover{background:var(--ink);color:#fff}
 
 .finder__toggle{
   display:inline-flex;align-items:center;gap:6px;margin-top:14px;
@@ -1585,6 +1605,10 @@ ul{margin:0;padding:0;list-style:none}
             </a>
 
             <!-- ทางลัดที่ไม่เกี่ยวกับการค้นหาสินค้า — คั่นด้วยเส้นให้อ่านเป็นคนละกลุ่มกับปุ่มค้นหา -->
+            <div class="finder__extra">
+              <a href="#" class="btn finder__xbtn">จองบริการ</a>
+              <a href="#branches" class="btn finder__xbtn">ค้นหาสาขาใกล้ฉัน</a>
+            </div>
 
             <button type="button" class="finder__toggle" id="finToggle" aria-controls="finPanel" aria-expanded="false">
               ซ่อน
