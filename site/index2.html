@@ -477,11 +477,11 @@ ul{margin:0;padding:0;list-style:none}
    ชิดมุมซ้ายล่างของแบนเนอร์ ไม่อ้างแนว .wrap · ตัวอักษรเล็ก เป็นข้อมูลประกอบไม่ใช่พาดหัว */
 .hero__promo{
   position:absolute;left:0;right:0;bottom:0;z-index:2;pointer-events:none;
-  /* พาดหัวกับลิงก์อยู่บรรทัดเดียวกัน ชิดขอบล่าง — flex-wrap ไว้เผื่อจอแคบที่ข้อความยาวเกิน
-     ขอบซ้ายไม่อ้าง .wrap แล้ว ชิดมุมซ้ายของแบนเนอร์ไปเลย เว้นแค่ --gutter กันตัวอักษรติดขอบจอ */
-  display:flex;align-items:center;justify-content:flex-start;gap:18px;flex-wrap:wrap;
+  /* พาดหัวกับลิงก์อยู่บรรทัดเดียวกัน จัดกึ่งกลางแนวนอนของภาพ — flex-wrap ไว้เผื่อจอแคบที่ข้อความยาวเกิน
+     ที่ไม่ชิดซ้ายแล้วเพราะมุมล่างซ้ายของแบนเนอร์ถูกลิ่ม 45° เฉือนไป 88px ข้อความจะโดนตัด */
+  display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;
   padding:100px var(--gutter) 18px;
-  text-align:left;color:#fff;
+  text-align:center;color:#fff;
   /* เฟดส้มแทนเฟดดำ — ไล่จากส้มเข้ม (เกือบน้ำตาล) ขึ้นไปหาส้มสดแล้วจางหาย
      ค่าล่างสุดต้องเข้มระดับนี้ ตัวอักษรขาว 14px ถึงจะผ่าน contrast AA
      ถ้าใช้ --orange (#F36F21) ตรง ๆ ขาวบนส้มจะได้แค่ ~2.9:1 อ่านยาก */
@@ -1551,17 +1551,11 @@ ul{margin:0;padding:0;list-style:none}
 <!-- ============ 3. hero ============ -->
 <section class="hero">
   <div class="hero__banner" id="heroBanner">
+    <!-- สไลด์โปรฯ ใบเดียว ยังไม่มีตัวที่สอง — ปุ่มเลื่อนกับจุดบอกตำแหน่งจึงถูกซ่อนด้วย JS
+         ไม่มีกล่องข้อความทับ อาร์ตเวิร์กใบนี้มีพาดหัว เบอร์โทร และไอคอนบริการอยู่ในภาพครบแล้ว
+         ถ้าใส่ทับ แถบไล่เฉดส้มจะบังไอคอนสี่จุดที่มุมล่างขวา -->
     <div class="hero__slide is-on">
-      <img src="assets/hero-slide-1.jpg" alt="AUTOBACS x PT — YOUR DRIVE YOUR WAY · น้ำมันเครื่อง Combo Set แถมฟรีไส้กรอง แหวนรอง และค่าแรง มูลค่า 209 บาท · อะไหล่ซ่อมบำรุงลดสูงสุด 30% · ยางแบรนด์ดัง 3 แถม 1 ราคาเริ่มต้น 1,790 บาท" fetchpriority="high">
-      <div class="hero__promo">
-        <p class="hero__promo-title">ยางแบรนด์ดัง <span class="hl">3 แถม 1</span> เริ่มต้น 1,790.-</p>
-        <a href="#" class="hero__promo-link">ดูรายละเอียด <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      </div>
-    </div>
-    <div class="hero__slide">
-      <img src="assets/hero-tire.jpg" alt="ยางใหม่แบรนด์ดัง 2025 ลดสูงสุด 50% เฉพาะรุ่นที่ร่วมรายการ ฟรีแพ็กเกจดูแลรถยนต์ AUTOBACS DRIVE SURE มูลค่า 3,990 บาทตลอดปี" loading="lazy">
-      <!-- ไม่มีกล่องข้อความโปรฯ ทับ — อาร์ตเวิร์กใบนี้มีพาดหัวกับส่วนลดอยู่ในภาพครบแล้ว
-           ถ้าใส่ทับจะไปซ้อนกับตัวหนังสือในรูปฝั่งซ้ายพอดี -->
+      <img src="assets/hero-main.jpg" alt="AUTOBACS x PT — YOUR DRIVE YOUR WAY ทุกการขับขี่ เลือกความคุ้มได้ในแบบคุณ · ศูนย์บริการรถยนต์ครบวงจร มาตรฐานญี่ปุ่น โทร 065-504-8000" fetchpriority="high">
     </div>
 
     <!-- สไลด์ของหมวดที่เลือกในการ์ดค้นหา — ไม่นับรวมในสไลด์โปรฯ ที่วนอัตโนมัติ
@@ -1577,7 +1571,6 @@ ul{margin:0;padding:0;list-style:none}
 
     <div class="hero__dots" id="heroDots">
       <button type="button" aria-current="true" aria-label="แบนเนอร์ที่ 1"></button>
-      <button type="button" aria-current="false" aria-label="แบนเนอร์ที่ 2"></button>
     </div>
   </div>
   <div class="hero__scrim"></div>
@@ -2179,6 +2172,15 @@ ul{margin:0;padding:0;list-style:none}
   var heroDots = document.querySelectorAll('#heroDots button');
   var heroBox  = document.getElementById('heroBanner');
   var slideIx  = 0, slideTimer = null;
+
+  /* มีสไลด์โปรฯ ใบเดียวก็ไม่ต้องมีปุ่มเลื่อนหรือจุดบอกตำแหน่ง — ซ่อนทิ้ง
+     (เก็บ markup ไว้ พอเพิ่มสไลด์ใบที่สองกลับมาก็โผล่เองโดยไม่ต้องแก้ JS) */
+  if (slides.length < 2) {
+    ['heroPrev','heroNext','heroDots'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+  }
 
   function catPinned(){ return catSlide.classList.contains('is-on'); }
 
