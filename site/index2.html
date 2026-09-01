@@ -467,13 +467,24 @@ ul{margin:0;padding:0;list-style:none}
 /* ปุ่มเลื่อนสไลด์ — วางกึ่งกลางแนวตั้ง เหนือการ์ดค้นหาที่กินพื้นที่มุมล่างซ้าย */
 .hero__arrow{
   position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+  isolation:isolate;
   display:grid;place-items:center;width:44px;height:44px;color:#fff;
-  background:rgba(30,30,30,.45);border:1px solid rgba(255,255,255,.38);
-  backdrop-filter:blur(6px);
+  /* เส้นขอบทำด้วยพื้นสองชั้น ไม่ใช่ border — clip-path ตัด border ทิ้งไปพร้อมมุม
+     ขอบจึงไม่วิ่งตามรอยเฉียง (วิธีเดียวกับที่ .btn--ghost ใช้)
+     ชั้นนอกเป็นสีขอบ · ::before หดเข้ามา 1px เป็นสีพื้นจริง · รอยเฉียงชั้นในเล็กกว่า 1px ตามสัดส่วน */
+  background:rgba(255,255,255,.38);border:0;
   clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
-  transition:background .18s var(--ease),border-color .18s var(--ease),color .18s var(--ease);
+  transition:background .18s var(--ease),color .18s var(--ease);
 }
-.hero__arrow:hover{background:var(--orange);border-color:var(--orange);color:#fff}
+.hero__arrow::before{
+  content:"";position:absolute;inset:1px;z-index:-1;
+  background:rgba(30,30,30,.45);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  clip-path:polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 0 100%);
+  transition:background .18s var(--ease);
+}
+.hero__arrow:hover{background:var(--orange);color:#fff}
+.hero__arrow:hover::before{background:var(--orange)}
 .hero__arrow--prev{left:22px}
 .hero__arrow--next{right:22px}
 .hero__dots button[aria-current="true"]{background:#fff;width:42px}
@@ -815,13 +826,24 @@ ul{margin:0;padding:0;list-style:none}
    ตัวลูกศรวางอยู่บนพื้นดำของแถบ ไม่ได้อยู่บนรูป สิ่งที่ทำให้เห็นคือขอบขาวกับไอคอนขาว */
 .promo__nav{
   position:absolute;top:50%;transform:translateY(-50%);z-index:4;
+  isolation:isolate;
   display:grid;place-items:center;width:44px;height:44px;color:#fff;
-  background:rgba(30,30,30,.45);border:1px solid rgba(255,255,255,.38);
-  backdrop-filter:blur(6px);
+  /* เส้นขอบทำด้วยพื้นสองชั้น ไม่ใช่ border — clip-path ตัด border ทิ้งไปพร้อมมุม
+     ขอบจึงไม่วิ่งตามรอยเฉียง (วิธีเดียวกับที่ .btn--ghost ใช้)
+     ชั้นนอกเป็นสีขอบ · ::before หดเข้ามา 1px เป็นสีพื้นจริง · รอยเฉียงชั้นในเล็กกว่า 1px ตามสัดส่วน */
+  background:rgba(255,255,255,.38);border:0;
   clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
-  transition:background .18s var(--ease),border-color .18s var(--ease),color .18s var(--ease);
+  transition:background .18s var(--ease),color .18s var(--ease);
 }
-.promo__nav:hover{background:var(--orange);border-color:var(--orange);color:#fff}
+.promo__nav::before{
+  content:"";position:absolute;inset:1px;z-index:-1;
+  background:rgba(30,30,30,.45);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  clip-path:polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 0 100%);
+  transition:background .18s var(--ease);
+}
+.promo__nav:hover{background:var(--orange);color:#fff}
+.promo__nav:hover::before{background:var(--orange)}
 .promo__nav--prev{left:clamp(12px, 4vw, 72px)}
 .promo__nav--next{right:clamp(12px, 4vw, 72px)}
 
