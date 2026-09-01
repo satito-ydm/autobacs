@@ -1002,6 +1002,9 @@ ul{margin:0;padding:0;list-style:none}
 /* ลิงก์เปรียบเทียบ — คั่นจากปุ่มด้วยเส้นคั่น ตาม wireframe */
 /* ปุ่มในการ์ดสินค้าเตี้ยกว่าปุ่มมาตรฐานหนึ่งขั้น — การ์ดมีของเรียงกันเยอะ ความสูงสะสมเร็ว */
 .product .btn{width:100%}
+/* กล่องห่อปุ่มตะกร้า+ลิงก์เปรียบเทียบ — จอใหญ่ให้มันไม่มีตัวตน ทั้งสองยังเรียงลงเป็นลูกของการ์ดตามเดิม
+   จอมือถือถึงจะกลายเป็นแถวเดียว (ดู @media max-width:720px) */
+.product__actions{display:contents}
 
 .product__compare{
   display:flex;align-items:center;justify-content:center;gap:8px;
@@ -1643,6 +1646,15 @@ ul{margin:0;padding:0;list-style:none}
   .products::-webkit-scrollbar{display:none}
   .products > *{flex:0 0 78%;scroll-snap-align:start}
   .product__media{aspect-ratio:1/1;padding:16px}
+  /* ปุ่มตะกร้ากับลิงก์เปรียบเทียบอยู่บรรทัดเดียวกัน — การ์ดในรางจึงเตี้ยลงหนึ่งขั้น
+     เส้นคั่นของลิงก์ย้ายจากขอบบนมาอยู่ขอบซ้าย เพราะมันไปอยู่ "ข้าง" ปุ่มแล้ว ไม่ใช่ "ใต้" ปุ่ม */
+  .product__actions{display:flex;align-items:center;gap:10px}
+  .product .btn--block{width:auto;flex:1 1 auto;min-width:0;padding:0 12px}
+  .product__compare{
+    flex:0 0 auto;gap:6px;margin-top:0;padding:0 0 0 10px;
+    border-top:0;border-left:1px solid var(--line);
+    font-size:var(--t-2xs);white-space:nowrap;
+  }
   .product__name{min-height:0}
   .step__head{gap:14px}
   /* พันธมิตร: บังคับแถวละ 3 ตัว — ตัวคั่น 7/5/6 ของจอใหญ่จึงไม่ต้องใช้
@@ -2920,8 +2932,10 @@ ul{margin:0;padding:0;list-style:none}
           (p.was ? '<span class="was">' + baht(p.was) + '</span>' : '') +
         '</div>' +
         (p.member ? '<div class="product__member"><img src="assets/brand/ptmax-card-chip.png" alt="\u0e1a\u0e31\u0e15\u0e23 PT max Card" loading="lazy">\u0e2a\u0e21\u0e32\u0e0a\u0e34\u0e01 PT MAX \u0e40\u0e2b\u0e25\u0e37\u0e2d <strong>' + baht(p.member) + '</strong></div>' : '') +
-        '<button class="btn btn--ink btn--block">' + ICO_CART + '\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e25\u0e07\u0e15\u0e30\u0e01\u0e23\u0e49\u0e32</button>' +
-        '<a href="#" class="product__compare">' + ICO_CMP + '\u0e40\u0e1b\u0e23\u0e35\u0e22\u0e1a\u0e40\u0e17\u0e35\u0e22\u0e1a</a>' +
+        '<div class="product__actions">' +
+          '<button class="btn btn--ink btn--block">' + ICO_CART + '\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e25\u0e07\u0e15\u0e30\u0e01\u0e23\u0e49\u0e32</button>' +
+          '<a href="#" class="product__compare">' + ICO_CMP + '\u0e40\u0e1b\u0e23\u0e35\u0e22\u0e1a\u0e40\u0e17\u0e35\u0e22\u0e1a</a>' +
+        '</div>' +
       '</div></article>';
   }
 
