@@ -446,9 +446,12 @@ ul{margin:0;padding:0;list-style:none}
    ให้การ์ดค้นหาที่เป็น position:fixed ตอนลอย */
 .hero__slide{position:absolute;inset:0;opacity:0;transition:opacity .8s var(--ease)}
 .hero__slide.is-on{opacity:1}
-/* ยึดมุมซ้ายบน — คอลัมน์แบนเนอร์แคบกว่าสัดส่วนภาพมาก การครอปจึงกินจากขวาอย่างเดียว
-   ซึ่งเป็นฝั่งที่เป็นพื้นหลัง (ร้าน/ท้องฟ้า) ส่วนพาดหัวกับราคาที่อยู่ซ้ายรอด */
-.hero__slide img{width:100%;height:100%;object-fit:cover;object-position:0% 0%}
+/* คอลัมน์แบนเนอร์ (1069px) แคบกว่าสัดส่วนไฟล์ (1430px) การครอปจึงกินด้านข้างเสมอ
+   ค่าตั้งต้นยึดซ้าย = ตัดจากขวา ใช้กับใบที่วางพาดหัวและราคาไว้ฝั่งซ้าย
+   ใบที่วางเนื้อหาไว้ฝั่งขวาต้องใส่ .hero__slide--focus-right เพื่อกลับด้านการตัด
+   ไม่งั้นโปรโมชั่นจะโดนเฉือนหายทั้งก้อน */
+.hero__slide img{width:100%;height:100%;object-fit:cover;object-position:0% 50%}
+.hero__slide--focus-right img{object-position:100% 50%}
 
 /* จุดบอกตำแหน่งวางมุมบนขวา — มุมล่างของอาร์ตเวิร์กมี fine print ส่วนล่างซ้ายเป็นการ์ดค้นหา */
 .hero__dots{position:absolute;top:18px;right:22px;z-index:3;display:flex;gap:7px}
@@ -1557,6 +1560,11 @@ ul{margin:0;padding:0;list-style:none}
     <div class="hero__slide is-on">
       <img src="assets/hero-main.jpg" alt="AUTOBACS x PT — YOUR DRIVE YOUR WAY ทุกการขับขี่ เลือกความคุ้มได้ในแบบคุณ · ศูนย์บริการรถยนต์ครบวงจร มาตรฐานญี่ปุ่น โทร 065-504-8000" fetchpriority="high">
     </div>
+    <!-- ใบนี้วางพาดหัวกับกล่องโปรฯ ไว้ฝั่งขวาทั้งหมด ถ้าตัดจากขวาตามค่าตั้งต้นจะเสียเนื้อหาไปทั้งก้อน
+         จึงยึดขวาแล้วให้ไปตัดฝั่งซ้ายซึ่งเป็นภาพร้านกับถนนแทน -->
+    <div class="hero__slide hero__slide--focus-right">
+      <img src="assets/hero-main-2.jpg" alt="AUTOBACS x PT — YOUR DRIVE YOUR WAY · น้ำมันเครื่อง Combo Set ฟรีไส้กรอง แหวนรอง และค่าแรง มูลค่า 209 บาท · อะไหล่ซ่อมบำรุงลดสูงสุด 30% · ยางแบรนด์ดัง 3 แถม 1 ราคาเริ่มต้น 1,790 บาท" loading="lazy">
+    </div>
 
     <!-- สไลด์ของหมวดที่เลือกในการ์ดค้นหา — ไม่นับรวมในสไลด์โปรฯ ที่วนอัตโนมัติ
          ไม่มี src ตั้งแต่แรก JS จะใส่ให้ตอนผู้ใช้กดแท็บ ภาพจึงไม่ถูกโหลดถ้าไม่มีใครกด -->
@@ -1571,6 +1579,7 @@ ul{margin:0;padding:0;list-style:none}
 
     <div class="hero__dots" id="heroDots">
       <button type="button" aria-current="true" aria-label="แบนเนอร์ที่ 1"></button>
+      <button type="button" aria-current="false" aria-label="แบนเนอร์ที่ 2"></button>
     </div>
   </div>
   <div class="hero__scrim"></div>
@@ -2209,7 +2218,10 @@ ul{margin:0;padding:0;list-style:none}
       src: 'assets/hero-oil.jpg',
       alt: 'YOUR ENGINE YOUR WAY — น้ำมันเครื่อง Combo Set เริ่มต้น 790 บาท ฟรีไส้กรอง แหวนรอง ค่าแรง มูลค่า 209 บาท และรับฟรี PT Max Card Plus มูลค่า 599 บาท'
     },
-    battery: null
+    battery: {
+      src: 'assets/hero-battery.jpg',
+      alt: 'เปลี่ยนแบตเตอรี่ อึด ทน แรง พร้อมลุยทุกเส้นทาง มั่นใจทุกการเดินทาง เริ่มต้นเพียง 1,890 บาท — 3K BATTERY POWER MAX'
+    }
   };
   /* โหลดรูปของทุกหมวดไว้ล่วงหน้าตอนเบราว์เซอร์ว่าง — กดแท็บครั้งแรกจะได้ไม่เห็นแบนเนอร์ว่าง
      ก่อนรูปจะมา · ไม่แตะ src ของ <img> จริง ปล่อยให้ browser cache ทำงานแทน */
@@ -2241,6 +2253,9 @@ ul{margin:0;padding:0;list-style:none}
       catSlide.classList.add('is-on');
       heroDots.forEach(function(d){ d.setAttribute('aria-current', 'false'); });
     }
+    /* ทุกใบที่มีตอนนี้วางเนื้อหาไว้ฝั่งซ้าย จึงใช้ค่าตั้งต้น (ยึดซ้าย ตัดขวา)
+       ถ้าวันหลังมีใบที่เนื้อหาอยู่ขวา ใส่ pos:'100% 50%' ใน HERO_BY_CAT ของใบนั้น */
+    catImg.style.objectPosition = cfg.pos || '';
     if (catImg.getAttribute('src') !== cfg.src) {
       catImg.alt = cfg.alt;
       if (catReady[cfg.src]) { catImg.src = cfg.src; swap(); }   /* พรีโหลดไว้แล้ว สลับได้เลย */
