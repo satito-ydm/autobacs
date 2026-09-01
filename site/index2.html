@@ -755,11 +755,12 @@ ul{margin:0;padding:0;list-style:none}
    ต้องดึงตัวเองขึ้นไปซ้อนทับ .pillars เท่าความลึกลิ่มก่อน ลิ่มถึงจะเผยพื้นจริงของ section
    ด้านบน (ขาว + อาร์ตเวิร์ก) ถ้าไม่ดึงขึ้น ลิ่มจะเผยพื้นเปล่าของ body แทน
    z-index เท่ากับ .pillars แต่อยู่หลังใน DOM จึงทับลงมาเอง ไม่ต้องตั้งค่าเพิ่ม
-   padding บนเผื่อ --notch ไว้ เนื้อหาจะได้ไม่ขยับขึ้นตามระยะที่ดึง */
+   padding บนไม่ต้องเผื่อ --notch — ระยะที่ดึงขึ้นถูกชดเชยด้วย padding ล่างของ .pillars แล้ว
+   ถ้าเผื่อทั้งสองที่จะนับซ้ำ กลายเป็นพื้นดำเปล่า 88px เหนือหัวข้อ */
 .offers{
   position:relative;z-index:1;
   margin-top:calc(var(--notch) * -1);
-  padding:calc(var(--section) + var(--notch)) 0 calc(var(--section) - 12px);
+  padding:var(--section) 0 calc(var(--section) - 12px);
   clip-path:polygon(0 0, calc(100% - var(--notch)) 0, 100% var(--notch), 100% 100%, 0 100%);
 }
 /* ---------- ไฮไลต์ข้อเสนอ — สไลด์รูปล้วน ----------
