@@ -135,7 +135,7 @@ ul{margin:0;padding:0;list-style:none}
 }
 .link-arrow::before{
   content:"";position:absolute;inset:1px;z-index:-1;background:#fff;
-  clip-path:polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 0 100%);
+  clip-path:polygon(0 0, calc(100% - 11.41px) 0, 100% 11.41px, 100% 100%, 0 100%);
   transition:background .18s var(--ease);
 }
 .link-arrow:hover{background:var(--ink);color:#fff}
@@ -163,10 +163,10 @@ ul{margin:0;padding:0;list-style:none}
 /* ปุ่มมีกรอบ — เส้นทำด้วยพื้นสองชั้นเหมือน .link-arrow เพราะ clip-path ตัด border ทิ้งพร้อมมุม
    ชั้นในต้องเป็นสีพื้นของที่ที่ปุ่มไปวาง (การ์ดค้นหา = ขาว · ฟุตเตอร์ = ดำ) */
 .btn--ghost{background:var(--line);color:var(--ink);border:0}
-.btn--ghost::before{content:"";position:absolute;inset:1px;z-index:-1;background:#fff;clip-path:polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 0 100%);transition:background .18s var(--ease)}
+.btn--ghost::before{content:"";position:absolute;inset:1px;z-index:-1;background:#fff;clip-path:polygon(0 0, calc(100% - 11.41px) 0, 100% 11.41px, 100% 100%, 0 100%);transition:background .18s var(--ease)}
 .btn--ghost:hover{background:var(--orange);color:var(--orange)}
 .btn--outline{background:rgba(255,255,255,.5);color:#fff;border:0}
-.btn--outline::before{content:"";position:absolute;inset:1px;z-index:-1;background:var(--ink);clip-path:polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 0 100%);transition:background .18s var(--ease)}
+.btn--outline::before{content:"";position:absolute;inset:1px;z-index:-1;background:var(--ink);clip-path:polygon(0 0, calc(100% - 11.41px) 0, 100% 11.41px, 100% 100%, 0 100%);transition:background .18s var(--ease)}
 .btn--outline:hover{background:#fff;color:var(--ink)}
 .btn--outline:hover::before{background:#fff}
 .btn--lg{height:58px;padding:0 32px;font-size:var(--t-body)}
@@ -255,7 +255,7 @@ ul{margin:0;padding:0;list-style:none}
   position:fixed;left:20px;bottom:20px;z-index:50;
   display:grid;place-items:center;width:46px;height:46px;
   background:var(--ink);color:#fff;
-  clip-path:polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 0 100%);
+  clip-path:polygon(0 0, calc(100% - 11.41px) 0, 100% 11.41px, 100% 100%, 0 100%);
   opacity:0;transform:translateY(10px);pointer-events:none;
   transition:opacity .25s var(--ease),transform .25s var(--ease),background .18s var(--ease);
 }
@@ -471,7 +471,11 @@ ul{margin:0;padding:0;list-style:none}
   display:grid;place-items:center;width:44px;height:44px;color:#fff;
   /* เส้นขอบทำด้วยพื้นสองชั้น ไม่ใช่ border — clip-path ตัด border ทิ้งไปพร้อมมุม
      ขอบจึงไม่วิ่งตามรอยเฉียง (วิธีเดียวกับที่ .btn--ghost ใช้)
-     ชั้นนอกเป็นสีขอบ · ::before หดเข้ามา 1px เป็นสีพื้นจริง · รอยเฉียงชั้นในเล็กกว่า 1px ตามสัดส่วน */
+     ชั้นนอกเป็นสีขอบ · ::before หดเข้ามา 1px เป็นสีพื้นจริง
+     ระยะตัดชั้นใน (b) ต้องเป็น a - 2 + sqrt2 เมื่อ a คือระยะตัดชั้นนอก
+     ที่มา: ขอบด้านเฉียง = |b + 2 - a| / sqrt2 · ให้เท่ากับ 1px จึงได้ b = a - 0.586
+     a=10 -> b=9.41 · a=12 -> b=11.41 · ถ้าใช้ b = a - 1 ตรง ๆ ขอบเฉียงจะหนาแค่ 0.7px
+     ขณะที่ด้านตรงหนา 1px มองเห็นเป็นเส้นบางแหว่งตรงมุม */
   background:rgba(255,255,255,.38);border:0;
   clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
   transition:background .18s var(--ease),color .18s var(--ease);
@@ -480,7 +484,7 @@ ul{margin:0;padding:0;list-style:none}
   content:"";position:absolute;inset:1px;z-index:-1;
   background:rgba(30,30,30,.45);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-  clip-path:polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 0 100%);
+  clip-path:polygon(0 0, calc(100% - 9.41px) 0, 100% 9.41px, 100% 100%, 0 100%);
   transition:background .18s var(--ease);
 }
 /* ตอน hover ชั้นขอบต้องเป็นคนละสีกับชั้นใน ไม่งั้นเส้นขอบที่วิ่งตามรอยเฉียงจะหายไป
@@ -615,7 +619,7 @@ ul{margin:0;padding:0;list-style:none}
 }
 .finder__tabs button[data-fin][aria-selected="true"]::before{
   background:var(--orange);
-  clip-path:polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 0 100%);
+  clip-path:polygon(0 0, calc(100% - 11.41px) 0, 100% 11.41px, 100% 100%, 0 100%);
 }
 .finder__tabs button[data-fin][aria-selected="true"] svg{color:#fff}
 
@@ -840,7 +844,11 @@ ul{margin:0;padding:0;list-style:none}
   display:grid;place-items:center;width:44px;height:44px;color:#fff;
   /* เส้นขอบทำด้วยพื้นสองชั้น ไม่ใช่ border — clip-path ตัด border ทิ้งไปพร้อมมุม
      ขอบจึงไม่วิ่งตามรอยเฉียง (วิธีเดียวกับที่ .btn--ghost ใช้)
-     ชั้นนอกเป็นสีขอบ · ::before หดเข้ามา 1px เป็นสีพื้นจริง · รอยเฉียงชั้นในเล็กกว่า 1px ตามสัดส่วน */
+     ชั้นนอกเป็นสีขอบ · ::before หดเข้ามา 1px เป็นสีพื้นจริง
+     ระยะตัดชั้นใน (b) ต้องเป็น a - 2 + sqrt2 เมื่อ a คือระยะตัดชั้นนอก
+     ที่มา: ขอบด้านเฉียง = |b + 2 - a| / sqrt2 · ให้เท่ากับ 1px จึงได้ b = a - 0.586
+     a=10 -> b=9.41 · a=12 -> b=11.41 · ถ้าใช้ b = a - 1 ตรง ๆ ขอบเฉียงจะหนาแค่ 0.7px
+     ขณะที่ด้านตรงหนา 1px มองเห็นเป็นเส้นบางแหว่งตรงมุม */
   background:rgba(255,255,255,.38);border:0;
   clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
   transition:background .18s var(--ease),color .18s var(--ease);
@@ -849,7 +857,7 @@ ul{margin:0;padding:0;list-style:none}
   content:"";position:absolute;inset:1px;z-index:-1;
   background:rgba(30,30,30,.45);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-  clip-path:polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 0 100%);
+  clip-path:polygon(0 0, calc(100% - 9.41px) 0, 100% 9.41px, 100% 100%, 0 100%);
   transition:background .18s var(--ease);
 }
 .promo__nav:hover{background:var(--orange-dk);color:#fff}
@@ -1384,7 +1392,7 @@ ul{margin:0;padding:0;list-style:none}
 }
 .footer-social a::before{
   content:"";position:absolute;inset:1px;z-index:-1;background:var(--ink);
-  clip-path:polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 0 100%);
+  clip-path:polygon(0 0, calc(100% - 9.41px) 0, 100% 9.41px, 100% 100%, 0 100%);
   transition:background .18s var(--ease);
 }
 .footer-social a:hover{background:var(--orange);color:#fff;transform:translateY(-2px)}
