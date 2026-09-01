@@ -228,9 +228,29 @@ ul{margin:0;padding:0;list-style:none}
 }
 .tile__mark{position:absolute;left:22px;bottom:20px;color:#fff;opacity:.92}
 
+/* ---------- ปุ่มแชทลอยมุมขวาล่าง ----------
+   มาแทนการ์ดค้นหาโหมดลอยที่ถอดออกไป · ทรงสี่เหลี่ยมตัดมุมขวาบนชุดเดียวกับ .totop
+   ไม่ใส่เงา เพราะ clip-path ตัดเงาของตัวเองทิ้ง (เหตุผลเดียวกับ .step__ico) */
+.chatfab{
+  position:fixed;right:20px;bottom:20px;z-index:55;
+  display:flex;align-items:center;gap:9px;height:48px;padding:0 18px;
+  background:var(--orange);color:#fff;
+  clip-path:polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+  font-size:var(--t-sm);font-weight:700;white-space:nowrap;
+  transition:background .18s var(--ease),transform .2s var(--ease);
+}
+.chatfab:hover{background:var(--ink);transform:translateY(-2px)}
+.chatfab svg{flex:0 0 auto}
+@media (prefers-reduced-motion:reduce){.chatfab{transition:none}}
+/* จอแคบเหลือแต่ไอคอน — ป้ายกับปุ่มกลับขึ้นบนอีกฝั่งจะเบียดกันจนกินความกว้างจอ */
+@media (max-width:560px){
+  .chatfab{padding:0;width:48px;justify-content:center}
+  .chatfab span{display:none}
+}
+
 /* ---------- ปุ่มกลับขึ้นบน ----------
-   วางมุมล่างซ้าย ไม่ใช่ขวา เพราะมุมล่างขวาเป็นที่ของการ์ดค้นหาโหมดลอย (.finder.is-stuck)
-   z-index ต่ำกว่าการ์ดนั้น (55) และต่ำกว่า topbar (60) — ปุ่มนี้เป็นทางลัด ไม่ใช่ตัวหลัก */
+   วางมุมล่างซ้าย ไม่ใช่ขวา เพราะมุมล่างขวาเป็นที่ของปุ่มแชท
+   z-index ต่ำกว่าปุ่มนั้น (55) และต่ำกว่า topbar (60) — ปุ่มนี้เป็นทางลัด ไม่ใช่ตัวหลัก */
 .totop{
   position:fixed;left:20px;bottom:20px;z-index:50;
   display:grid;place-items:center;width:46px;height:46px;
@@ -495,9 +515,6 @@ ul{margin:0;padding:0;list-style:none}
 /* การ์ดกว้าง 470px ไม่ใช่ 400px — ของข้างในถูกไล่ขยายตามด้วย (padding, หัวข้อ, แท็บ, ช่องกรอก, รูปยาง, ปุ่ม)
    46vw คือเพดานตอนจอแคบลง สัดส่วนเท่าเดิมกับ 42vw ที่คู่กับ 400px */
 .hero__col{max-width:min(470px, 46vw);margin-bottom:0;filter:drop-shadow(0 16px 30px rgba(30,30,30,.30))}
-/* ตอนการ์ดลอย (position:fixed) ต้องปิด filter — element ที่มี filter จะกลายเป็น containing block
-   ของลูกที่ position:fixed ทำให้การ์ดไปเกาะกล่องนี้แทนที่จะเกาะขอบจอ */
-.hero__col.is-floating{filter:none}
 
 /* car finder — การ์ดขาวแคบ
    เปิดมาย่อไว้ก่อน: เห็นหัวข้อ + ปุ่มเลือกหมวด กดแล้วฟอร์มจึงกางลงมา */
@@ -550,15 +567,6 @@ ul{margin:0;padding:0;list-style:none}
 .finder__tabs button[data-fin][aria-selected="true"]::before{background:var(--orange)}
 .finder__tabs button[data-fin][aria-selected="true"] svg{color:#fff}
 
-/* ปุ่มปิดใช้เฉพาะตอนการ์ดลอยติดขอบจอ ตอนอยู่ใน hero ไม่มีอะไรให้ปิด */
-.finder__close{
-  display:none;place-items:center;
-  clip-path:polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);position:absolute;top:12px;right:12px;z-index:2;
-  width:26px;height:26px;color:var(--ink);border:1px solid var(--line);
-  transition:background .18s var(--ease),border-color .18s var(--ease);
-}
-.finder__close:hover{background:var(--cream);border-color:var(--ink)}
-.finder.is-stuck .finder__close{display:grid}
 
 /* แผงฟอร์ม — ย่อ/ขยายด้วย grid-template-rows 0fr↔1fr จะได้ animate ความสูงโดยไม่ต้องรู้ความสูงล่วงหน้า */
 .finder__panel{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .4s var(--ease),opacity .26s var(--ease)}
@@ -571,8 +579,6 @@ ul{margin:0;padding:0;list-style:none}
 .finder__sub{font-size:var(--t-xs);color:var(--muted);line-height:1.55}
 /* ที่ 14px ข้อความ + ลิงก์บรรทัดเดียวกว้างเกินการ์ด — ดันลิงก์ลงบรรทัดของตัวเอง ได้พื้นที่กดใหญ่ขึ้นด้วย */
 .finder__sub button{display:block;margin:7px auto 0;font-size:var(--t-xs);font-weight:700;color:var(--orange);border-bottom:1px solid currentColor;padding-bottom:1px}
-/* ตอนการ์ดลอยไปมุมจอ กว้างแค่ 300px — คืนเป็นขนาดเดิม ไม่งั้นข้อความตกสองบรรทัด */
-.finder.is-stuck .finder__sub,.finder.is-stuck .finder__sub button{font-size:var(--t-xs)}
 
 /* 3 ช่องเรียงลงเป็นแนวตั้ง — ช่องกว้างเต็มการ์ดจึงอ่านป้ายได้เต็ม ไม่ต้องบีบตัวอักษร
    แลกมาด้วยความสูงที่เพิ่มขึ้น ต้องคุมไม่ให้การ์ดสูงเกินแบนเนอร์จนหัวการ์ดโดนแถบเมนูเฉือน
@@ -608,8 +614,6 @@ ul{margin:0;padding:0;list-style:none}
 .tirefig{margin:12px calc(var(--fpad) * -1) 0;height:138px;overflow:hidden}
 .tirefig[hidden]{display:none}
 .tirefig img{display:block;width:100%;height:100%;object-fit:cover}
-/* ตอนการ์ดลอยไปมุมจอ กว้างแค่ 300px — ตัดภาพออก ไม่งั้นแผงสูงเกินจอ */
-.finder.is-stuck .tirefig{display:none}
 
 .finder__go{width:100%;height:54px;margin-top:12px}
 
@@ -632,49 +636,6 @@ ul{margin:0;padding:0;list-style:none}
 .finder__alt{display:none}
 /* แผงกางค้างตลอด ไม่มีสถานะหุบ ปุ่ม ซ่อน จึงไม่มีอะไรให้ทำ */
 .finder__toggle{display:none}
-
-/* โหมดลอย — เลื่อนพ้น hero แล้วการ์ดไปเกาะขอบซ้ายจอ
-   ใช้ fixed ไม่ใช่ sticky เพราะการ์ดอยู่ใน .hero ที่ความสูงตายตัว sticky จะเกาะได้แค่ในกรอบ hero */
-/* ลอยห่างจากมุมจอ 20px ไม่ใช่ชนขอบ — อ่านเป็น "แผงลอย" ไม่ใช่ของที่หลุดออกไปนอกจอ
-   คงมุมตัดเฉียงไว้เหมือนตอนอยู่ในแบนเนอร์ จะได้เป็นการ์ดใบเดียวกันที่ย้ายที่ ไม่ใช่คนละชิ้น
-   เงาโอบรอบทุกด้าน (เดิมมีแต่ด้านบน) เพราะตอนนี้มันลอยอยู่กลางพื้นที่ ไม่ได้แปะขอบจอแล้ว */
-.finder.is-stuck{
-  position:fixed;right:20px;left:auto;bottom:20px;top:auto;z-index:55;
-  width:min(380px, calc(100vw - 40px));--fpad:18px;padding:18px var(--fpad);
-  max-height:calc(100vh - 40px);overflow-y:auto;overscroll-behavior:contain;
-  box-shadow:0 24px 60px -18px rgba(0,0,0,.55), 0 2px 10px rgba(0,0,0,.18);
-  animation:finderIn .3s var(--ease) both;
-}
-@keyframes finderIn{
-  from{opacity:0;transform:translate(16px,24px) scale(.97)}
-  to{opacity:1;transform:none}
-}
-.finder.is-stuck .finder__title{font-size:var(--t-sm);text-align:left;margin-bottom:14px;padding-right:30px}
-/* แผงแคบ 324px — คำโปรยกับลิงก์สลับโหมดชิดซ้ายให้ตรงแนวกับหัวข้อและช่องกรอก */
-.finder.is-stuck .finder__panelInner{text-align:left}
-.finder.is-stuck .finder__sub button{margin-left:0;margin-right:auto}
-.finder.is-stuck .finder__all{justify-content:flex-start}
-/* แผงลอยยังกว้าง 380px เท่าเดิม ไม่ได้ขยายตามการ์ดในแบนเนอร์
-   จึงต้องคืนขนาดของข้างในกลับเป็นชุดเดิม ไม่งั้นแท็บกับช่องกรอกจะล้นกล่อง */
-.finder.is-stuck .finder__tabs{gap:7px}
-.finder.is-stuck .finder__tabs button[data-fin]{font-size:var(--t-xs)}
-.finder.is-stuck .field select{height:46px;padding:0 24px 0 36px;font-size:var(--t-xs)}
-.finder.is-stuck .field__no{width:22px;height:22px}
-.finder.is-stuck .finder__go{height:auto;min-height:46px;padding:12px 14px;font-size:var(--t-sm);white-space:normal;line-height:1.35}
-/* ตอนลอยการ์ดกว้าง 300px — 3 ช่องเรียงแนวนอนจะเหลือช่องละ 84px ป้ายชื่อโดนตัด
-   คืนเป็นเรียงลงแทน ความสูงไม่เป็นปัญหาเพราะโหมดลอยเลื่อนในตัวได้อยู่แล้ว */
-.finder.is-stuck .finder__row{grid-template-columns:1fr;gap:8px}
-/* แผงลอยกว้าง 344px หาร 3 ช่องเหลือช่องละ ~110px — เรียงไอคอนกับป้ายแนวนอนแบบในแบนเนอร์ไม่พอ
-   (ป้าย "น้ำมันเครื่อง" ~79px + ไอคอน 20px + ช่องไฟ 8px ล้นออกนอกกล่อง)
-   สลับเป็นวางไอคอนเหนือป้ายแทน ได้ไอคอนครบทุกแท็บโดยป้ายยังอยู่บรรทัดเดียว
-   padding บน 10px เผื่อระยะให้ finderNudge ที่ยกไอคอนขึ้น 7px ไม่โผล่พ้นพื้นขาวของปุ่ม */
-.finder.is-stuck .finder__tabs button[data-fin]{
-  flex-direction:column;gap:5px;height:auto;min-height:62px;padding:10px 4px 8px;
-}
-.finder.is-stuck .finder__tabs button[data-fin] svg{display:block;width:18px;height:18px}
-.finder.is-stuck .finder__panelInner{padding-top:14px}
-/* สองปุ่มเรียงข้างกันไม่พอกว้างตอนลอย — ซ้อนเป็นแถวเดียว */
-.finder.is-stuck .finder__extra{grid-template-columns:1fr;gap:8px}
 
 /* ============ 4. pillars ============ */
 /* รอยต่อ hero → section ไอคอน — เป็นรอยเฉียงเดียวที่เหลือไว้ทั้งหน้า
@@ -1398,7 +1359,6 @@ ul{margin:0;padding:0;list-style:none}
   .hero{padding-top:0}
   .hero__inner{padding-top:26px;padding-bottom:0}
   .hero__col{max-width:none;margin-inline:0}
-  .finder.is-stuck{position:static;width:auto;box-shadow:none;animation:none}
   :root{--notch:64px;--notch-x:50%;--notch-x-hero:36%}
   .pillars__grid{grid-template-columns:repeat(2,1fr)}
   /* จอแคบไม่มีที่พอให้ภาพอยู่ข้างเนื้อหา — ซ่อนแล้วคืนความกว้างเต็มให้การ์ด */
@@ -1602,10 +1562,6 @@ ul{margin:0;padding:0;list-style:none}
           <button role="tab" aria-selected="false" aria-controls="finPanel" data-fin="oil"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3.2s6.2 6.5 6.2 10.4A6.2 6.2 0 0 1 5.8 13.6C5.8 9.7 12 3.2 12 3.2z" stroke-linejoin="round"/><path d="M9.2 14.1a2.8 2.8 0 0 0 2.8 2.8" stroke-linecap="round"/></svg><span>น้ำมันเครื่อง</span></button>
           <button role="tab" aria-selected="false" aria-controls="finPanel" data-fin="battery"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="8" width="18" height="11"/><path d="M7 8V6h3v2M14 8V6h3v2" stroke-linejoin="round"/><path d="M7.6 13.5h3.2M9.2 11.9v3.2M13.4 13.5h3.2" stroke-linecap="round"/></svg><span>แบตเตอรี่</span></button>
         </div>
-        <button type="button" class="finder__close" id="finClose" aria-label="ปิดกล่องค้นหา">
-          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8" stroke-linecap="round"/></svg>
-        </button>
-
         <div class="finder__panel" id="finPanel">
           <div class="finder__panelClip">
             <div class="finder__panelInner">
@@ -1998,6 +1954,10 @@ ul{margin:0;padding:0;list-style:none}
   </div>
 </footer>
 
+<a class="chatfab" href="#" aria-label="แชทกับเรา">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.4 12.2c0 4-3.8 7.2-8.4 7.2-1 0-2-.15-2.9-.43L4 20.5l1.6-3.7a6.85 6.85 0 0 1-2-4.6C3.6 8.2 7.4 5 12 5s8.4 3.2 8.4 7.2Z" stroke-linejoin="round"/><path d="M8.8 12h.01M12 12h.01M15.2 12h.01" stroke-linecap="round" stroke-width="2.4"/></svg>
+  <span>แชทกับเรา</span>
+</a>
 <button type="button" class="totop" id="toTop" aria-label="กลับขึ้นด้านบนสุด">
   <svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M8 12.5V3.5M3.5 8L8 3.5 12.5 8" stroke-linecap="round" stroke-linejoin="round"/></svg>
 </button>
@@ -2268,7 +2228,6 @@ ul{margin:0;padding:0;list-style:none}
   var finAllTxt = document.getElementById('finAllTxt');
   var finSwitch = document.getElementById('finSwitch');
   var finToggle = document.getElementById('finToggle');
-  var finClose  = document.getElementById('finClose');
   var finTabs   = document.querySelectorAll('[data-fin]');
   var finderBox = document.getElementById('finder');
   var bySize = false, activeFin = null;
@@ -2306,7 +2265,7 @@ ul{margin:0;padding:0;list-style:none}
     clearTimeout(idleTimer);
     finderBox.classList.remove('is-idle');
     if (reduced) return;
-    if (!(heroSeen || finderBox.classList.contains('is-stuck'))) return;
+    if (!heroSeen) return;
     if (finderBox.classList.contains('is-open')) return;
     idleTimer = setTimeout(function(){ finderBox.classList.add('is-idle'); }, 4000);
   }
@@ -2335,30 +2294,11 @@ ul{margin:0;padding:0;list-style:none}
   });
   finSwitch.addEventListener('click', function(){ bySize = !bySize; renderFinder(); });
 
-  /* เลื่อนพ้น hero แล้วให้กล่องไปเกาะขอบซ้ายจอ */
+  /* ถอดโหมดลอยมุมจอออกแล้ว — การ์ดอยู่ในแบนเนอร์ที่เดียว มุมขวาล่างเป็นที่ของปุ่มแชทแทน
+     แผงจึงกางค้างเสมอ ไม่มีเงื่อนไขหุบอีก */
   var heroEl = document.querySelector('.hero');
-  var stuck = false, dismissed = false;
-  function syncStick(){
-    var past = window.pageYOffset > (heroEl.offsetHeight - 60);
-    if (!past) dismissed = false;        /* เลื่อนกลับขึ้นไปบนสุด = รีเซ็ตการปิด */
-    var on = past && !dismissed;
-    if (on === stuck) return;
-    stuck = on;
-    finderBox.classList.toggle('is-stuck', on);
-    finderBox.parentElement.classList.toggle('is-floating', on);
-    syncPanel();
-  }
-
-  /* แผงกางค้างเฉพาะตอนการ์ดอยู่ในแบนเนอร์ — พอไปลอยมุมจอให้หุบเหลือแค่หัวข้อกับปุ่มเลือกหมวด
-     รอผู้ใช้กดก่อนค่อยกาง ไม่งั้นแผงเต็มใบจะกินพื้นที่จอไปมากทั้งที่ยังไม่ได้ตั้งใจจะใช้ */
-  function syncPanel(){
-    var open = !finderBox.classList.contains('is-stuck');
-    finderBox.classList.toggle('is-open', open);
-    finToggle.setAttribute('aria-expanded', String(open));
-  }
-  window.addEventListener('scroll', syncStick, {passive:true});
-  window.addEventListener('resize', syncStick);
-  syncStick();
+  finderBox.classList.add('is-open');
+  finToggle.setAttribute('aria-expanded', 'true');
 
   ['pointerenter','pointerdown','focusin'].forEach(function(ev){
     finderBox.addEventListener(ev, armIdle);
@@ -2371,18 +2311,8 @@ ul{margin:0;padding:0;list-style:none}
   }
   armIdle();
 
-  /* ปิดกล่องตอนลอยอยู่มุมจอ — แค่เลิกลอย ไม่หุบแผง เลื่อนกลับขึ้นบนสุดแล้วลงมาใหม่ถึงจะกลับมา */
-  finClose.addEventListener('click', function(){
-    dismissed = true;
-    stuck = false;
-    finderBox.classList.remove('is-stuck');
-    finderBox.parentElement.classList.remove('is-floating');
-  });
-
-  /* เปิดหน้ามาเลือกหมวดยางไว้ให้แล้ว — syncPanel ตัดสินอีกทีว่ากางหรือหุบ ตามว่าการ์ดลอยอยู่ไหม
-     (เผื่อกรณีรีเฟรชกลางหน้าแล้วเบราว์เซอร์คืนตำแหน่งสกรอลล์มาที่จุดที่การ์ดลอยแล้ว) */
+  /* เปิดหน้ามาเลือกหมวดยางไว้ให้เลย */
   openFin('tire');
-  syncPanel();
 
   /* ---------- แบรนด์พันธมิตร (โลโก้จาก autobacs.co.th) ---------- */
   var BRANDS = ['bridgestone','michelin','yakohama','dunlop','deestone','pirelli','continental','bf-goodrich',
