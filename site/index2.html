@@ -121,7 +121,7 @@ ul{margin:0;padding:0;list-style:none}
   transition:color .18s var(--ease),background .18s var(--ease),border-color .18s var(--ease);
 }
 .link-arrow svg{transition:transform .22s var(--ease)}
-.link-arrow:hover svg{transform:translateX(4px)}
+.hoverable .link-arrow:hover svg{transform:translateX(4px)}
 
 /* ปุ่ม "ดู…" ระดับ section — กว้างเท่ากันทุกตัว และมุมขวาบนตัดเฉียงตามโมทีฟของหน้า
    เส้นขอบทำด้วย "พื้นสองชั้น" (ชั้นนอก = สีเส้น · ชั้นใน หด 1px = สีพื้นของ section นั้น)
@@ -138,8 +138,8 @@ ul{margin:0;padding:0;list-style:none}
   clip-path:polygon(0 0, calc(100% - 11.41px) 0, 100% 11.41px, 100% 100%, 0 100%);
   transition:background .18s var(--ease);
 }
-.link-arrow:hover{background:var(--ink);color:#fff}
-.link-arrow:hover::before{background:var(--ink)}
+.hoverable .link-arrow:hover{background:var(--ink);color:#fff}
+.hoverable .link-arrow:hover::before{background:var(--ink)}
 
 /* ปุ่มทุกตัวในหน้าสูงเท่ากัน (46px) และมุมขวาบนตัดเฉียง
    ความกว้างปล่อยตามความยาวข้อความ (padding + เนื้อหา) ไม่ล็อกค่าตายตัว */
@@ -152,23 +152,23 @@ ul{margin:0;padding:0;list-style:none}
   border:1px solid transparent;
   transition:background .18s var(--ease),border-color .18s var(--ease),color .18s var(--ease),transform .18s var(--ease),box-shadow .18s var(--ease);
 }
-.btn:hover{transform:translateY(-2px)}
+.hoverable .btn:hover{transform:translateY(-2px)}
 .btn--block{width:100%}
 .btn--primary{background:var(--orange);color:#fff}
-.btn--primary:hover{background:var(--orange-dk)}
+.hoverable .btn--primary:hover{background:var(--orange-dk)}
 .btn--ink{background:var(--ink);color:#fff}
-.btn--ink:hover{background:var(--orange)}
+.hoverable .btn--ink:hover{background:var(--orange)}
 .btn--white{background:#fff;color:var(--ink)}
-.btn--white:hover{background:var(--ink);color:#fff}
+.hoverable .btn--white:hover{background:var(--ink);color:#fff}
 /* ปุ่มมีกรอบ — เส้นทำด้วยพื้นสองชั้นเหมือน .link-arrow เพราะ clip-path ตัด border ทิ้งพร้อมมุม
    ชั้นในต้องเป็นสีพื้นของที่ที่ปุ่มไปวาง (การ์ดค้นหา = ขาว · ฟุตเตอร์ = ดำ) */
 .btn--ghost{background:var(--line);color:var(--ink);border:0}
 .btn--ghost::before{content:"";position:absolute;inset:1px;z-index:-1;background:#fff;clip-path:polygon(0 0, calc(100% - 11.41px) 0, 100% 11.41px, 100% 100%, 0 100%);transition:background .18s var(--ease)}
-.btn--ghost:hover{background:var(--orange);color:var(--orange)}
+.hoverable .btn--ghost:hover{background:var(--orange);color:var(--orange)}
 .btn--outline{background:rgba(255,255,255,.5);color:#fff;border:0}
 .btn--outline::before{content:"";position:absolute;inset:1px;z-index:-1;background:var(--ink);clip-path:polygon(0 0, calc(100% - 11.41px) 0, 100% 11.41px, 100% 100%, 0 100%);transition:background .18s var(--ease)}
-.btn--outline:hover{background:#fff;color:var(--ink)}
-.btn--outline:hover::before{background:#fff}
+.hoverable .btn--outline:hover{background:#fff;color:var(--ink)}
+.hoverable .btn--outline:hover::before{background:#fff}
 .btn--lg{height:58px;padding:0 32px;font-size:var(--t-body)}
 .btn--block{width:100%}
 
@@ -176,7 +176,7 @@ ul{margin:0;padding:0;list-style:none}
   background:#fff;border:1px solid var(--line);border-radius:var(--r);
   transition:border-color .2s var(--ease),transform .2s var(--ease),box-shadow .2s var(--ease);
 }
-.card:hover{border-color:transparent;transform:translateY(-3px);box-shadow:var(--shadow)}
+.hoverable .card:hover{border-color:transparent;transform:translateY(-3px);box-shadow:var(--shadow)}
 
 .chip{
   display:inline-block;padding:5px 12px;border-radius:var(--pill);
@@ -203,8 +203,8 @@ ul{margin:0;padding:0;list-style:none}
 .band--ink .link-arrow{color:#fff}
 .band--ink .link-arrow::before{background:var(--ink)}
 
-.band--ink .link-arrow:hover{background:var(--orange);color:#fff}
-.band--ink .link-arrow:hover::before{background:var(--orange)}
+.hoverable .band--ink .link-arrow:hover{background:var(--orange);color:#fff}
+.hoverable .band--ink .link-arrow:hover::before{background:var(--orange)}
 .band--cream{background:var(--cream)}
 .band--orange{background:linear-gradient(150deg,var(--orange-lt) 0%,var(--orange) 46%,var(--orange-dk) 100%);color:#fff}
 .band--orange .kicker{color:rgba(255,255,255,.9)}
@@ -239,7 +239,7 @@ ul{margin:0;padding:0;list-style:none}
   font-size:var(--t-sm);font-weight:700;white-space:nowrap;
   transition:background .18s var(--ease),transform .2s var(--ease);
 }
-.chatfab:hover{background:var(--ink);transform:translateY(-2px)}
+.hoverable .chatfab:hover{background:var(--ink);transform:translateY(-2px)}
 .chatfab svg{flex:0 0 auto}
 @media (prefers-reduced-motion:reduce){.chatfab{transition:none}}
 /* จอแคบเหลือแต่ไอคอน — ป้ายกับปุ่มกลับขึ้นบนอีกฝั่งจะเบียดกันจนกินความกว้างจอ */
@@ -260,8 +260,8 @@ ul{margin:0;padding:0;list-style:none}
   transition:opacity .25s var(--ease),transform .25s var(--ease),background .18s var(--ease);
 }
 .totop.is-on{opacity:1;transform:none;pointer-events:auto}
-.totop:hover{background:var(--orange)}
-.totop:hover svg{transform:translateY(-2px)}
+.hoverable .totop:hover{background:var(--orange)}
+.hoverable .totop:hover svg{transform:translateY(-2px)}
 .totop svg{transition:transform .2s var(--ease)}
 @media (prefers-reduced-motion:reduce){.totop,.totop svg{transition:none}}
 
@@ -318,7 +318,7 @@ ul{margin:0;padding:0;list-style:none}
 
 /* ลิงก์บนแถบ utility — ข้อความล้วนๆ ไม่มีกรอบ */
 .ulink{display:inline-flex;align-items:center;gap:10px;font-size:var(--t-sm);font-weight:600;color:rgba(255,255,255,.86)}
-.ulink:hover{color:var(--orange-lt)}
+.hoverable .ulink:hover{color:var(--orange-lt)}
 
 /* ไอคอนในวงกลมส้ม — ใช้ทั้ง call center และเข้าสู่ระบบ */
 .uico{
@@ -326,7 +326,8 @@ ul{margin:0;padding:0;list-style:none}
   background:var(--orange);border-radius:50%;color:#fff;
   transition:background .2s var(--ease),color .2s var(--ease);
 }
-.ulink:hover .uico,.ucall:hover .uico{background:#fff;color:var(--orange)}
+.hoverable .ulink:hover .uico,
+.hoverable .ucall:hover .uico{background:#fff;color:var(--orange)}
 
 /* บัตร PT MAX — การ์ดมีมุมมนมาในอาร์ตเอง ไม่ขัดกับกฎ 0 ของหน้า */
 .ulink--ptmax img{
@@ -334,15 +335,15 @@ ul{margin:0;padding:0;list-style:none}
   filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));
   transition:transform .22s var(--ease);
 }
-.ulink--ptmax:hover img{transform:translateY(-1px) scale(1.05)}
-@media (prefers-reduced-motion:reduce){.ulink--ptmax:hover img{transform:none}}
+.hoverable .ulink--ptmax:hover img{transform:translateY(-1px) scale(1.05)}
+@media (prefers-reduced-motion:reduce){.hoverable .ulink--ptmax:hover img{transform:none}}
 
 /* call center มุมซ้าย — เบอร์เป็นพระเอก ชื่อชั้นเป็นป้ายเล็กอยู่บน */
 .ucall{grid-column:1;justify-self:start;display:inline-flex;align-items:center;gap:10px}
 .ucall__txt{display:flex;flex-direction:column;line-height:1.15}
 /* เดิมเป็นเบอร์โทร Archivo 18px — ตอนนี้เป็นข้อความไทย ลดลงหนึ่งขั้นให้พอดีกับแถบบนที่เตี้ย */
 .ucall__num{font-size:var(--t-sm);font-weight:700;color:#fff;transition:color .18s var(--ease)}
-.ucall:hover .ucall__num{color:var(--orange-lt)}
+.hoverable .ucall:hover .ucall__num{color:var(--orange-lt)}
 
 /* ============ 2. header ============ */
 .site-header{
@@ -356,8 +357,8 @@ ul{margin:0;padding:0;list-style:none}
 
 .burger{display:flex;flex-direction:column;gap:4px;padding:8px 4px}
 .burger span{display:block;width:22px;height:2px;border-radius:0;background:var(--orange);transition:transform .2s var(--ease),background .3s var(--ease)}
-.burger:hover span:nth-child(1){transform:translateX(2px)}
-.burger:hover span:nth-child(3){transform:translateX(-2px)}
+.hoverable .burger:hover span:nth-child(1){transform:translateX(2px)}
+.hoverable .burger:hover span:nth-child(3){transform:translateX(-2px)}
 
 /* ช่องค้นหาใน header — เส้นใต้เส้นเดียว ตาม wireframe (UI เฉยๆ ยังไม่ต่อฟังก์ชันค้นหา) */
 .hsearch{
@@ -377,7 +378,7 @@ ul{margin:0;padding:0;list-style:none}
 .hsearch input::-webkit-search-cancel-button,
 .hsearch input::-webkit-search-decoration{-webkit-appearance:none;display:none}
 .hsearch__go{display:grid;place-items:center;width:26px;height:26px;flex:0 0 auto;color:var(--ink);transition:color .18s var(--ease)}
-.hsearch__go:hover{color:var(--orange)}
+.hoverable .hsearch__go:hover{color:var(--orange)}
 
 .mainnav{display:flex;align-items:center;gap:30px;margin-left:2px}
 .mainnav a{position:relative;font-size:var(--t-body);font-weight:600;padding:6px 0;transition:color .18s var(--ease)}
@@ -387,8 +388,8 @@ ul{margin:0;padding:0;list-style:none}
   transform:scaleX(0);transform-origin:left center;
   transition:transform .22s var(--ease);
 }
-.mainnav a:hover{color:var(--orange)}
-.mainnav a:hover::after{transform:scaleX(1)}
+.hoverable .mainnav a:hover{color:var(--orange)}
+.hoverable .mainnav a:hover::after{transform:scaleX(1)}
 
 .header-actions{margin-left:auto;display:flex;align-items:center;gap:18px}
 /* CTA ใน header เท่าเมนู 16px — เป็นปุ่มหลักของแถว ถ้าเล็กกว่าจะดูเป็นรอง */
@@ -398,10 +399,10 @@ ul{margin:0;padding:0;list-style:none}
   border:1px solid var(--line);border-radius:var(--pill);
   transition:border-color .18s var(--ease),color .18s var(--ease);
 }
-.icon-btn:hover{border-color:var(--orange);color:var(--orange)}
+.hoverable .icon-btn:hover{border-color:var(--orange);color:var(--orange)}
 /* ตะกร้าใน header ตาม wireframe = ไอคอนเปล่า ไม่มีกรอบ */
 .icon-btn--bare{width:34px;height:34px;border-color:transparent}
-.icon-btn--bare:hover{border-color:transparent;color:var(--orange)}
+.hoverable .icon-btn--bare:hover{border-color:transparent;color:var(--orange)}
 
 /* ============ 2b. โหมดโปร่งใส (เฉพาะจอใหญ่) ============
    จอ ≤ 1024px อาร์ต hero เต็มใบ 2:1 ถ้าเอาเมนูไปทับจะกินหัวรูป → จอเล็กใช้เมนูทึบกินที่ตามปกติ
@@ -462,7 +463,7 @@ ul{margin:0;padding:0;list-style:none}
   box-shadow:0 1px 3px rgba(30,30,30,.35);
   transition:background .22s var(--ease),width .22s var(--ease);
 }
-.hero__dots button:hover{background:rgba(255,255,255,.85)}
+.hoverable .hero__dots button:hover{background:rgba(255,255,255,.85)}
 
 /* ปุ่มเลื่อนสไลด์ — วางกึ่งกลางแนวตั้ง เหนือการ์ดค้นหาที่กินพื้นที่มุมล่างซ้าย */
 .hero__arrow{
@@ -489,8 +490,8 @@ ul{margin:0;padding:0;list-style:none}
 }
 /* ตอน hover ชั้นขอบต้องเป็นคนละสีกับชั้นใน ไม่งั้นเส้นขอบที่วิ่งตามรอยเฉียงจะหายไป
    แล้วรูปทรงมุมตัดอ่านไม่ออก (ตอนปกติเห็นได้เพราะขอบขาวจางตัดกับพื้นดำโปร่ง) */
-.hero__arrow:hover{background:var(--orange-dk);color:#fff}
-.hero__arrow:hover::before{background:var(--orange)}
+.hoverable .hero__arrow:hover{background:var(--orange-dk);color:#fff}
+.hoverable .hero__arrow:hover::before{background:var(--orange)}
 .hero__arrow--prev{left:22px}
 .hero__arrow--next{right:22px}
 .hero__dots button[aria-current="true"]{background:#fff;width:42px}
@@ -525,7 +526,7 @@ ul{margin:0;padding:0;list-style:none}
   border-bottom:1px solid currentColor;padding-bottom:2px;
   transition:color .18s var(--ease);
 }
-.hero__promo .hero__promo-link:hover{color:var(--ink)}
+.hoverable .hero__promo .hero__promo-link:hover{color:var(--ink)}
 
 /* กล่องค้นหาสีขาววางบนพื้นโรงงานที่สว่าง ต้องมีฉากหลังเข้มไล่จากขวาคั่นให้อ่านออก
    (ไล่จากขวาเพราะการ์ดย้ายไปอยู่ฝั่งขวาของแบนเนอร์แล้ว) */
@@ -608,9 +609,9 @@ ul{margin:0;padding:0;list-style:none}
   }
   .finder__tabs button[data-fin] svg{width:28px;height:28px}
 }
-.finder__tabs button[data-fin]:hover{background:var(--orange-dk);color:#fff}
-.finder__tabs button[data-fin]:hover::before{background:var(--orange-dk)}
-.finder__tabs button[data-fin]:hover svg{color:#fff}
+.hoverable .finder__tabs button[data-fin]:hover{background:var(--orange-dk);color:#fff}
+.hoverable .finder__tabs button[data-fin]:hover::before{background:var(--orange-dk)}
+.hoverable .finder__tabs button[data-fin]:hover svg{color:#fff}
 /* ตัวที่ถูกเลือกตัดมุมขวาบน 45 องศาตามโมทีฟของหน้า — ต้องตัดทั้งสองชั้น
    ชั้นในตัดน้อยกว่า 1px ตามระยะที่มันหดเข้ามา ขอบจึงหนาเท่ากันตลอดรวมด้านเฉียง */
 .finder__tabs button[data-fin][aria-selected="true"]{
@@ -665,7 +666,8 @@ ul{margin:0;padding:0;list-style:none}
   background-repeat:no-repeat;background-position:right 9px center;
   transition:border-color .18s var(--ease),background-color .18s var(--ease);
 }
-.field select:hover,.field select:focus{border-color:var(--orange);background-color:#fff;outline:none}
+.hoverable .field select:hover,
+.field select:focus{border-color:var(--orange);background-color:#fff;outline:none}
 .field select:required:invalid{color:var(--muted);font-weight:500}
 /* Chrome เรนเดอร์ option ด้วยสี UA เอง ต้องกำหนดตรง ๆ */
 .field option{color:var(--ink);background:#fff}
@@ -691,7 +693,7 @@ ul{margin:0;padding:0;list-style:none}
 }
 .finder__all span{border-bottom:1px solid currentColor;padding-bottom:1px}
 .finder__all svg{flex:0 0 auto}
-.finder__all:hover{color:var(--orange)}
+.hoverable .finder__all:hover{color:var(--orange)}
 
 /* ทางลัดสองปุ่ม — คนละกลุ่มกับการค้นหาสินค้า จึงคั่นด้วยเส้นบาง
    กรอบเส้นบนพื้นขาว ไม่ใช่ปุ่มทึบ เพราะไม่ใช่ปุ่มหลักของแผง (ปุ่มหลักคือ "ค้นหาเลย") */
@@ -710,7 +712,7 @@ ul{margin:0;padding:0;list-style:none}
   font-size:var(--t-xs);font-weight:700;color:var(--muted);
   transition:color .18s var(--ease);
 }
-.finder__toggle:hover{color:var(--ink)}
+.hoverable .finder__toggle:hover{color:var(--ink)}
 .finder__alt{display:none}
 /* แผงกางค้างตลอด ไม่มีสถานะหุบ ปุ่ม ซ่อน จึงไม่มีอะไรให้ทำ */
 .finder__toggle{display:none}
@@ -755,7 +757,7 @@ ul{margin:0;padding:0;list-style:none}
   filter:drop-shadow(0 1px 2px rgba(30,30,30,.05)) drop-shadow(0 12px 24px rgba(30,30,30,.10));
   transition:transform .22s var(--ease),filter .22s var(--ease);
 }
-.pillar:hover{
+.hoverable .pillar:hover{
   transform:translateY(-4px);
   filter:drop-shadow(0 2px 4px rgba(30,30,30,.06)) drop-shadow(0 22px 40px rgba(30,30,30,.18));
 }
@@ -819,7 +821,8 @@ ul{margin:0;padding:0;list-style:none}
 .promo__slide[data-pos="-1"]{transform:translateX(-57%) scale(.6);opacity:.45;z-index:2}
 .promo__slide[data-pos="1"]{transform:translateX(57%) scale(.6);opacity:.45;z-index:2}
 .promo__slide[data-pos="far"]{transform:scale(.5);opacity:0;z-index:1;pointer-events:none}
-.promo__slide[data-pos="-1"]:hover,.promo__slide[data-pos="1"]:hover{opacity:.8}
+.hoverable .promo__slide[data-pos="-1"]:hover,
+.hoverable .promo__slide[data-pos="1"]:hover{opacity:.8}
 .promo__slide:focus-visible{outline:2px solid var(--orange);outline-offset:6px}
 @media (prefers-reduced-motion:reduce){.promo__slide{transition:none}}
 
@@ -860,10 +863,31 @@ ul{margin:0;padding:0;list-style:none}
   clip-path:polygon(0 0, calc(100% - 9.41px) 0, 100% 9.41px, 100% 100%, 0 100%);
   transition:background .18s var(--ease);
 }
-.promo__nav:hover{background:var(--orange-dk);color:#fff}
-.promo__nav:hover::before{background:var(--orange)}
+.hoverable .promo__nav:hover{background:var(--orange-dk);color:#fff}
+.hoverable .promo__nav:hover::before{background:var(--orange)}
 .promo__nav--prev{left:clamp(12px, 4vw, 72px)}
 .promo__nav--next{right:clamp(12px, 4vw, 72px)}
+
+/* ---------- ลูกศรของรางสไลด์จอมือถือ (สินค้า · ข่าว · เคล็ดลับ) ----------
+   โผล่เฉพาะจอที่รางเลื่อนได้จริง — จอใหญ่ยังเป็นกริดวางครบทุกใบ (ดู @media max-width:720px)
+   ทรงเดียวกับลูกศรโปรโมชั่น: ตัดมุมขวาบน 10px · ขอบทำด้วยพื้นสองชั้น ชั้นในหด 9.41px
+   (กติกา b = a - 2 + sqrt2 ขอบด้านเฉียงถึงจะหนาเท่าด้านตรง) */
+.slidenav{display:none;justify-content:flex-start;gap:8px;margin-top:14px}
+.slidenav__btn{
+  position:relative;isolation:isolate;display:grid;place-items:center;
+  width:40px;height:40px;color:var(--ink);background:var(--ink);border:0;
+  clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+  transition:opacity .18s var(--ease);
+}
+.slidenav__btn::before{
+  content:"";position:absolute;inset:1px;z-index:-1;background:#fff;
+  clip-path:polygon(0 0, calc(100% - 9.41px) 0, 100% 9.41px, 100% 100%, 0 100%);
+}
+/* สุดรางแล้วปุ่มจางลง — ยังกดได้แต่บอกว่าไม่มีอะไรต่อทางนั้น */
+.slidenav__btn[disabled]{opacity:.3}
+/* บนพื้นดำของ section ข่าว สลับสองชั้นเป็น ขอบขาว-พื้นดำ ไม่งั้นปุ่มขาวทึบจะดังเกินการ์ด */
+.slidenav--ink .slidenav__btn{background:rgba(255,255,255,.55);color:#fff}
+.slidenav--ink .slidenav__btn::before{background:var(--ink)}
 
 /* ============ 6. shop ============ */
 /* รอยต่อกับแถบข้อเสนอ(ดำ) เป็นเส้นตรง — รอยตัดเฉียงถูกถอดออกทั้งหน้าแล้ว
@@ -887,8 +911,8 @@ ul{margin:0;padding:0;list-style:none}
    (ชั้นนอกปกติเป็นสีตัวอักษร ซึ่งปุ่มนี้เป็นขาว) */
 .shop__tabsrow .link-arrow{color:#fff;padding:0 22px;background:var(--ink)}
 .shop__tabsrow .link-arrow::before{background:var(--ink)}
-.shop__tabsrow .link-arrow:hover{background:#fff;color:var(--ink)}
-.shop__tabsrow .link-arrow:hover::before{background:#fff}
+.hoverable .shop__tabsrow .link-arrow:hover{background:#fff;color:var(--ink)}
+.hoverable .shop__tabsrow .link-arrow:hover::before{background:#fff}
 /* แท็บชุดนี้เป็นกรอบมน ไม่ใช้ --pill:0 ของหน้า — ตั้งค่าตรงนี้ที่ปุ่มข้างใน
    ตัวแถบไม่มีพื้นแล้ว แท็บจึงวางบนพื้นส้มของ section ตรงๆ */
 .shop__tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;background:none;padding:0}
@@ -900,10 +924,10 @@ ul{margin:0;padding:0;list-style:none}
   transition:color .18s var(--ease),background .18s var(--ease);
 }
 .shop__tabs button svg{flex:0 0 auto;opacity:.8;transition:opacity .18s var(--ease)}
-.shop__tabs button:hover{background:rgba(255,255,255,.18)}
-.shop__tabs button:hover svg{opacity:1}
+.hoverable .shop__tabs button:hover{background:rgba(255,255,255,.18)}
+.hoverable .shop__tabs button:hover svg{opacity:1}
 .shop__tabs button[aria-selected="true"]{background:#fff;color:var(--ink)}
-.shop__tabs button[aria-selected="true"]:hover{background:#fff}
+.hoverable .shop__tabs button[aria-selected="true"]:hover{background:#fff}
 .shop__tabs button[aria-selected="true"] svg{opacity:1}
 
 .products{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
@@ -927,7 +951,7 @@ ul{margin:0;padding:0;list-style:none}
   position:absolute;inset:0;width:100%;height:100%;padding:17.6%;
   object-fit:contain;transition:transform .4s var(--ease);
 }
-.product:hover .product__media img{transform:scale(1.05)}
+.hoverable .product:hover .product__media img{transform:scale(1.05)}
 .product__media--brand img{padding:15%}
 .product__flag{position:absolute;left:14px;top:14px;z-index:2}
 .product__flag2{position:absolute;left:14px;bottom:14px;z-index:2}
@@ -955,7 +979,7 @@ ul{margin:0;padding:0;list-style:none}
 .product__stock{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:var(--t-xs);color:var(--muted);margin-bottom:16px}
 .product__stock .dot{width:7px;height:7px;border-radius:50%;background:#2FA84F;flex:0 0 auto}
 .product__stock a{color:var(--ink);border-bottom:1px solid currentColor;padding-bottom:1px;transition:color .18s var(--ease)}
-.product__stock a:hover{color:var(--orange)}
+.hoverable .product__stock a:hover{color:var(--orange)}
 
 .product__price{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;margin:auto 0 8px}
 .product__price .amt{font-family:'Archivo',sans-serif;font-size:var(--t-num);font-weight:800;color:var(--orange);letter-spacing:-.03em}
@@ -985,7 +1009,7 @@ ul{margin:0;padding:0;list-style:none}
   font-size:var(--t-xs);font-weight:700;color:var(--ink);
   transition:color .18s var(--ease);
 }
-.product__compare:hover{color:var(--orange)}
+.hoverable .product__compare:hover{color:var(--orange)}
 
 /* ============ 6b. ways — ช้อปกับ AUTOBACS ง่ายๆ ใน 2 ขั้นตอน ============ */
 /* เลย์เอาต์ตามอ้างอิง: ภาพช่างเป็นพื้นหลังชิดขอบซ้ายจอ · หัวข้อจัดกลางฝั่งขวา · การ์ดขั้นตอนสองใบ ใบละสองจังหวะ
@@ -1041,6 +1065,21 @@ ul{margin:0;padding:0;list-style:none}
      ถ้าแบ่งครึ่งเท่ากัน ใบซ้ายที่มี 4 ขั้นตอนจะแคบกว่าใบขวาอย่างเห็นได้ชัด */
   display:grid;grid-template-columns:4fr 3fr;gap:20px;margin-top:32px;
   filter:drop-shadow(0 2px 3px rgba(30,30,30,.04)) drop-shadow(0 16px 30px rgba(30,30,30,.09));
+}
+
+/* แท็บเลือกรูปแบบการซื้อ — โผล่เฉพาะจอมือถือ (จอใหญ่กว้างพอให้โชว์การ์ดทั้งสองใบพร้อมกัน)
+   ปุ่มที่ถูกเลือกตัดมุมขวาบน 12px ชุดเดียวกับแท็บหมวดในการ์ดค้นหา
+   ตั้ง border-color เท่าสีพื้นไว้ เพราะ clip-path ตัด border ทิ้งไปพร้อมมุม — ถ้าคนละสีจะเห็นเส้นขาด */
+.ways__switch{display:none;gap:8px;margin-top:26px}
+.ways__switch button{
+  flex:1 1 0;min-width:0;height:46px;padding:0 10px;
+  background:#fff;color:var(--muted);border:1px solid var(--line);
+  font-size:var(--t-2xs);font-weight:700;line-height:1.25;
+  transition:background .18s var(--ease),color .18s var(--ease);
+}
+.ways__switch button[aria-selected="true"]{
+  background:var(--ink);color:#fff;border-color:var(--ink);
+  clip-path:polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
 }
 
 /* kicker ตัวนี้มีขีดสองข้างตาม ref — .kicker ปกติมีขีดหน้าอย่างเดียว */
@@ -1133,8 +1172,8 @@ ul{margin:0;padding:0;list-style:none}
    ต้องทับพื้นทั้งสองชั้นของ .link-arrow และเขียนซ้อน .band--ink .link-arrow ที่ตั้งชั้นในไว้เป็นสีดำ */
 .editorial .sec-head .link-arrow{background:var(--orange);color:#fff}
 .editorial .sec-head .link-arrow::before{background:var(--orange)}
-.editorial .sec-head .link-arrow:hover{background:var(--ink);color:#fff}
-.editorial .sec-head .link-arrow:hover::before{background:var(--ink)}
+.hoverable .editorial .sec-head .link-arrow:hover{background:var(--ink);color:#fff}
+.hoverable .editorial .sec-head .link-arrow:hover::before{background:var(--ink)}
 
 /* ---------- ข่าว: การ์ดรูปเต็มใบ 1 ใหญ่ + 2 เล็ก ----------
    ข้อความซ้อนบนรูป ไม่มีบล็อกเนื้อหาแยกใต้รูปแล้ว · กดใบเล็กแล้วสลับขึ้นมาเป็นใบใหญ่ */
@@ -1150,7 +1189,7 @@ ul{margin:0;padding:0;list-style:none}
 .nf__main .ncard{aspect-ratio:4/3}
 .nf__side .ncard{height:100%}
 .ncard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
-.ncard:hover img{transform:scale(1.05)}
+.hoverable .ncard:hover img{transform:scale(1.05)}
 /* ฉากไล่จากขอบล่าง มีสองชั้นซ้อนกันแล้วครอสเฟดตอน hover
    ::after = ชั้นดำ (สถานะปกติ) · ::before = ชั้นส้ม (โผล่ตอน hover)
    ต้องแยกสองชั้นเพราะ CSS ทรานซิชัน gradient ตรงๆ ไม่ได้ ต้องเล่นที่ opacity แทน
@@ -1170,9 +1209,9 @@ ul{margin:0;padding:0;list-style:none}
     rgba(0,0,0,.62) 52%,
     rgba(0,0,0,.95) 100%);
 }
-.ncard:hover::before,
+.hoverable .ncard:hover::before,
 .ncard:focus-visible::before{opacity:1}
-.ncard:hover::after,
+.hoverable .ncard:hover::after,
 .ncard:focus-visible::after{opacity:0}
 @media (prefers-reduced-motion:reduce){.ncard::after,.ncard::before{transition:none}}
 .ncard__body{
@@ -1207,7 +1246,7 @@ ul{margin:0;padding:0;list-style:none}
    ไม่งั้นจะได้ปุ่มดำมีวงส้มบางๆ แทนที่จะเป็นปุ่มส้มทึบ */
 .ncard .ncard__cta::before{background:var(--orange)}
 .nf__side .ncard__cta{height:38px;padding:0 14px;font-size:var(--t-xs);margin-bottom:-48px}
-.ncard:hover .ncard__cta,
+.hoverable .ncard:hover .ncard__cta,
 .ncard:focus-visible .ncard__cta{margin-bottom:0;opacity:1}
 /* จอสัมผัสไม่มี hover — โชว์ค้างไว้เลย ไม่งั้นจะไม่มีวันเห็นปุ่มนี้ */
 @media (hover:none){.ncard__cta{margin-bottom:0;opacity:1}}
@@ -1230,8 +1269,8 @@ ul{margin:0;padding:0;list-style:none}
 /* ปุ่มดูทั้งหมดเป็นส้มทึบ — ต้องทับพื้นทั้งสองชั้นของ .link-arrow ไม่งั้นเหลือขอบสีอื่นรอบปุ่ม */
 .tips .sec-head .link-arrow{background:var(--orange);color:#fff}
 .tips .sec-head .link-arrow::before{background:var(--orange)}
-.tips .sec-head .link-arrow:hover{background:var(--ink);color:#fff}
-.tips .sec-head .link-arrow:hover::before{background:var(--ink)}
+.hoverable .tips .sec-head .link-arrow:hover{background:var(--ink);color:#fff}
+.hoverable .tips .sec-head .link-arrow:hover::before{background:var(--ink)}
 
 /* การ์ดเป็นกล่องขาว รูปเต็มความกว้างด้านบน เนื้อหาไหลลงมาในกล่อง
    มุมขวาบนของรูปตัดเฉียง --ccut ชุดเดียวกับการ์ดสินค้า — เห็นพื้นขาวของกล่องโผล่ตรงมุม */
@@ -1245,11 +1284,11 @@ ul{margin:0;padding:0;list-style:none}
 /* ไม่มีเส้นขอบ — พื้นขาวบนพื้นไล่สีของ section แยกการ์ดออกมาให้อยู่แล้ว
    ไม่มีเงาตอน hover ด้วย เพราะ clip-path ตัดเงาของตัวเองทิ้งไปพร้อมมุม (เหมือนการ์ด 4 ใบด้านบน)
    ทั้งสามใบเป็นขาวเท่ากัน ใบไหนเป็นส้มขึ้นกับ hover ไม่ได้ตั้งใบเน้นไว้ล่วงหน้า */
-.tipc:hover{background:var(--orange);color:#fff;transform:translateY(-3px)}
+.hoverable .tipc:hover{background:var(--orange);color:#fff;transform:translateY(-3px)}
 /* รูปไม่ต้องตัดมุมเอง — .tipc ตัดให้แล้วทั้งใบ ถ้าตัดซ้ำจะได้รอยเฉียงซ้อนกันสองชั้น */
 .tipc__media{position:relative;display:block;overflow:hidden;background:var(--ink-soft);aspect-ratio:16/10}
 .tipc__media img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
-.tipc:hover .tipc__media img{transform:scale(1.05)}
+.hoverable .tipc:hover .tipc__media img{transform:scale(1.05)}
 .tipc__body{display:flex;flex-direction:column;flex:1;padding:22px}
 /* แถวเมตา — ไอคอน+วันที่ กับ ไอคอน+หมวด ใช้ขนาดเมตาเดียวกับที่อื่นในหน้า */
 .tipc__meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-bottom:12px;font-size:var(--t-xs);color:var(--muted);transition:color .22s var(--ease)}
@@ -1265,11 +1304,11 @@ ul{margin:0;padding:0;list-style:none}
 .tipc__more{align-self:flex-start;margin-top:auto}
 .tipc .link-arrow::before{background:#fff}
 /* ตอนการ์ดเป็นส้ม ตัวอักษรทุกตัวพลิกเป็นขาว ปุ่มพลิกเป็นขาวทึบให้ยังอ่านออกบนพื้นส้ม */
-.tipc:hover .tipc__meta{color:rgba(255,255,255,.85)}
-.tipc:hover h3 a{color:#fff}
-.tipc:hover .tipc__desc{color:rgba(255,255,255,.88)}
-.tipc:hover .link-arrow{background:#fff;color:var(--ink)}
-.tipc:hover .link-arrow::before{background:#fff}
+.hoverable .tipc:hover .tipc__meta{color:rgba(255,255,255,.85)}
+.hoverable .tipc:hover h3 a{color:#fff}
+.hoverable .tipc:hover .tipc__desc{color:rgba(255,255,255,.88)}
+.hoverable .tipc:hover .link-arrow{background:#fff;color:var(--ink)}
+.hoverable .tipc:hover .link-arrow::before{background:#fff}
 /* วันที่ในการ์ด — ชุดเดียวกับ .ncard__date ในโซนข่าว ให้เป็นเมตาขนาดเดียวกันทั้งหน้า */
 .post__date{font-family:'Archivo','IBM Plex Sans Thai',sans-serif}
 
@@ -1299,8 +1338,8 @@ ul{margin:0;padding:0;list-style:none}
    JS ตั้ง height รายตัวให้ "พื้นที่หมึก" เท่ากัน — กฎนี้เป็น fallback ตอน JS ยังไม่ทำงาน */
 .brand-chip img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(1);opacity:.62;transition:filter .25s var(--ease),opacity .25s var(--ease)}
 /* ไม่มีกล่องแล้ว เงาจึงไม่มีอะไรให้ทอด เหลือแค่ยกตัวขึ้นกับคืนสีจริงให้โลโก้ */
-.brand-chip:hover{transform:translateY(-3px)}
-.brand-chip:hover img{filter:none;opacity:1}
+.hoverable .brand-chip:hover{transform:translateY(-3px)}
+.hoverable .brand-chip:hover img{filter:none;opacity:1}
 
 /* ============ 9b. แถบชวนติดต่อ — กล่องส้มคร่อมรอยต่อกับฟุตเตอร์ ============ */
 /* ระยะบน 112px เป็นที่ว่างให้หัวของรูปช่างโผล่พ้นขอบบนกล่อง ไม่ใช่ระยะ section ปกติ
@@ -1345,11 +1384,11 @@ ul{margin:0;padding:0;list-style:none}
   font-family:'Archivo',sans-serif;font-size:var(--t-h2);font-weight:900;
   letter-spacing:-.03em;line-height:1.1;color:#fff;transition:color .18s var(--ease);
 }
-.cta__num:hover{color:var(--ink)}
+.hoverable .cta__num:hover{color:var(--ink)}
 .cta__btns{display:flex;gap:10px;margin-top:18px}
 /* ปุ่มมีกรอบบนพื้นส้ม — ชั้นในของขอบต้องเป็นสีส้มตามพื้นกล่อง ไม่ใช่สีดำแบบในฟุตเตอร์ */
 .cta__btns .btn--outline::before{background:var(--orange)}
-.cta__btns .btn--outline:hover::before{background:#fff}
+.hoverable .cta__btns .btn--outline:hover::before{background:#fff}
 /* รูปช่างยืนบนขอบล่างของกล่องแล้วโผล่พ้นขอบบนขึ้นไป — ต้องมีที่ว่างเหนือ section รองรับ */
 .cta__staff{
   position:absolute;right:24px;bottom:0;height:calc(100% + 96px);width:auto;
@@ -1401,8 +1440,8 @@ ul{margin:0;padding:0;list-style:none}
   content:"";position:absolute;left:-14px;top:50%;width:9px;height:1px;background:var(--orange);
   transform:scaleX(0);transform-origin:right center;transition:transform .2s var(--ease);
 }
-.site-footer li a:hover{color:#fff;transform:translateX(7px)}
-.site-footer li a:hover::before{transform:scaleX(1)}
+.hoverable .site-footer li a:hover{color:#fff;transform:translateX(7px)}
+.hoverable .site-footer li a:hover::before{transform:scaleX(1)}
 .footer-brand img{height:30px;margin-bottom:20px;filter:brightness(0) invert(1)}
 .footer-brand p{font-size:var(--t-xs);color:rgba(255,255,255,.5);max-width:300px}
 /* ปุ่มโซเชียล — สี่เหลี่ยมตัดมุมขวาบน เส้นขอบทำด้วยพื้นสองชั้นเหมือน .btn ทั้งหน้า
@@ -1420,8 +1459,8 @@ ul{margin:0;padding:0;list-style:none}
   clip-path:polygon(0 0, calc(100% - 9.41px) 0, 100% 9.41px, 100% 100%, 0 100%);
   transition:background .18s var(--ease);
 }
-.footer-social a:hover{background:var(--orange);color:#fff;transform:translateY(-2px)}
-.footer-social a:hover::before{background:var(--orange)}
+.hoverable .footer-social a:hover{background:var(--orange);color:#fff;transform:translateY(-2px)}
+.hoverable .footer-social a:hover::before{background:var(--orange)}
 .footer-social svg{width:18px;height:18px}
 
 /* ---------- ชั้นที่ 2: บรรทัดกฎหมาย ---------- */
@@ -1432,7 +1471,7 @@ ul{margin:0;padding:0;list-style:none}
 }
 .legal__links{display:flex;gap:24px}
 .legal a{transition:color .18s var(--ease)}
-.legal a:hover{color:var(--orange-lt)}
+.hoverable .legal a:hover{color:var(--orange-lt)}
 
 /* ============ responsive ============ */
 @media (max-width:1200px){
@@ -1475,10 +1514,14 @@ ul{margin:0;padding:0;list-style:none}
   .hero{padding-top:0}
   .hero__inner{padding-top:26px;padding-bottom:0}
   .hero__col{max-width:none;margin-inline:0}
-  :root{--notch:64px;--notch-x:50%;  .pillars__grid{grid-template-columns:repeat(2,1fr)}
+  :root{--notch:64px;--notch-x:50%}
+  .pillars__grid{grid-template-columns:repeat(2,1fr)}
   /* จอแคบไม่มีที่พอให้ภาพอยู่ข้างเนื้อหา — ซ่อนแล้วคืนความกว้างเต็มให้การ์ด */
   .ways__bg{display:none}
-  .ways__body{padding-left:0}
+  /* padding ล่าง 100px มีไว้ให้รูปช่างที่ยึดขอบล่างของแถบเท่านั้น — ซ่อนรูปแล้วเหลือไว้แค่ช่องหายใจ
+     ต้องไม่เป็น 0 เพราะระยะล่างของ section (= --notch) ถูกลิ่มเฉียงกินไปหมดพอดี
+     ถ้าไม่เผื่อ ขอบล่างการ์ดจะไปชนพื้นดำของ section ข่าวที่โผล่ขึ้นมาในลิ่ม */
+  .ways__body{padding-left:0;padding-bottom:32px}
   .ways__grid{grid-template-columns:1fr}
   /* ซ้อนลง — ใบเล็กสองใบเรียงข้างกันใต้ใบใหญ่ */
   .nf{grid-template-columns:1fr}
@@ -1509,7 +1552,8 @@ ul{margin:0;padding:0;list-style:none}
   .hsearch.is-open{flex:1;width:auto;border-bottom-color:rgba(30,30,30,.22);padding:8px 2px;gap:10px}
   .hsearch.is-open input{display:block}
   .hsearch.is-open ~ .icon-btn,.hsearch.is-open ~ .btn{display:none}
-  :root{--notch:40px;--notch-x:52%;  .hero__inner{padding-top:20px}
+  :root{--notch:40px;--notch-x:52%}
+  .hero__inner{padding-top:20px}
   .hero__arrow{display:none}   /* จอเล็กใช้จุดบอกตำแหน่งแทน ลูกศรบังรูป */
   .finder{--fpad:18px}
   .field select{height:52px;padding:0 24px 0 36px;font-size:var(--t-xs)}
@@ -1520,31 +1564,105 @@ ul{margin:0;padding:0;list-style:none}
      เรียงไอคอนเหนือป้าย + ป้ายกลับเป็น 14px (16px ของจอใหญ่กว้างเกินปุ่มนี้) */
   .finder__tabs button[data-fin]{flex-direction:column;height:88px;gap:7px;font-size:var(--t-xs)}
   .finder__tabs button[data-fin] svg{width:38px;height:38px}
-  .pillars__grid{grid-template-columns:1fr}
+  /* จอมือถือยังคง 2 คอลัมน์ (2x2) — เรียงเป็นตับเดียวสี่ใบยาวเกินกว่าจะกวาดตาได้จบ
+     ช่องต่อใบเหลือ ~160px ระยะใน ไอคอน หัวข้อ และปุ่มจึงต้องหดลงทั้งชุด
+     ปุ่มกินเต็มความกว้างการ์ดและปล่อยให้ข้อความตัดบรรทัดได้ (ค่าฐานเป็น nowrap สูง 46px) */
+  .pillars__grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .pillar__body{padding:16px 14px}
+  .pillar__ico{width:38px;height:38px;margin-bottom:12px;
+    clip-path:polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)}
+  .pillar__ico svg{width:20px;height:20px}
+  .pillar h3{font-size:var(--t-sm)}
+  .pillar p{font-size:var(--t-2xs)}
+  .pillar__btn{align-self:stretch;height:auto;min-height:42px;padding:9px 12px;
+    margin-top:14px;font-size:var(--t-2xs);line-height:1.35;white-space:normal;text-align:center}
   .pillar{min-height:0}
-  .step{padding:0 20px 26px}
-  .step__head{padding-top:20px}
-  .step__ico{width:56px;height:56px;--ico-cut:12px}
-  .step__ico svg{width:30px;height:30px;stroke-width:1.28}
-  .step__sep svg{margin-top:14px}
-  .nf__side{grid-template-columns:1fr}
-  .nf__main .ncard{aspect-ratio:4/3}
+  /* How to: เลือกดูทีละแบบด้วยแท็บ ไม่ต้องเลื่อนผ่านการ์ดสองใบ
+     เมื่อเหลือใบเดียวต่อจอ ขั้นตอนจึงกลับมาเรียงแถวเดียวได้ (ดู .step__row ข้างล่าง)
+     stroke-width 1.6 = ไอคอน 24px บน viewBox 24 → เส้นจริง 1.6px เท่ากับไอคอนชุดอื่นของหน้า */
+  .ways__switch{display:flex}
+  .ways__grid{margin-top:14px}
+  .ways__grid .step{display:none}
+  .ways__grid .step.is-on{display:block}
+  .step{padding:0 12px 22px}
+  .step__head{padding-top:18px;margin-bottom:16px}
+  .step__head h3{font-size:var(--t-sm)}
+  .step__ico{width:44px;height:44px;--ico-cut:10px}
+  .step__ico svg{width:24px;height:24px;stroke-width:1.6}
+  .step__item{padding:0 2px}
+  .step__item h4{font-size:var(--t-2xs);line-height:1.35}
+  /* ช่องคั่นแคบลงเหลือ 12px — ที่ว่างที่เหลือถูกยกให้ช่องขั้นตอนทั้งสี่ */
+  .step__sep{width:12px}
+  .step__sep svg{margin-top:12px;width:11px;height:11px}
+  /* จอมือถือ: พื้นดำ-ขาวแบ่งตามสัดส่วนเดิมจะเหลือแถบขาวกว้างครึ่งจอที่ไม่มีอะไรวางอยู่
+     ดันจุดแบ่งไปสุดขอบขวา เหลือขาวไว้ 10px เป็นแค่ริ้วปิดท้ายก้อนดำ */
+  :root{--split-x:calc(100% - 10px)}
+  /* ข่าวสามใบเป็นสไลด์แนวนอนทีละใบ — display:contents ปล่อยการ์ดใบเล็กสองใบ
+     ออกมาเป็นสไลด์ของตัวเองในรางเดียวกับใบใหญ่ ไม่ต้องแก้ HTML ที่ JS สร้าง
+     ทุกใบจึงหน้าตาเท่ากันหมด (ใบเล็กถูกตั้งไว้ให้หัวข้อ/วันที่เล็กกว่า จึงต้องคืนค่าให้เท่าใบใหญ่) */
+  .nf{
+    display:flex;grid-template-columns:none;gap:14px;
+    overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    margin-inline:calc(var(--gutter) * -1);padding:0 var(--gutter);
+    scroll-padding-inline:var(--gutter);
+  }
+  .nf::-webkit-scrollbar{display:none}
+  /* ทั้งใบใหญ่และใบเล็กต้องเป็นสไลด์ในรางเดียวกัน — กล่องที่ห่อไว้จึงต้องหายไปทั้งสองชั้น
+     ถ้าเหลือ .nf__main ไว้ มันจะเป็นแฟลกซ์ไอเทมที่ไม่มีความกว้างของตัวเอง แล้วยุบเหลือ 0 */
+  .nf__main{display:contents}
+  .nf__side{display:contents}
+  .nf .ncard{flex:0 0 84%;height:auto;aspect-ratio:4/3;scroll-snap-align:start}
+  .nf__side .ncard h3{font-size:var(--t-h3);line-height:1.34}
+  .nf__side .ncard__date{font-size:var(--t-xs)}
+  .nf__side .ncard__date svg{width:14px;height:14px}
+  .nf__side .ncard__cta{height:44px;padding:0 18px;font-size:var(--t-sm);margin-bottom:0}
   .ncard__body{padding:18px}
   /* จอแคบ: รูปกลางกินพื้นที่มากขึ้น รูปข้างเคียงย่อลงและถอยออกไปให้เหลือแค่ชายรูป */
   .promo{--promo-w:92vw}
   .promo__slide[data-pos="-1"]{transform:translateX(-62%) scale(.5)}
   .promo__slide[data-pos="1"]{transform:translateX(62%) scale(.5)}
   .promo__nav{width:38px;height:38px}
-  .products{grid-template-columns:1fr}
+  /* จอมือถือ: การ์ดสินค้าไม่กางลงเป็นตับยาว — เลื่อนซ้าย-ขวาทีละใบแทน
+     ถอย margin เท่า gutter แล้วบวกคืนเป็น padding ของราง สไลด์จึงเลื่อนพ้นขอบจอได้
+     แต่ใบแรกยังตั้งต้นตรงแนวคอนเทนเนอร์เดียวกับหัวข้อ section
+     ใบละ 78% เหลือชายใบถัดไปให้เห็น เป็นสัญญาณว่าปัดต่อได้ */
+  .products{
+    display:flex;grid-template-columns:none;gap:14px;
+    overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    margin-inline:calc(var(--gutter) * -1);padding:2px var(--gutter) 6px;
+    /* จุดหยุดของ snap วัดจากขอบใน ไม่ใช่ขอบกล่อง — ถ้าไม่บอก เบราว์เซอร์จะเลื่อนรางไปเอง
+       เท่าความกว้าง padding ตั้งแต่โหลดหน้า ใบแรกจะไปชนขอบจอแทนที่จะตรงแนวคอนเทนเนอร์ */
+    scroll-padding-inline:var(--gutter);
+  }
+  .products::-webkit-scrollbar{display:none}
+  .products > *{flex:0 0 78%;scroll-snap-align:start}
   .product__media{aspect-ratio:1/1;padding:16px}
   .product__name{min-height:0}
-  /* สองจังหวะในการ์ดซ้อนลง — เส้นคั่นกับลูกศรหมุนเป็นแนวนอน */
-  .step__row{flex-direction:column;gap:22px}
-  .step__sep{align-self:center;align-items:center;width:auto;height:1px;margin:2px 0}
-  .step__sep::before{top:50%;bottom:auto;left:0;right:0;width:auto;height:1px}
-  .step__sep svg{margin-top:0;transform:rotate(90deg);padding:0 6px;background:#fff}
   .step__head{gap:14px}
-  .tips__grid{grid-template-columns:1fr;gap:28px}
+  /* พันธมิตร: บังคับแถวละ 3 ตัว — ตัวคั่น 7/5/6 ของจอใหญ่จึงไม่ต้องใช้
+     ต้องเป็น grid ไม่ใช่ flex wrap ไม่งั้นแถวสุดท้ายที่ไม่เต็มจะเลื่อนไปกึ่งกลางไม่ตรงคอลัมน์ */
+  .brands__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 8px;justify-items:center}
+  .brands__break{display:none}
+  .brand-chip{width:100%;height:44px;padding:4px 6px}
+  /* เคล็ดลับ: ทีละใบ เลื่อนซ้าย-ขวา เหมือนรางสินค้ากับข่าว */
+  .tips__grid{
+    display:flex;grid-template-columns:none;gap:14px;
+    overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    margin-inline:calc(var(--gutter) * -1);padding:2px var(--gutter) 6px;
+    scroll-padding-inline:var(--gutter);
+  }
+  .tips__grid::-webkit-scrollbar{display:none}
+  .tips__grid > *{flex:0 0 84%;scroll-snap-align:start}
+  /* ปุ่มลูกศรของทั้งสามราง โผล่พร้อมกันที่จอนี้ */
+  .slidenav{display:flex}
+  /* ระหว่างลากด้วยเมาส์ต้องปิด snap ชั่วคราว ไม่งั้นรางจะดีดกลับจุดหยุดทุกครั้งที่ตั้งค่า scrollLeft
+     ปล่อยคืนตอนปล่อยเมาส์ รางจะเข้าจุดหยุดใบที่ใกล้ที่สุดเอง */
+  .products.is-dragging,.nf.is-dragging,.tips__grid.is-dragging{
+    scroll-snap-type:none;cursor:grabbing;user-select:none;
+  }
   .sec-head{flex-direction:column;align-items:flex-start;gap:14px}
   .shop__tabsrow{flex-direction:column;align-items:stretch;gap:16px}
   .shop__tabsrow .link-arrow{display:none}
@@ -1824,6 +1942,10 @@ ul{margin:0;padding:0;list-style:none}
     </div>
 
     <div class="products" id="products"><!-- rendered by script --></div>
+    <div class="slidenav" data-track="products">
+      <button type="button" class="slidenav__btn" data-dir="-1" aria-label="สินค้าก่อนหน้า"><svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M10 3L5 8l5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="slidenav__btn" data-dir="1" aria-label="สินค้าถัดไป"><svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M6 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
   </div>
 </section>
 
@@ -1839,8 +1961,13 @@ ul{margin:0;padding:0;list-style:none}
       <p>ช้อปสินค้าแล้วเลือกเข้ารับบริการที่สาขา AUTOBACS หรือเลือกจัดส่งถึงบ้าน</p>
     </div>
 
+    <div class="ways__switch" role="tablist" aria-label="เลือกรูปแบบการซื้อ" id="waysSwitch">
+      <button type="button" role="tab" aria-selected="true" data-way="service">เข้ารับบริการที่สาขา</button>
+      <button type="button" role="tab" aria-selected="false" data-way="ship">จัดส่งถึงบ้าน</button>
+    </div>
+
     <div class="ways__grid">
-      <article class="step reveal">
+      <article class="step reveal is-on" data-way="service">
         <header class="step__head"><h3>ซื้อสินค้าพร้อมเข้ารับบริการ</h3></header>
         <div class="step__row">
         <div class="step__item">
@@ -1864,7 +1991,7 @@ ul{margin:0;padding:0;list-style:none}
         </div>
         </div>
       </article>
-      <article class="step reveal">
+      <article class="step reveal" data-way="ship">
         <header class="step__head"><h3>ซื้อสินค้าพร้อมจัดส่งถึงบ้าน</h3></header>
         <div class="step__row">
         <div class="step__item">
@@ -1900,9 +2027,13 @@ ul{margin:0;padding:0;list-style:none}
       <a href="#" class="link-arrow">ดูทั้งหมด <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
 
-    <div class="nf reveal">
+    <div class="nf reveal" id="newsTrack">
       <div class="nf__main" id="newsMain"><!-- rendered by script --></div>
       <div class="nf__side" id="newsSide"><!-- rendered by script --></div>
+    </div>
+    <div class="slidenav slidenav--ink" data-track="newsTrack">
+      <button type="button" class="slidenav__btn" data-dir="-1" aria-label="ข่าวก่อนหน้า"><svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M10 3L5 8l5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="slidenav__btn" data-dir="1" aria-label="ข่าวถัดไป"><svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M6 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
   </div>
 </section>
@@ -1919,7 +2050,7 @@ ul{margin:0;padding:0;list-style:none}
       <a href="#" class="link-arrow">ดูเคล็ดลับทั้งหมด <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
 
-    <div class="tips__grid">
+    <div class="tips__grid" id="tipsTrack">
       <article class="tipc reveal">
         <a class="tipc__media" href="#"><img src="assets/tips/tip-tire.jpg" alt="ช่างใช้เกจวัดลมยางที่ล้อรถ" loading="lazy"><span class="chip chip--orange tipc__flag">เคล็ดลับดูแลรถ</span></a>
         <div class="tipc__body">
@@ -1955,6 +2086,10 @@ ul{margin:0;padding:0;list-style:none}
           <a href="#" class="link-arrow tipc__more">อ่านต่อ <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h9M8.5 4.5L12 8l-3.5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
       </article>
+    </div>
+    <div class="slidenav" data-track="tipsTrack">
+      <button type="button" class="slidenav__btn" data-dir="-1" aria-label="เคล็ดลับก่อนหน้า"><svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M10 3L5 8l5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="slidenav__btn" data-dir="1" aria-label="เคล็ดลับถัดไป"><svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M6 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
   </div>
 </section>
@@ -2081,6 +2216,17 @@ ul{margin:0;padding:0;list-style:none}
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---------- hover เปิดเฉพาะจอที่ชี้ด้วยเมาส์ ----------
+     จอสัมผัสไม่มี hover จริง — แตะแล้วสถานะค้างอยู่จนกว่าจะไปแตะที่อื่น
+     กฎ :hover ทุกข้อในหน้านี้จึงถูกครอบด้วย .hoverable ไว้ แล้วติดคลาสนี้ที่ <html>
+     เฉพาะจอที่ทั้ง hover ได้จริงและกว้างพอที่จะเป็นเลย์เอาต์เดสก์ท็อป */
+  var hoverMQ = window.matchMedia('(hover:hover) and (min-width:721px)');
+  var syncHover = function(){
+    document.documentElement.classList.toggle('hoverable', hoverMQ.matches);
+  };
+  syncHover();
+  hoverMQ.addEventListener('change', syncHover);
+
   /* ---------- topbar ----------
      บนสุด = โปร่งใสทับ hero (is-clear)
      เลื่อนพ้นหัว = ทึบ + หุบแถวโลโก้ กลายเป็นแถบเดียว (is-collapsed)
@@ -2197,9 +2343,91 @@ ul{margin:0;padding:0;list-style:none}
   newsSide.addEventListener('click', function(e){
     var b = e.target.closest('.ncard');
     if (!b) return;
+    /* จอมือถือวางข่าวทั้งสามใบเป็นรางเลื่อนซ้าย-ขวา ทุกใบเท่ากันหมด
+       ถ้ายังสลับใบใหญ่อยู่ ลำดับสไลด์จะสับตำแหน่งใต้นิ้วที่กำลังปัด */
+    if (narrowMQ.matches) return;
     newsIdx = Number(b.dataset.i);
     paintNews();
   });
+
+  /* ---------- รางสไลด์ของจอมือถือ: ปุ่มลูกศร + ลากด้วยเมาส์ ----------
+     ตัวรางเลื่อนได้เองอยู่แล้วด้วย overflow-x (นิ้วปัดบนจอสัมผัสจึงทำงานฟรี)
+     ส่วนนี้เติมให้ครบสำหรับเมาส์: กดลูกศรทีละใบ และลากรางไปมาได้เหมือนปัดนิ้ว
+     ผูกด้วย data-track ที่ .slidenav ไม่ผูกกับตำแหน่งใน DOM รางไหนก็ใช้ชุดเดียวกันได้ */
+  Array.prototype.forEach.call(document.querySelectorAll('.slidenav'), function(nav){
+    var track = document.getElementById(nav.dataset.track);
+    if (!track) return;
+
+    /* ระยะเลื่อนต่อครั้ง = ความกว้างสไลด์ใบแรก + ช่องไฟ — วัดสดทุกครั้ง เพราะสัดส่วนผูกกับ % ของจอ
+       รางข่าวมีกล่อง display:contents คั่นอยู่ (กว้าง 0) จึงต้องไล่ลงไปจนเจอใบที่มีความกว้างจริง */
+    var step = function(){
+      var el = track.firstElementChild;
+      while (el && el.getBoundingClientRect().width === 0 && el.firstElementChild) el = el.firstElementChild;
+      if (!el) return track.clientWidth;
+      var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return el.getBoundingClientRect().width + gap;
+    };
+
+    var btns = nav.querySelectorAll('.slidenav__btn');
+    var syncEnds = function(){
+      var max = track.scrollWidth - track.clientWidth;
+      btns[0].disabled = track.scrollLeft <= 1;
+      btns[1].disabled = track.scrollLeft >= max - 1;
+    };
+    Array.prototype.forEach.call(btns, function(b){
+      b.addEventListener('click', function(){
+        track.scrollBy({left: Number(b.dataset.dir) * step(), behavior: reduced ? 'auto' : 'smooth'});
+      });
+    });
+    track.addEventListener('scroll', syncEnds, {passive:true});
+    window.addEventListener('resize', syncEnds);
+    syncEnds();
+    /* การ์ดสินค้าถูกเรนเดอร์ทีหลัง (และเรนเดอร์ใหม่ทุกครั้งที่สลับหมวด) ปุ่มจึงต้องเช็คปลายรางใหม่ */
+    new MutationObserver(syncEnds).observe(track, {childList:true, subtree:true});
+
+    /* ---- ลากด้วยเมาส์ ----
+       ปล่อย pointerType touch ให้เบราว์เซอร์จัดการเอง จะได้แรงเฉื่อยกับ snap ตามระบบ
+       ระหว่างลากต้องปิด snap (.is-dragging) ไม่งั้นรางจะดีดกลับจุดหยุดทุกครั้งที่ตั้ง scrollLeft */
+    var dragging = false, startX = 0, startLeft = 0, moved = 0;
+    track.addEventListener('pointerdown', function(e){
+      if (e.pointerType === 'touch' || e.button !== 0) return;
+      dragging = true; moved = 0;
+      startX = e.clientX; startLeft = track.scrollLeft;
+      track.classList.add('is-dragging');
+    });
+    window.addEventListener('pointermove', function(e){
+      if (!dragging) return;
+      var dx = e.clientX - startX;
+      moved = Math.max(moved, Math.abs(dx));
+      track.scrollLeft = startLeft - dx;
+    });
+    window.addEventListener('pointerup', function(){
+      if (!dragging) return;
+      dragging = false;
+      track.classList.remove('is-dragging');
+      syncEnds();
+    });
+    /* ลากจบบนลิงก์/ปุ่มในการ์ด ต้องไม่นับเป็นการคลิก — ดักตอน capture ก่อนถึงตัวการ์ด */
+    track.addEventListener('click', function(e){
+      if (moved > 4) { e.preventDefault(); e.stopPropagation(); moved = 0; }
+    }, true);
+  });
+
+  /* ---------- How to: แท็บเลือกทีละแบบ (ใช้จริงเฉพาะจอมือถือ จอใหญ่โชว์ทั้งสองใบอยู่แล้ว) ---------- */
+  var waysSwitch = document.getElementById('waysSwitch');
+  if (waysSwitch) {
+    var waysCards = document.querySelectorAll('.ways__grid .step');
+    waysSwitch.addEventListener('click', function(e){
+      var b = e.target.closest('button[data-way]');
+      if (!b) return;
+      Array.prototype.forEach.call(waysSwitch.querySelectorAll('button'), function(x){
+        x.setAttribute('aria-selected', x === b ? 'true' : 'false');
+      });
+      Array.prototype.forEach.call(waysCards, function(c){
+        c.classList.toggle('is-on', c.dataset.way === b.dataset.way);
+      });
+    });
+  }
   paintNews();
 
   /* ---------- reveal on scroll ---------- */
