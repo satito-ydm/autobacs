@@ -51,7 +51,6 @@
   --notch:88px;
   --partner-over:112px;     /* ระยะที่กล่องส้มชวนติดต่อยื่นลงไปทับฟุตเตอร์ ≈ ครึ่งความสูงกล่อง (223px ที่จอ 1440) */
   --notch-x:50%;            /* จุดหักของรอยเฉียงขอบบนของ How to */
-  --notch-x-hero:36%;       /* จุดหักของรอยเฉียงใต้ hero — แยกตัวแปรจาก How to เพราะขยับคนละทิศกัน */
   --split-x:65%;            /* จุดแบ่งดำ-ขาวของ section ข่าว และปลายลิ่มล่างของ How to ต้องตรงแนวกัน */
   --section:104px;
   --shadow:0 2px 4px rgba(30,30,30,.04), 0 14px 30px -16px rgba(30,30,30,.20);
@@ -425,27 +424,24 @@ ul{margin:0;padding:0;list-style:none}
 
 /* ============ 3. hero — แบนเนอร์เต็มจอ + กล่องค้นหาซ้อนฝั่งซ้าย ============ */
 .hero{
-  /* .topbar-spacer กันที่ให้เต็มความสูง topbar แล้ว และไม่มี fade ดำยื่นลงมาอีก
-     padding บนจึงเป็นแค่ระยะหายใจของการ์ดจากขอบบนแบนเนอร์ ไม่ใช่ระยะหลบแถบเมนู */
-  /* padding ล่าง = --notch เพราะ .pillars ถูกดึงขึ้นมาทับขอบล่างของ hero เท่านั้นพอดี (margin-top:-88px)
-     และมัน z-index สูงกว่า — ถ้าไม่กันที่ไว้ การ์ดค้นหาที่จัดกึ่งกลางจะโดนพื้นขาวทับมุมล่างหายไป */
-  /* overflow ย้ายไปไว้ที่ .hero__banner แทน — อาร์ตกับปุ่มเลื่อนอยู่ในนั้นทั้งหมด ยังถูกเฉือนเหมือนเดิม
-     ส่วน .hero ต้องปล่อยให้ล้นได้ เพราะการ์ดค้นหาตอนฟอร์มเป็นแนวตั้งสูงเกินกรอบแบนเนอร์ */
-  position:relative;padding:40px 0 var(--notch);overflow:visible;background:var(--ink-soft);
-  /* height ตายตัวไม่ใช่ min-height — ถ้าปล่อยให้ยืดตามการ์ด แบนเนอร์จะสูงขึ้นจนอาร์ตที่เป็น
-     object-fit:cover ถูกขยายแล้วครอปด้านข้างหนักมาก (เคยวัดได้ข้างละ 270px = 27.5% ของภาพ
-     ข้อความ YOUR DRIVE YOUR WAY ฝั่งซ้ายขาด) · ล็อกไว้ตามสัดส่วนอาร์ตแล้วให้การ์ดยื่นพ้นแทน */
-  height:min(calc(100vw / var(--hero-ar) + var(--hero-extra)), 840px);   /* ผูกความสูงกับสัดส่วนอาร์ตเวิร์ก · เพดาน 840px */
-  /* ยึดขอบบน ไม่ใช่จัดกึ่งกลาง — การ์ดค้นหาสูงไม่เท่ากันในแต่ละหมวด (ยางมีรูปขนาดยางเพิ่มมา)
-     ถ้าจัดกึ่งกลาง หัวการ์ดจะเด้งขึ้นลงทุกครั้งที่สลับหมวด · ยึดบนแล้วมันยืด-หดลงล่างอย่างเดียว */
-  display:flex;align-items:flex-start;
+  /* สองคอลัมน์เต็มความสูงเท่ากัน — ซ้ายแบนเนอร์ 70% ขวาแผงค้นหา 30%
+     เลิกใช้แบบการ์ดลอยทับแบนเนอร์แล้ว จึงไม่ต้องมี padding หลบแถบเมนู ไม่ต้องล็อกความสูง
+     ความสูงมาจากแผงค้นหาซึ่งเป็นฝั่งที่สูงกว่า · overflow:hidden ได้แล้วเพราะไม่มีอะไรยื่นพ้นกรอบ */
+  position:relative;overflow:hidden;background:var(--ink-soft);
+  display:flex;align-items:stretch;
 }
-.hero__banner{animation:bannerIn 1.6s var(--ease-out) both;position:absolute;inset:0;z-index:0;overflow:hidden}
+
+/* aspect-ratio มีผลเฉพาะตอนจอเล็กที่ .hero กลายเป็น display:block — ในโหมดสองคอลัมน์
+   align-items:stretch กำหนดความสูงให้อยู่แล้ว ค่านี้จึงถูกมองข้าม */
+.hero__banner{animation:bannerIn 1.6s var(--ease-out) both;position:relative;flex:0 0 70%;min-width:0;
+  aspect-ratio:var(--hero-ar);overflow:hidden;z-index:0}
 /* สไลด์: ซ้อนทับกันแล้วสลับด้วย opacity — ไม่ใช้ transform เพราะจะสร้าง containing block
    ให้การ์ดค้นหาที่เป็น position:fixed ตอนลอย */
 .hero__slide{position:absolute;inset:0;opacity:0;transition:opacity .8s var(--ease)}
 .hero__slide.is-on{opacity:1}
-.hero__slide img{width:100%;height:100%;object-fit:cover;object-position:50% 0%}   /* ยึดขอบบน — จอกว้างจนชนเพดาน 800px แล้ว crop จะกินจากด้านล่างอย่างเดียว */
+/* ยึดมุมซ้ายบน — คอลัมน์แบนเนอร์แคบกว่าสัดส่วนภาพมาก การครอปจึงกินจากขวาอย่างเดียว
+   ซึ่งเป็นฝั่งที่เป็นพื้นหลัง (ร้าน/ท้องฟ้า) ส่วนพาดหัวกับราคาที่อยู่ซ้ายรอด */
+.hero__slide img{width:100%;height:100%;object-fit:cover;object-position:0% 0%}
 
 /* จุดบอกตำแหน่งวางมุมบนขวา — มุมล่างของอาร์ตเวิร์กมี fine print ส่วนล่างซ้ายเป็นการ์ดค้นหา */
 .hero__dots{position:absolute;top:18px;right:22px;z-index:3;display:flex;gap:7px}
@@ -504,23 +500,24 @@ ul{margin:0;padding:0;list-style:none}
 
 /* กล่องค้นหาสีขาววางบนพื้นโรงงานที่สว่าง ต้องมีฉากหลังเข้มไล่จากขวาคั่นให้อ่านออก
    (ไล่จากขวาเพราะการ์ดย้ายไปอยู่ฝั่งขวาของแบนเนอร์แล้ว) */
-.hero__scrim{
+/* ไม่ใช้แล้ว — แผงค้นหาแยกคอลัมน์ มีพื้นขาวของตัวเอง ไม่ได้วางทับอาร์ตให้ต้องเพิ่มคอนทราสต์ */
+.hero__scrim{display:none;
   position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(270deg, rgba(30,30,30,.34) 0%, rgba(30,30,30,.16) 28%, rgba(30,30,30,0) 50%);
 }
 /* กล่องค้นหาอยู่ฝั่งขวาของแบนเนอร์ — ข้อความโปรฯ ย้ายไปชิดซ้ายแทน จะได้ไม่ทับกัน */
-.hero__inner{position:relative;z-index:3;width:100%;padding-top:0;padding-bottom:0;display:flex;justify-content:flex-end}
-/* .wrap ของ section นี้ไม่จำกัดความกว้างและไม่มี padding ขวา — การ์ดจึงชิดขอบขวาของจอจริง
-   ไม่ใช่ชิดขอบคอนเทนเนอร์ 1320px ที่ถูกจัดกึ่งกลางไว้ (ซึ่งห่างขอบจอ ~76px ที่จอ 1440)
-   ทำที่ .wrap แทนการดันด้วย margin ติดลบ เพราะระยะที่ต้องดันขึ้นกับความกว้างจอ
-   ถ้าใช้ 50vw คำนวณจะคลาดไปเท่าความกว้างสกrollbar · ใน .hero มีแค่การ์ดใบนี้ ไม่กระทบอย่างอื่น */
-.hero > .wrap{max-width:none;padding-right:0}
+.hero__inner{position:relative;z-index:3;width:100%;padding-top:0;padding-bottom:0}
+/* .wrap ของ section นี้คือแผงค้นหาคอลัมน์ขวา ไม่ใช่คอนเทนเนอร์จัดกึ่งกลางแบบ section อื่น */
+.hero > .wrap{
+  flex:0 0 30%;min-width:0;max-width:none;margin:0;padding:36px 28px;
+  background:#fff;display:flex;align-items:center;
+}
 /* ไม่ต้องใช้ margin ดันแล้ว — .hero ยึดขอบบนให้ หัวการ์ดจึงนิ่งที่ padding-top ของ hero (172px)
    ก้นการ์ดยื่นพ้นขอบล่างแบนเนอร์ลงไปทับ section ขาวถัดไป ซึ่งเป็นสิ่งที่ตั้งใจ
    .hero__inner มี z-index:3 อยู่แล้ว สูงกว่า .pillars (z-index:2) การ์ดจึงอยู่บนสุด */
-/* การ์ดกว้าง 470px ไม่ใช่ 400px — ของข้างในถูกไล่ขยายตามด้วย (padding, หัวข้อ, แท็บ, ช่องกรอก, รูปยาง, ปุ่ม)
-   46vw คือเพดานตอนจอแคบลง สัดส่วนเท่าเดิมกับ 42vw ที่คู่กับ 400px */
-.hero__col{max-width:min(470px, 46vw);margin-bottom:0;filter:drop-shadow(0 16px 30px rgba(30,30,30,.30))}
+/* การ์ดกินเต็มคอลัมน์ขวา ไม่ต้องจำกัดความกว้างและไม่ต้องมีเงาแล้ว
+   (เงามีไว้ตอนการ์ดลอยอยู่บนอาร์ตเวิร์ก ตอนนี้มันวางบนพื้นขาวของแผง) */
+.hero__col{width:100%;max-width:none;margin:0}
 
 /* car finder — การ์ดขาวแคบ
    เปิดมาย่อไว้ก่อน: เห็นหัวข้อ + ปุ่มเลือกหมวด กดแล้วฟอร์มจึงกางลงมา */
@@ -644,25 +641,14 @@ ul{margin:0;padding:0;list-style:none}
 .finder__toggle{display:none}
 
 /* ============ 4. pillars ============ */
-/* รอยต่อ hero → section ไอคอน — เป็นรอยเฉียงเดียวที่เหลือไว้ทั้งหน้า
-   ฝั่งขวาสูง เฉียงลงมาทางซ้าย · ลิ่มที่เฉือนออกฝั่งซ้ายคือช่องที่เปิดให้เห็นแถบคำโปรยใต้แบนเนอร์
-   ขอบล่างตัดตรง เพราะรอยเฉียงทุกจุดที่เหลือถูกถอดออกไปแล้ว (เยอะเกินไป)
-   padding บนยังเผื่อ --notch ไว้ เพราะลิ่มด้านขวากินเข้ามาในกล่องเท่านั้น */
+/* รอยต่อ hero → section ไอคอน เป็นเส้นตรงแล้ว ไม่มีรอยเฉียง
+   จึงไม่ต้องดึงตัวเองขึ้นไปซ้อนใต้ hero และไม่ต้องเผื่อ --notch ไว้ใน padding บน */
 .pillars{
   position:relative;z-index:2;
-  margin-top:calc(var(--notch) * -1);
   /* ถอดรูปในการ์ดออกแล้ว การ์ดเหลือแค่ไอคอน+ข้อความ — section จึงเป็นแถบสั้นตามที่ลูกค้าขอ
      ไม่เติมระยะหายใจพิเศษอีก เหลือแต่ padding ปกติของ section */
   --pillars-air:0px;
-  padding:calc(var(--section) * .62 + var(--notch) + 30px + var(--pillars-air)) 0 calc(var(--section) * .62 + 30px + var(--pillars-air));
-  clip-path:polygon(
-    0 var(--notch),
-    calc(var(--notch-x-hero) - var(--notch)) var(--notch),
-    var(--notch-x-hero) 0,
-    100% 0,
-    100% 100%,
-    0 100%
-  );
+  padding:calc(var(--section) * .62 + 30px + var(--pillars-air)) 0 calc(var(--section) * .62 + 30px + var(--pillars-air));
 }
 /* พื้นหลัง section — อาร์ตเวิร์กโทนขาว-ส้ม เต็มความกว้าง */
 .pillars{background:#fff url("assets/section-bg.jpg") center top / cover no-repeat}
@@ -1368,8 +1354,7 @@ ul{margin:0;padding:0;list-style:none}
   .hero{padding-top:0}
   .hero__inner{padding-top:26px;padding-bottom:0}
   .hero__col{max-width:none;margin-inline:0}
-  :root{--notch:64px;--notch-x:50%;--notch-x-hero:36%}
-  .pillars__grid{grid-template-columns:repeat(2,1fr)}
+  :root{--notch:64px;--notch-x:50%;  .pillars__grid{grid-template-columns:repeat(2,1fr)}
   /* จอแคบไม่มีที่พอให้ภาพอยู่ข้างเนื้อหา — ซ่อนแล้วคืนความกว้างเต็มให้การ์ด */
   .ways__bg{display:none}
   .ways__body{padding-left:0}
@@ -1403,8 +1388,7 @@ ul{margin:0;padding:0;list-style:none}
   .hsearch.is-open{flex:1;width:auto;border-bottom-color:rgba(30,30,30,.22);padding:8px 2px;gap:10px}
   .hsearch.is-open input{display:block}
   .hsearch.is-open ~ .icon-btn,.hsearch.is-open ~ .btn{display:none}
-  :root{--notch:40px;--notch-x:52%;--notch-x-hero:40%}
-  .hero__inner{padding-top:20px}
+  :root{--notch:40px;--notch-x:52%;  .hero__inner{padding-top:20px}
   .hero__arrow{display:none}   /* จอเล็กใช้จุดบอกตำแหน่งแทน ลูกศรบังรูป */
   .finder{--fpad:18px}
   .field select{height:52px;padding:0 24px 0 36px;font-size:var(--t-xs)}
