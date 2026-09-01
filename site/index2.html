@@ -1308,12 +1308,17 @@ ul{margin:0;padding:0;list-style:none}
    min กับ 0 ไว้เพราะจอที่แคบกว่าคอนเทนเนอร์จะได้ค่าบวก ซึ่งจะดันผิดทาง
    ขอบขวาไม่ขยับ เพราะกล่องเป็น block ที่กินความกว้างที่เหลือ ยืดซ้ายอย่างเดียว */
 .cta{
+  /* --cta-pull เป็นค่าติดลบ = ระยะที่กล่องถูกดันออกไปทางซ้าย
+     เก็บเป็นตัวแปรเพราะ padding ซ้ายของแผงต้องบวกกลับด้วยค่าเดียวกัน */
+  --cta-pull:min(0px, calc((var(--container) - 100vw) / 2 - var(--gutter)));
   position:relative;margin-bottom:calc(var(--partner-over) * -1);
-  margin-left:min(0px, calc((var(--container) - 100vw) / 2 - var(--gutter)));
+  margin-left:var(--cta-pull);
 }
 .cta__panel{
   background:linear-gradient(150deg,var(--orange-lt) 0%,var(--orange) 46%,var(--orange-dk) 100%);
-  color:#fff;padding:48px 500px 46px 48px;
+  /* padding ซ้ายบวกระยะที่กล่องถูกดันออกไปกลับเข้ามา ข้อความจึงอยู่ที่เดิม
+     ยืดเฉพาะพื้นกล่อง ไม่ได้ลากเนื้อหาตามไปด้วย */
+  color:#fff;padding:48px 500px 46px calc(48px - var(--cta-pull));
   display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:40px;
   /* ตัดเฉียงเฉพาะมุมขวาบน โมทีฟเดียวกับปุ่มและการ์ด แต่ระยะใหญ่ตามขนาดกล่อง */
   clip-path:polygon(0 0, calc(100% - 56px) 0, 100% 56px, 100% 100%, 0 100%);
@@ -1435,7 +1440,7 @@ ul{margin:0;padding:0;list-style:none}
      ซ่อนรูปแล้วก็ไม่ต้องเว้นที่เหนือกล่องให้หัวโผล่อีก */
   :root{--partner-over:150px}
   .ctaband{padding-top:var(--section)}
-  .cta__panel{grid-template-columns:1fr;align-items:start;gap:26px;padding:36px 28px 32px;
+  .cta__panel{grid-template-columns:1fr;align-items:start;gap:26px;padding:36px 28px 32px calc(28px - var(--cta-pull));
     clip-path:polygon(0 0, calc(100% - 34px) 0, 100% 34px, 100% 100%, 0 100%)}
   .cta__staff{display:none}
   .mainnav{display:none}
