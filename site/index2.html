@@ -437,10 +437,11 @@ ul{margin:0;padding:0;list-style:none}
    align-items:stretch กำหนดความสูงให้อยู่แล้ว ค่านี้จึงถูกมองข้าม */
 .hero__banner{animation:bannerIn 1.6s var(--ease-out) both;position:relative;flex:0 0 75%;min-width:0;
   aspect-ratio:var(--hero-ar);overflow:hidden;z-index:0;
-  /* เฉือนมุมล่างซ้ายออกเป็นลิ่ม — เส้นเฉียงลากจากขอบซ้ายที่ระดับ (100% - --notch)
-     ลงไปจบที่ 40% ของขอบล่าง · ลึกเท่า --notch เท่ากับรอยเฉียงอื่นของหน้า
+  /* เฉือนมุมล่างซ้ายเป็นมุม 45° — ระยะแนวนอนเท่าแนวตั้ง (--notch) เหมือนรอยเฉียงอื่นทั้งหน้า
+     (การ์ดสินค้าใช้ --ccut · กล่องชวนติดต่อใช้ 56px · ปุ่มใช้ 12px ทุกตัวเป็น 45° หมด)
+     ของเดิมลากยาว 40% ของความกว้างต่อความลึก 88px ได้มุมราว 12° ซึ่งหลุดจากชุด
      ช่องที่เฉือนออกเผยพื้นของ .hero ซึ่งตั้งเป็นขาว จึงอ่านเป็น section ขาวข้างล่างกินขึ้นมา */
-  clip-path:polygon(0 0, 100% 0, 100% 100%, 40% 100%, 0 calc(100% - var(--notch)));}
+  clip-path:polygon(0 0, 100% 0, 100% 100%, var(--notch) 100%, 0 calc(100% - var(--notch)));}
 /* สไลด์: ซ้อนทับกันแล้วสลับด้วย opacity — ไม่ใช้ transform เพราะจะสร้าง containing block
    ให้การ์ดค้นหาที่เป็น position:fixed ตอนลอย */
 .hero__slide{position:absolute;inset:0;opacity:0;transition:opacity .8s var(--ease)}
