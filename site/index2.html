@@ -43,7 +43,8 @@
   --r-lg:0;
   --pill:0;
   --hero-ar:2.11;         /* สัดส่วนอาร์ตเวิร์ก hero (1823x863) — เปลี่ยนรูปเมื่อไหร่แก้ค่านี้ค่าเดียว */
-  --hero-extra:40px;      /* ความสูงที่เพิ่มจากสัดส่วน — รูปจะขยายขึ้นแล้วกินขอบซ้าย-ขวาเล็กน้อย */
+  --hero-extra:-30px;     /* ความสูงที่บวก/ลบจากสัดส่วนอาร์ตเวิร์ก · ค่าติดลบ = แบนเนอร์เตี้ยกว่าสัดส่วนภาพ
+                             ผลพลอยได้: กล่องกว้างกว่าภาพแล้ว cover จึงย่อตามความกว้าง ไม่กินขอบซ้าย-ขวาอีก */
   --fcut:28px;              /* ระยะตัดเฉียงมุมขวาบนของการ์ดค้นหา */
   --ccut:22px;              /* ระยะตัดเฉียงมุมขวาบนของการ์ด 4 ใบ */
   --mcut:38px;              /* ระยะเฉียงของเส้นแบ่งรูปสินค้ากับข้อความ (= ความสูงที่ป้ายโลโก้เกยขึ้นไป) */
@@ -430,7 +431,7 @@ ul{margin:0;padding:0;list-style:none}
      และมัน z-index สูงกว่า — ถ้าไม่กันที่ไว้ การ์ดค้นหาที่จัดกึ่งกลางจะโดนพื้นขาวทับมุมล่างหายไป */
   /* overflow ย้ายไปไว้ที่ .hero__banner แทน — อาร์ตกับปุ่มเลื่อนอยู่ในนั้นทั้งหมด ยังถูกเฉือนเหมือนเดิม
      ส่วน .hero ต้องปล่อยให้ล้นได้ เพราะการ์ดค้นหาตอนฟอร์มเป็นแนวตั้งสูงเกินกรอบแบนเนอร์ */
-  position:relative;padding:56px 0 var(--notch);overflow:visible;background:var(--ink-soft);
+  position:relative;padding:40px 0 var(--notch);overflow:visible;background:var(--ink-soft);
   /* height ตายตัวไม่ใช่ min-height — ถ้าปล่อยให้ยืดตามการ์ด แบนเนอร์จะสูงขึ้นจนอาร์ตที่เป็น
      object-fit:cover ถูกขยายแล้วครอปด้านข้างหนักมาก (เคยวัดได้ข้างละ 270px = 27.5% ของภาพ
      ข้อความ YOUR DRIVE YOUR WAY ฝั่งซ้ายขาด) · ล็อกไว้ตามสัดส่วนอาร์ตแล้วให้การ์ดยื่นพ้นแทน */
@@ -509,6 +510,11 @@ ul{margin:0;padding:0;list-style:none}
 }
 /* กล่องค้นหาอยู่ฝั่งขวาของแบนเนอร์ — ข้อความโปรฯ ย้ายไปชิดซ้ายแทน จะได้ไม่ทับกัน */
 .hero__inner{position:relative;z-index:3;width:100%;padding-top:0;padding-bottom:0;display:flex;justify-content:flex-end}
+/* .wrap ของ section นี้ไม่จำกัดความกว้างและไม่มี padding ขวา — การ์ดจึงชิดขอบขวาของจอจริง
+   ไม่ใช่ชิดขอบคอนเทนเนอร์ 1320px ที่ถูกจัดกึ่งกลางไว้ (ซึ่งห่างขอบจอ ~76px ที่จอ 1440)
+   ทำที่ .wrap แทนการดันด้วย margin ติดลบ เพราะระยะที่ต้องดันขึ้นกับความกว้างจอ
+   ถ้าใช้ 50vw คำนวณจะคลาดไปเท่าความกว้างสกrollbar · ใน .hero มีแค่การ์ดใบนี้ ไม่กระทบอย่างอื่น */
+.hero > .wrap{max-width:none;padding-right:0}
 /* ไม่ต้องใช้ margin ดันแล้ว — .hero ยึดขอบบนให้ หัวการ์ดจึงนิ่งที่ padding-top ของ hero (172px)
    ก้นการ์ดยื่นพ้นขอบล่างแบนเนอร์ลงไปทับ section ขาวถัดไป ซึ่งเป็นสิ่งที่ตั้งใจ
    .hero__inner มี z-index:3 อยู่แล้ว สูงกว่า .pillars (z-index:2) การ์ดจึงอยู่บนสุด */
@@ -1186,17 +1192,17 @@ ul{margin:0;padding:0;list-style:none}
 /* วางนิ่ง จัดกลาง ไม่วิ่งแล้ว (ลูกค้าขอ) — รางเลื่อนกับ mask ไล่จางจึงถูกถอดออกทั้งชุด */
 /* section นี้เป็นแค่แถบโลโก้ ไม่ใช่เนื้อหาหลัก — ระยะบน-ล่างใช้ 55% ของ --section
    ผูกกับตัวแปรไม่ใช่ px ตายตัว จอเล็กที่ --section หดลงจะหดตามไปเอง */
-.brands{position:relative;background:var(--orange-tint);padding:calc(var(--section) * .55) 0}
-.brands__head{text-align:center;max-width:60ch;margin:0 auto 26px}
+.brands{position:relative;background:var(--orange-tint);padding:calc(var(--section) * .38) 0}
+.brands__head{text-align:center;max-width:60ch;margin:0 auto 20px}
 .brands__head h2{font-size:var(--t-h2);margin-top:14px}
 .brands__head p{color:var(--muted);font-size:var(--t-xs);margin-top:12px}
 /* จัดกลางแบบ flex wrap ไม่ใช่ grid — แถวสุดท้ายที่ไม่เต็มจะได้อยู่กึ่งกลาง ไม่ค้างชิดซ้าย */
-.brands__grid{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.brands__grid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 /* ไม่มีกรอบขาวแล้ว — พื้นใสไปเลย โลโก้จึงวางอยู่บนพื้นส้มอ่อนของ section ตรง ๆ
    ไม่ใช้ background:var(--orange-tint) เพราะถ้าวันหลังเปลี่ยนสีพื้น section ต้องมาแก้สองที่ */
 .brand-chip{
-  flex:0 0 auto;width:150px;height:60px;
-  display:grid;place-items:center;padding:6px 12px;
+  flex:0 0 auto;width:150px;height:50px;
+  display:grid;place-items:center;padding:5px 12px;
   border-radius:var(--r);background:transparent;
   transition:transform .2s var(--ease);
 }
@@ -1351,6 +1357,9 @@ ul{margin:0;padding:0;list-style:none}
   /* แท็บเล็ต/มือถือ: จอแคบเกินกว่าจะซ้อนกล่องบนรูปโดยไม่ crop อาร์ตเวิร์ก
      จึงวางรูปเต็มใบ 2:1 แล้ววางกล่องค้นหาไว้ใต้รูปบนแถบเข้มแทน */
   .hero{display:block;height:auto;background:var(--ink-soft)}
+  /* จอนี้แบนเนอร์กับการ์ดเรียงลงกัน ไม่ได้ซ้อนทับกันแล้ว การ์ดจึงควรมีระยะขอบเท่ากันทั้งสองข้าง
+     คืน padding ขวาให้ .wrap ที่จอใหญ่ถอดออกไปเพื่อดันการ์ดชิดขอบจอ */
+  .hero > .wrap{padding-right:var(--gutter)}
   .hero__banner{position:relative;inset:auto;width:100%;aspect-ratio:var(--hero-ar) / 1}
   /* จอแคบ: ตัดคำอธิบายออก เหลือแค่พาดหัวสั้นกับลิงก์ */
   .hero__promo{padding:90px var(--gutter) 18px;gap:8px}
@@ -2328,9 +2337,9 @@ ul{margin:0;padding:0;list-style:none}
   /* ปรับขนาดโลโก้ให้ดู "เท่ากัน" ด้วยตา ไม่ใช่เท่ากันด้วยกรอบ
      โลโก้ยาว (5.5:1) กับโลโก้ป้อม (1.4:1) ถ้า contain กรอบเดียวกัน ตัวป้อมจะสูงกว่าเกือบ 3 เท่า
      จึงล็อก "พื้นที่" ให้เท่ากันแทน: w*h = A · w = h*r  ->  h = sqrt(A/r)
-     กรอบเตี้ยลงเหลือ 150x60 (เนื้อใน 126x48) A จึงต้องลดจาก 3000 เป็น 2400 ตามไปด้วย
-     ไม่งั้นโลโก้ยาวสุด (อัตราส่วน 5.5:1) จะกว้าง 129px ชนขอบเนื้อในที่ 126px */
-  var BRAND_AREA = 2400, BRAND_H_MIN = 18, BRAND_H_MAX = 44;
+     กรอบเตี้ยลงเหลือ 150x50 (เนื้อใน 126x40) — เพดานจริงของ A มาจากโลโก้ที่ทรงจัตุรัสสุด
+     (valvoline 1.4:1) ที่ต้องสูงไม่เกิน 40px  ->  A <= 40^2 * 1.4 = 2240 · ใช้ 2000 เผื่อไว้ */
+  var BRAND_AREA = 2000, BRAND_H_MIN = 16, BRAND_H_MAX = 38;
   function fitBrandLogo(img){
     var r = img.naturalWidth / img.naturalHeight;
     if (!r || !isFinite(r)) return;                       /* รูปโหลดไม่ขึ้น — ปล่อยให้ fallback CSS ทำงาน */
