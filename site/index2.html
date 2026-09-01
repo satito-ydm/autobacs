@@ -509,7 +509,7 @@ ul{margin:0;padding:0;list-style:none}
 .hero__inner{position:relative;z-index:3;width:100%;padding-top:0;padding-bottom:0}
 /* .wrap ของ section นี้คือแผงค้นหาคอลัมน์ขวา ไม่ใช่คอนเทนเนอร์จัดกึ่งกลางแบบ section อื่น */
 .hero > .wrap{
-  flex:0 0 25%;min-width:0;max-width:none;margin:0;padding:22px 22px;
+  flex:0 0 25%;min-width:0;max-width:none;margin:0;padding:16px 22px;
   background:#fff;display:flex;align-items:center;
 }
 /* แผงแคบกว่าการ์ดตอนลอยทับแบนเนอร์ (470px) ระยะในการ์ดจึงหดลงหน่อย */
@@ -531,7 +531,7 @@ ul{margin:0;padding:0;list-style:none}
 }
 
 /* หัวข้อของการ์ดค้นหา — เป็น h3 เท่ากับหัวข้อการ์ดใบอื่น ไม่ใช่ h2 ที่สงวนไว้ให้หัวข้อ section */
-.finder__title{font-size:var(--t-h3);color:var(--orange);line-height:1.3;text-align:center;margin-bottom:10px}
+.finder__title{font-size:var(--t-h3);color:var(--orange);line-height:1.25;text-align:center;margin-bottom:8px}
 
 .finder__tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .finder__tabs button[data-fin]{
@@ -574,8 +574,8 @@ ul{margin:0;padding:0;list-style:none}
   /* แผง 25% เหลือช่องแท็บละ ~85px ป้าย "น้ำมันเครื่อง" ที่ 14px กว้าง 71px เฉียดขอบมาก
      ลดเป็น 13px (--t-2xs) กับ padding 4px เพื่อให้มีระยะเหลือจริง */
   .finder__tabs button[data-fin]{
-    flex-direction:column;justify-content:center;gap:6px;
-    height:90px;padding:10px 4px;font-size:var(--t-2xs);
+    flex-direction:column;justify-content:center;gap:5px;
+    height:80px;padding:8px 4px;font-size:var(--t-xs);
   }
   .finder__tabs button[data-fin] svg{width:28px;height:28px}
 }
@@ -593,7 +593,7 @@ ul{margin:0;padding:0;list-style:none}
 .finder.is-open .finder__panel{grid-template-rows:1fr;opacity:1}
 /* padding ต้องอยู่ ชั้นใน ของ grid item — ถ้าใส่ที่ grid item เอง มันจะกินความสูงตอนหุบ
    (จนต้องไป animate padding ซึ่งกระตุ้น layout) — แยกชั้น clip กับชั้นเนื้อหาแล้วจบ */
-.finder__panelInner{padding-top:18px;text-align:center}
+.finder__panelInner{padding-top:12px;text-align:center}
 
 /* คำโปรยกับลิงก์สลับโหมดอยู่แถวเดียวกัน — คำโปรยชิดซ้าย ลิงก์ชิดขวา
    ที่ 14px สองก้อนรวมกัน 280px เกินความกว้างการ์ด (272px) จึงลดเป็น 13px
@@ -638,21 +638,18 @@ ul{margin:0;padding:0;list-style:none}
    ผูก aspect-ratio ไว้กับสัดส่วนไฟล์ → การ์ดกว้างเท่าไหร่สัดส่วนก็คงที่ ไม่ตัดหมุดทิ้ง */
 /* ภาพประกอบ ไม่ใช่พระเอกของการ์ด — ล็อกความสูงไว้แทนการอิงสัดส่วนต้นฉบับ ให้การ์ดไม่ยืดเกินแบนเนอร์ */
 /* เพดานที่ตกลงกันคือ แถบเมนู (143px) + section แรก รวมกันไม่เกิน 900px
-   ความสูง section แรกมาจากแผงค้นหา ทุกค่าในแผงจึงถูกบีบให้พอดีเพดานนั้น */
-.tirefig{margin:8px calc(var(--fpad) * -1) 0;height:88px;overflow:hidden}
+   ส่วนอื่นในแผงถูกบีบให้เล็กที่สุดเท่าที่ยังอ่านออก แล้วโยกความสูงที่ได้มาให้รูปล้อ
+   เพราะมันเป็นภาพอธิบายจุดอ่านขนาดยาง ถ้าเล็กเกินไปตัวเลขบนแก้มยางอ่านไม่ออก */
+.tirefig{margin:8px calc(var(--fpad) * -1) 0;height:164px;overflow:hidden}
 .tirefig[hidden]{display:none}
 .tirefig img{display:block;width:100%;height:100%;object-fit:cover}
 
-/* ล้างค่าที่เลือกไว้ทั้งสามช่อง — ชิดขวาใต้ฟอร์ม เป็นทางออกเล็ก ๆ ไม่ใช่ปุ่มหลัก */
-.finder__clear{display:block;margin:8px 0 0 auto;font-size:var(--t-2xs);color:var(--muted);border-bottom:1px solid currentColor;padding-bottom:1px;transition:color .18s var(--ease)}
-.finder__clear:hover{color:var(--ink)}
-
-.finder__go{width:100%;height:50px;margin-top:10px}
+.finder__go{width:100%;height:48px;margin-top:8px}
 
 /* ลิงก์ข้ามการกรอง — ขีดเส้นใต้เฉพาะตัวอักษร ลูกศรไม่โดนขีด จึงห่อข้อความไว้ใน span */
 .finder__all{
   display:flex;align-items:center;justify-content:center;gap:6px;
-  margin-top:12px;font-size:var(--t-sm);font-weight:700;color:var(--ink);
+  margin-top:8px;font-size:var(--t-sm);font-weight:700;color:var(--ink);
   transition:color .18s var(--ease);
 }
 .finder__all span{border-bottom:1px solid currentColor;padding-bottom:1px}
@@ -662,13 +659,14 @@ ul{margin:0;padding:0;list-style:none}
 /* ทางลัดสองปุ่ม — คนละกลุ่มกับการค้นหาสินค้า จึงคั่นด้วยเส้นบาง
    กรอบเส้นบนพื้นขาว ไม่ใช่ปุ่มทึบ เพราะไม่ใช่ปุ่มหลักของแผง (ปุ่มหลักคือ "ค้นหาเลย") */
 .finder__extra{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;
-  margin-top:12px;padding-top:12px;border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;
+  margin-top:10px;padding-top:10px;border-top:1px solid var(--line);
 }
 /* ใช้ .btn--ghost เป็นฐาน — มันทำมุมเฉียงพร้อมกรอบด้วยพื้นสองชั้นไว้แล้ว
    (เขียน border ตรง ๆ ไม่ได้ เพราะ clip-path ตัด border ทิ้งไปพร้อมมุม)
    ที่นี่แค่คุมขนาดให้พอดีแผงแคบ */
-.finder__xbtn{width:100%;height:42px;padding:0 8px;font-size:var(--t-2xs)}
+/* ขนาดตัวอักษรใช้ --t-xs เท่ากับ control อื่นของหน้า ไม่ใช่ 13px ที่เล็กกว่ามาตรฐาน */
+.finder__xbtn{width:100%;height:44px;padding:0 8px;font-size:var(--t-xs)}
 
 .finder__toggle{
   display:inline-flex;align-items:center;gap:6px;margin-top:14px;
@@ -1604,7 +1602,6 @@ ul{margin:0;padding:0;list-style:none}
             <div class="finder__row">
               <div id="finFields" style="display:contents"></div>
             </div>
-            <button type="button" class="finder__clear" id="finClear">ล้างทั้งหมด</button>
 
             <!-- ปุ่มหลัก — ส้มเต็มกว้าง ข้อความล้วนไม่มีลูกศร -->
             <a href="#shop" class="btn btn--primary finder__go" id="finCta">ค้นหาเลย</a>
@@ -2301,7 +2298,6 @@ ul{margin:0;padding:0;list-style:none}
   var finCta    = document.getElementById('finCta');
   var finAllTxt = document.getElementById('finAllTxt');
   var finSwitch = document.getElementById('finSwitch');
-  var finClear  = document.getElementById('finClear');
   var finToggle = document.getElementById('finToggle');
   var finTabs   = document.querySelectorAll('[data-fin]');
   var finderBox = document.getElementById('finder');
@@ -2402,10 +2398,6 @@ ul{margin:0;padding:0;list-style:none}
     });
   });
   finSwitch.addEventListener('click', function(){ bySize = !bySize; renderFinder(); lockFinderHeight(); });
-  /* คืนทุกช่องกลับไปที่ตัวเลือกว่าง (ตัวแรก) ไม่ต้องเรนเดอร์ใหม่ ความสูงจึงไม่ขยับ */
-  finClear.addEventListener('click', function(){
-    Array.prototype.forEach.call(finFields.querySelectorAll('select'), function(sel){ sel.value = ''; });
-  });
 
   /* ถอดโหมดลอยมุมจอออกแล้ว — การ์ดอยู่ในแบนเนอร์ที่เดียว มุมขวาล่างเป็นที่ของปุ่มแชทแทน
      แผงจึงกางค้างเสมอ ไม่มีเงื่อนไขหุบอีก */
