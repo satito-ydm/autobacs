@@ -683,10 +683,14 @@ ul{margin:0;padding:0;list-style:none}
 /* ตอนลอยการ์ดกว้าง 300px — 3 ช่องเรียงแนวนอนจะเหลือช่องละ 84px ป้ายชื่อโดนตัด
    คืนเป็นเรียงลงแทน ความสูงไม่เป็นปัญหาเพราะโหมดลอยเลื่อนในตัวได้อยู่แล้ว */
 .finder.is-stuck .finder__row{grid-template-columns:1fr;gap:8px}
-/* ที่ความกว้างนี้ ไอคอน+ป้ายในแท็บเบียดกันจนตัวอักษรล้นออกนอกกล่อง
-   ตัดไอคอนออกเหลือแต่ป้าย — ในโหมดลอยผู้ใช้เลือกหมวดมาแล้ว ไอคอนไม่ได้ช่วยอะไรเพิ่ม */
-.finder.is-stuck .finder__tabs button[data-fin]{height:44px;padding:0 6px}
-.finder.is-stuck .finder__tabs button[data-fin] svg{display:none}
+/* แผงลอยกว้าง 344px หาร 3 ช่องเหลือช่องละ ~110px — เรียงไอคอนกับป้ายแนวนอนแบบในแบนเนอร์ไม่พอ
+   (ป้าย "น้ำมันเครื่อง" ~79px + ไอคอน 20px + ช่องไฟ 8px ล้นออกนอกกล่อง)
+   สลับเป็นวางไอคอนเหนือป้ายแทน ได้ไอคอนครบทุกแท็บโดยป้ายยังอยู่บรรทัดเดียว
+   padding บน 10px เผื่อระยะให้ finderNudge ที่ยกไอคอนขึ้น 7px ไม่โผล่พ้นพื้นขาวของปุ่ม */
+.finder.is-stuck .finder__tabs button[data-fin]{
+  flex-direction:column;gap:5px;height:auto;min-height:62px;padding:10px 4px 8px;
+}
+.finder.is-stuck .finder__tabs button[data-fin] svg{display:block;width:18px;height:18px}
 /* ช่องกรอกเรียงลง 3 แถวในแผงแคบ — ลดความสูงลงหน่อยไม่ให้แผงยาวเกินจอ */
 .finder.is-stuck .field select{height:46px}
 .finder.is-stuck .finder__panelInner{padding-top:14px}
