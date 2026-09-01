@@ -1623,7 +1623,12 @@ ul{margin:0;padding:0;list-style:none}
   .nf__side .ncard h3{font-size:var(--t-h3);line-height:1.34}
   .nf__side .ncard__date{font-size:var(--t-xs)}
   .nf__side .ncard__date svg{width:14px;height:14px}
-  .nf__side .ncard__cta{height:44px;padding:0 18px;font-size:var(--t-sm);margin-bottom:0}
+  /* ถอดปุ่ม "อ่านต่อ" ออกจากการ์ดข่าวของจอนี้ — ทั้งใบกดได้อยู่แล้ว
+     ปุ่มถูกซ่อนไว้ใต้ขอบการ์ดด้วย margin ติดลบ แล้วโผล่กลับมาเฉพาะจอสัมผัส (@media hover:none)
+     พอโผล่ ความสูงก้อนข้อความจะพอดีขอบการ์ดเป๊ะ ชิปหัวข้อเลยโดน overflow:hidden ตัดครึ่ง
+     และการ์ดใบใหญ่กับใบเล็กแสดงไม่เหมือนกัน — ตัดออกทั้งชุดแล้วก้อนข้อความชิดขอบล่างเป็นก้อนเดียว */
+  .nf .ncard__cta{display:none}
+  .nf .ncard__body{padding:16px;gap:7px}
   .ncard__body{padding:18px}
   /* จอแคบ: รูปกลางกินพื้นที่มากขึ้น รูปข้างเคียงย่อลงและถอยออกไปให้เหลือแค่ชายรูป */
   .promo{--promo-w:92vw}
