@@ -701,7 +701,9 @@ ul{margin:0;padding:0;list-style:none}
   /* ถอดรูปในการ์ดออกแล้ว การ์ดเหลือแค่ไอคอน+ข้อความ — section จึงเป็นแถบสั้นตามที่ลูกค้าขอ
      ไม่เติมระยะหายใจพิเศษอีก เหลือแต่ padding ปกติของ section */
   --pillars-air:0px;
-  padding:calc(var(--section) * .62 + var(--notch) + 30px + var(--pillars-air)) 0 calc(var(--section) * .62 + 30px + var(--pillars-air));
+  /* บนเผื่อ --notch เพราะถูก .hero ดึงมาซ้อนทับ · ล่างก็เผื่อ --notch เหมือนกัน
+     เพราะ .offers ถูกดึงขึ้นมาทับอีก 88px ถ้าไม่ชดเชย แถบดำจะขึ้นมาชิดก้นการ์ดจนไม่มีช่องไฟ */
+  padding:calc(var(--section) * .62 + var(--notch) + 30px + var(--pillars-air)) 0 calc(var(--section) * .62 + var(--notch) + 30px + var(--pillars-air));
 }
 /* พื้นหลัง section — อาร์ตเวิร์กโทนขาว-ส้ม เต็มความกว้าง */
 .pillars{background:#fff url("assets/section-bg.jpg") center top / cover no-repeat}
