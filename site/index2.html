@@ -1045,6 +1045,32 @@ ul{margin:0;padding:0;list-style:none}
 /* ลูกศรมีพื้นขาวรองเพื่อเจาะเส้นตั้งให้ขาด · 18px = กึ่งกลางวงไอคอน (64/2) ลบครึ่งความสูงลูกศรกับ padding */
 .step__sep svg{position:relative;margin-top:18px;background:#fff;padding:6px 0;display:block}
 
+/* ---------- ขั้นตอนโผล่ไล่ทีละช่อง ----------
+   ผูกกับคลาส .in ที่ observer ใส่ให้การ์ด (ดู revealShow) ไม่ต้องแตะ JS
+   ค่าฐาน (ตอนไม่มี .in) ต้องเป็นสถานะที่มองเห็นปกติ เพราะ revealShow ถอดคลาสทิ้งหลังจบ
+   ถ้าตั้ง opacity:0 ไว้ที่ค่าฐาน ขั้นตอนจะหายวับตอนคลาสถูกถอด
+   ช่องสุดท้ายของการ์ด 4 ขั้นตอน (ลูกที่ 7) จบที่ .48+.45 = .93s เหลือขอบก่อน revealShow ถอดคลาสที่ 1.2s อยู่ 270ms
+   ถ้าเครื่องช้าจนโดนตัดกลางคัน ผลคือช่องนั้นเด้งเป็นสถานะปกติทันที ไม่ใช่หายไป */
+.step.in .step__row > *{animation:stepIn .45s var(--ease-out) both}
+.step.in .step__row > *:nth-child(1){animation-delay:0.12s}
+.step.in .step__row > *:nth-child(2){animation-delay:0.18s}
+.step.in .step__row > *:nth-child(3){animation-delay:0.24s}
+.step.in .step__row > *:nth-child(4){animation-delay:0.30s}
+.step.in .step__row > *:nth-child(5){animation-delay:0.36s}
+.step.in .step__row > *:nth-child(6){animation-delay:0.42s}
+.step.in .step__row > *:nth-child(7){animation-delay:0.48s}
+@keyframes stepIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* เล่นกับแต่ละขั้นตอนตอนชี้ — วงไอคอนลอยขึ้นและโตขึ้นเล็กน้อย ตัวหนังสือเข้มขึ้น
+   ไอคอนเด้งเองทีละช่อง ไม่ใช่ยกทั้งการ์ด (การ์ดมี translateY(-4px) ของมันอยู่แล้ว ซ้อนกันได้) */
+.step__ico{transition:transform .3s var(--ease-out),box-shadow .3s var(--ease-out)}
+.step__item h4{transition:color .22s var(--ease)}
+.step__item:hover .step__ico{transform:translateY(-6px) scale(1.06);box-shadow:0 10px 20px -10px rgba(30,30,30,.35)}
+.step__item:hover h4{color:var(--orange)}
+@media (prefers-reduced-motion:reduce){
+  .step__item:hover .step__ico{transform:none;box-shadow:none}
+}
+
 /* ============ 7-8. editorial ============ */
 /* ใช้คลาส .band--ink ตัวเดียวกับ section ข้อเสนอ — ได้พื้นดำ + แสงส้มกลางแถบ
    และสีหัวข้อ/คำโปรย/ปุ่มบนพื้นดำมาให้ครบ ไม่ต้องเขียนซ้ำที่นี่อีก
