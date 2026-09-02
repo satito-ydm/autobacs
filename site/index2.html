@@ -1436,14 +1436,16 @@ ul{margin:0;padding:0;list-style:none}
   /* ที่ว่างขวา = ที่ของรูปช่าง (กว้าง ~380px ชิดขอบขวาของกล่อง) บวกช่องไฟกันชนข้อความ
      วัดจากขอบขวาของกล่องที่ไปชนขอบจอแล้ว กลุ่ม Call Center จึงเกาะไปกับรูปช่างทุกความกว้างจอ
      407px คือค่ามากที่สุดที่ยังเหลือช่องหัวข้อฝั่งซ้าย 293px = พอดีสองบรรทัดที่ขนาด --t-h2 */
-  color:#fff;padding:48px 477px 46px var(--cta-lip);
+  color:#fff;padding:48px 577px 46px var(--cta-lip);
   display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:24px;
   /* ตัดเฉียงเฉพาะมุมซ้ายบน โมทีฟเดียวกับปุ่มและการ์ด แต่ระยะใหญ่ตามขนาดกล่อง
      (อยู่ฝั่งตรงข้ามกับด้านที่ยืดออกไปชนขอบจอ — ด้านที่ยืดต้องเป็นเส้นตรงเต็มไม่มีเหลี่ยม) */
   clip-path:polygon(56px 0, 100% 0, 100% 100%, 0 100%, 0 56px);
 }
 .cta .kicker{color:rgba(255,255,255,.9)}
-.cta__panel h2{font-size:var(--t-h2);line-height:1.24;margin-top:14px}
+/* 28px ไม่ใช่ --t-h2 (34px) — ช่องฝั่งซ้ายแคบลงเรื่อย ๆ ตามที่กลุ่ม Call Center ขยับมาทางซ้าย
+   text-wrap:balance ให้เบราว์เซอร์เกลี่ยความยาวแต่ละบรรทัดเอง กันไม่ให้ตัดเหลือ "ไทย" ค้างบรรทัดสุดท้าย */
+.cta__panel h2{font-size:28px;line-height:1.26;margin-top:14px;text-wrap:balance}
 .cta__call{display:flex;flex-direction:column;align-items:flex-start}
 /* เบอร์โทรกับแถบ LINE อยู่แถวเดียวกัน — สองช่องทางติดต่อระดับเดียวกัน วางคู่กันจึงอ่านเป็นชุดเดียว
    แถวนี้กว้าง ~546px ซึ่งกินที่จนหัวข้อฝั่งซ้ายเหลือน้อย จึงอยู่แถวเดียวได้เฉพาะจอ 1440px ขึ้นไป
