@@ -1433,9 +1433,10 @@ ul{margin:0;padding:0;list-style:none}
 }
 .cta__panel{
   background:linear-gradient(210deg,var(--orange-lt) 0%,var(--orange) 46%,var(--orange-dk) 100%);
-  /* ที่ว่างขวา 410px = ที่ของรูปช่าง (กว้าง ~380px ชิดขอบขวาของกล่อง) บวกช่องไฟกันชนข้อความ
-     วัดจากขอบขวาของกล่องที่ไปชนขอบจอแล้ว กลุ่ม Call Center จึงเกาะไปกับรูปช่างทุกความกว้างจอ */
-  color:#fff;padding:48px 490px 46px var(--cta-lip);
+  /* ที่ว่างขวา = ที่ของรูปช่าง (กว้าง ~380px ชิดขอบขวาของกล่อง) บวกช่องไฟกันชนข้อความ
+     วัดจากขอบขวาของกล่องที่ไปชนขอบจอแล้ว กลุ่ม Call Center จึงเกาะไปกับรูปช่างทุกความกว้างจอ
+     407px คือค่ามากที่สุดที่ยังเหลือช่องหัวข้อฝั่งซ้าย 293px = พอดีสองบรรทัดที่ขนาด --t-h2 */
+  color:#fff;padding:48px 407px 46px var(--cta-lip);
   display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:24px;
   /* ตัดเฉียงเฉพาะมุมซ้ายบน โมทีฟเดียวกับปุ่มและการ์ด แต่ระยะใหญ่ตามขนาดกล่อง
      (อยู่ฝั่งตรงข้ามกับด้านที่ยืดออกไปชนขอบจอ — ด้านที่ยืดต้องเป็นเส้นตรงเต็มไม่มีเหลี่ยม) */
@@ -1452,11 +1453,21 @@ ul{margin:0;padding:0;list-style:none}
   font-family:'Archivo',sans-serif;font-size:var(--t-2xs);font-weight:800;
   letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:6px;
 }
-/* เบอร์โทรเป็นตัวเด่นที่สุดฝั่งขวา — คุมขนาดเท่า h2 ฝั่งซ้าย ทั้งแถวจึงมีน้ำหนักสองข้างเท่ากัน */
+/* เบอร์โทรเป็นตัวเด่นที่สุดของกล่อง — ใหญ่กว่าหัวข้อฝั่งซ้ายหนึ่งขั้น เพราะเป็นสิ่งที่อยากให้คนหยิบไปใช้ */
 .cta__num{
+  display:inline-flex;align-items:center;gap:11px;
   font-family:'Archivo',sans-serif;font-size:var(--t-h2);font-weight:900;
   letter-spacing:-.03em;line-height:1.1;color:#fff;transition:color .18s var(--ease);
 }
+/* ไอคอนวางบนจานขาว — สองช่องทางในแถวนี้ใช้ทรงเดียวกัน อ่านเป็นชุดเดียวกัน
+   สีขาวล้วนบนพื้นส้มอ่านยากกว่า เพราะพื้นหลังเป็นสีอ่อนใกล้กัน */
+.cta__num svg,.cta__line svg{
+  width:32px;height:32px;flex:none;box-sizing:border-box;
+  background:#fff;color:var(--orange);border-radius:50%;
+}
+/* หูโทรศัพท์เป็นรูปทึบเต็มกรอบกว่าลูกโป่ง LINE — เว้นขอบในมากกว่าเพื่อให้สองวงดูขนาดเท่ากัน */
+.cta__num svg{padding:6px}
+.cta__line svg{padding:4px}
 .hoverable .cta__num:hover{color:var(--ink)}
 .cta__btns{display:flex;gap:10px;margin-top:18px}
 /* ปุ่มมีกรอบบนพื้นส้ม — ชั้นในของขอบต้องเป็นสีส้มตามพื้นกล่อง ไม่ใช่สีดำแบบในฟุตเตอร์ */
@@ -1468,12 +1479,6 @@ ul{margin:0;padding:0;list-style:none}
 .cta__line{
   display:inline-flex;align-items:center;gap:10px;color:#fff;align-self:stretch;
   padding-left:18px;border-left:1px solid rgba(255,255,255,.34);
-}
-/* ไอคอนวางบนจานขาว — ตัวสัญลักษณ์เดียวตรงนี้ที่ทึบ จึงเป็นจุดนำสายตาเข้าแถบ
-   สีขาวล้วนบนพื้นส้มอ่านยากกว่า เพราะพื้นหลังเป็นสีอ่อนใกล้กัน */
-.cta__line svg{
-  width:32px;height:32px;flex:none;padding:4px;box-sizing:border-box;
-  background:#fff;color:var(--orange);border-radius:50%;
 }
 .cta__line em{
   /* สีจางระดับเดียวกับป้าย Call Center ฝั่งซ้าย — สองบรรทัดบนของทั้งแถวจึงเป็นชั้นข้อมูลเดียวกัน */
@@ -1501,7 +1506,7 @@ ul{margin:0;padding:0;list-style:none}
   /* เพดานความสูง 340px — จอ 1440px รูปสูง 328px อยู่แล้ว เพดานนี้จึงไม่แตะสัดส่วนที่ตั้งใจไว้
      ช่วง 1025–1439px กล่องสูงขึ้น (แถบ LINE คลี่ลงมาอยู่ใต้เบอร์) ถ้าปล่อยให้สเกลตามความสูงกล่อง
      รูปจะโตจนมือที่ยื่นออกมาไปแตะปลายบรรทัด Add LINE · ยังโผล่พ้นขอบบนของกล่องเหมือนเดิม */
-  position:absolute;right:40px;bottom:0;height:min(calc(100% + 96px), 340px);width:auto;
+  position:absolute;right:0;bottom:0;height:min(calc(100% + 96px), 340px);width:auto;
   pointer-events:none;user-select:none;
 }
 
@@ -2264,7 +2269,10 @@ ul{margin:0;padding:0;list-style:none}
         <div class="cta__call">
           <span class="cta__lbl">Call Center · 08:00–20:00</span>
           <div class="cta__numrow">
-            <a class="cta__num" href="tel:0655048000">065-504-8000</a>
+            <a class="cta__num" href="tel:0655048000">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .7-.2 1l-2.3 2.2z"/></svg>
+              065-504-8000
+            </a>
             <a class="cta__line" href="https://line.me/R/ti/p/@autobacsthailand" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.9 3 2.8 6.4 2.8 10.5c0 3.7 3.2 6.8 7.6 7.4.3.1.7.2.8.5.1.3.1.6 0 .9l-.1.8c0 .2-.2.9.8.5 1-.4 5.3-3.1 7.2-5.3 1.3-1.5 1.9-2.9 1.9-4.8C21 6.4 16.9 3 12 3zM8.6 12.7H7.1a.4.4 0 0 1-.4-.4V9.2a.4.4 0 0 1 .8 0v2.7h1.1a.4.4 0 0 1 0 .8zm1.7-.4a.4.4 0 0 1-.8 0V9.2a.4.4 0 0 1 .8 0zm3.4 0a.4.4 0 0 1-.7.2l-1.4-1.9v1.7a.4.4 0 0 1-.8 0V9.2a.4.4 0 0 1 .7-.2l1.4 1.9V9.2a.4.4 0 0 1 .8 0zm2.5-1.9a.4.4 0 0 1 0 .8h-1.1v.7h1.1a.4.4 0 0 1 0 .8h-1.5a.4.4 0 0 1-.4-.4V9.2a.4.4 0 0 1 .4-.4h1.5a.4.4 0 0 1 0 .8h-1.1v.7z"/></svg>
               <span>
