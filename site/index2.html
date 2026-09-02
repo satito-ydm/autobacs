@@ -1415,26 +1415,31 @@ ul{margin:0;padding:0;list-style:none}
    ยื่นลงไปทับฟุตเตอร์ทิ้งด้วย · clip ตัดเฉพาะแกน x ปล่อยแกน y ให้ยื่นได้ตามเดิม
    มีไว้กัน margin ที่คำนวณจาก 100vw (ซึ่งรวมความกว้าง scrollbar) ทำให้เกิด scroll แนวนอน */
 .ctaband{position:relative;z-index:2;background:var(--orange-tint);padding:112px 0 0;display:flow-root;overflow-x:clip}
-/* ยืดกล่องไปชนขอบซ้ายของจอ ไม่ใช่แค่ขอบคอนเทนเนอร์ 1320px ที่จัดกึ่งกลางไว้
+/* ยืดกล่องไปชนขอบขวาของจอ ไม่ใช่แค่ขอบคอนเทนเนอร์ 1320px ที่จัดกึ่งกลางไว้
    ระยะที่ต้องดัน = ครึ่งหนึ่งของส่วนที่จอกว้างกว่าคอนเทนเนอร์ บวก gutter ของ .wrap
    min กับ 0 ไว้เพราะจอที่แคบกว่าคอนเทนเนอร์จะได้ค่าบวก ซึ่งจะดันผิดทาง
-   ขอบขวาไม่ขยับ เพราะกล่องเป็น block ที่กินความกว้างที่เหลือ ยืดซ้ายอย่างเดียว */
+   ขอบซ้ายไม่ขยับ หัวข้อจึงเริ่มตรงขอบคอนเทนเนอร์เท่ากับทุก section ของหน้า */
 .cta{
-  /* --cta-pull เป็นค่าติดลบ = ระยะที่กล่องถูกดันออกไปทางซ้าย
-     เก็บเป็นตัวแปรเพราะ padding ซ้ายของแผงต้องบวกกลับด้วยค่าเดียวกัน */
-  --cta-pull:min(0px, calc((var(--container) - 100vw) / 2 - var(--gutter)));
+  /* --cta-pull เป็นค่าติดลบ = ระยะที่กล่องถูกดันออกไปทางขวา
+     = ครึ่งหนึ่งของส่วนที่จอกว้างเกินคอนเทนเนอร์ (จอแคบกว่าคิดเป็น 0) บวก gutter ของ .wrap
+     ต้องเป็น max(...)+gutter ไม่ใช่ min(0, ครึ่งผลต่าง - gutter) แบบเดิม เพราะช่วง 1272–1368px
+     สูตรเดิมให้ระยะไม่ถึงขอบจอ กล่องจะขาดไปเส้นหนึ่งพอดีตรงที่รูปช่างยืนอยู่ */
+  --cta-pull:calc(-1 * (max(0px, (100vw - var(--container)) / 2) + var(--gutter)));
+  /* ริมซ้ายล้ำออกไปจากขอบคอนเทนเนอร์เล็กน้อย แล้วบวกกลับเป็น padding ของแผง
+     ข้อความจึงยังเริ่มตรงขอบคอนเทนเนอร์เท่าทุก section แต่มีพื้นส้มกันไว้ก่อนถึงขอบกล่อง */
+  --cta-lip:40px;
   position:relative;margin-bottom:calc(var(--partner-over) * -1);
-  margin-left:var(--cta-pull);
+  margin-right:var(--cta-pull);margin-left:calc(var(--cta-lip) * -1);
 }
 .cta__panel{
-  background:linear-gradient(150deg,var(--orange-lt) 0%,var(--orange) 46%,var(--orange-dk) 100%);
-  /* padding ซ้าย = ระยะที่กล่องถูกดันออกไป (ค่าติดลบ จึงคูณ -1) พอดี
-     ข้อความจึงเริ่มตรงขอบคอนเทนเนอร์ 1320px เท่ากับทุก section ของหน้า
-     ยืดเฉพาะพื้นกล่องออกไปชนขอบจอ ไม่ได้ลากเนื้อหาตามไปด้วย */
-  color:#fff;padding:48px 390px 46px calc(var(--cta-pull) * -1);
-  display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:32px;
-  /* ตัดเฉียงเฉพาะมุมขวาบน โมทีฟเดียวกับปุ่มและการ์ด แต่ระยะใหญ่ตามขนาดกล่อง */
-  clip-path:polygon(0 0, calc(100% - 56px) 0, 100% 56px, 100% 100%, 0 100%);
+  background:linear-gradient(210deg,var(--orange-lt) 0%,var(--orange) 46%,var(--orange-dk) 100%);
+  /* ที่ว่างขวา 410px = ที่ของรูปช่าง (กว้าง ~380px ชิดขอบขวาของกล่อง) บวกช่องไฟกันชนข้อความ
+     วัดจากขอบขวาของกล่องที่ไปชนขอบจอแล้ว กลุ่ม Call Center จึงเกาะไปกับรูปช่างทุกความกว้างจอ */
+  color:#fff;padding:48px 450px 46px var(--cta-lip);
+  display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:24px;
+  /* ตัดเฉียงเฉพาะมุมซ้ายบน โมทีฟเดียวกับปุ่มและการ์ด แต่ระยะใหญ่ตามขนาดกล่อง
+     (อยู่ฝั่งตรงข้ามกับด้านที่ยืดออกไปชนขอบจอ — ด้านที่ยืดต้องเป็นเส้นตรงเต็มไม่มีเหลี่ยม) */
+  clip-path:polygon(56px 0, 100% 0, 100% 100%, 0 100%, 0 56px);
 }
 .cta .kicker{color:rgba(255,255,255,.9)}
 .cta__panel h2{font-size:var(--t-h2);line-height:1.24;margin-top:14px}
@@ -1442,13 +1447,7 @@ ul{margin:0;padding:0;list-style:none}
 /* เบอร์โทรกับแถบ LINE อยู่แถวเดียวกัน — สองช่องทางติดต่อระดับเดียวกัน วางคู่กันจึงอ่านเป็นชุดเดียว
    แถวนี้กว้าง ~546px ซึ่งกินที่จนหัวข้อฝั่งซ้ายเหลือน้อย จึงอยู่แถวเดียวได้เฉพาะจอ 1440px ขึ้นไป
    (ที่ความกว้างนั้นขอบซ้ายของเนื้อหาล็อกกับคอนเทนเนอร์ ช่องของหัวข้อจึงคงที่ ~304px = พอดีสองบรรทัด) */
-.cta__numrow{display:flex;align-items:center;gap:20px}
-@media (max-width:1439px){
-  /* แคบกว่านั้นที่ไม่พอ — คลี่แถบ LINE ลงมาอยู่ใต้เบอร์ ไม่งั้นหัวข้อจะถูกบีบจนแตกเป็นสามบรรทัด
-     พอเรียงลงมาแล้ว เส้นคั่นก็ต้องย้ายจากขอบซ้ายมาเป็นเส้นบนตามทิศที่ของสองก้อนวางต่อกัน */
-  .cta__numrow{flex-direction:column;align-items:flex-start;gap:14px}
-  .cta__line{align-self:stretch;padding:14px 0 0;border-left:0;border-top:1px solid rgba(255,255,255,.34)}
-}
+.cta__numrow{display:flex;align-items:center;gap:16px}
 .cta__lbl{
   font-family:'Archivo',sans-serif;font-size:var(--t-2xs);font-weight:800;
   letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:6px;
@@ -1467,8 +1466,8 @@ ul{margin:0;padding:0;list-style:none}
    เพิ่มอีกกรอบจะอ่านเป็นปุ่มที่สาม ทั้งที่เป็นช่องทางรอง · เส้นคั่นบอกว่า "คนละก้อนกับเบอร์โทร" ก็พอ
    เรียงคำอธิบายไว้บนแล้วชื่อบัญชีไว้ล่าง เข้าคู่กับฝั่งเบอร์โทรที่ป้าย Call Center อยู่เหนือตัวเลข */
 .cta__line{
-  display:inline-flex;align-items:center;gap:11px;color:#fff;align-self:stretch;
-  padding-left:22px;border-left:1px solid rgba(255,255,255,.34);
+  display:inline-flex;align-items:center;gap:10px;color:#fff;align-self:stretch;
+  padding-left:18px;border-left:1px solid rgba(255,255,255,.34);
 }
 /* ไอคอนวางบนจานขาว — ตัวสัญลักษณ์เดียวตรงนี้ที่ทึบ จึงเป็นจุดนำสายตาเข้าแถบ
    สีขาวล้วนบนพื้นส้มอ่านยากกว่า เพราะพื้นหลังเป็นสีอ่อนใกล้กัน */
@@ -1477,22 +1476,32 @@ ul{margin:0;padding:0;list-style:none}
   background:#fff;color:var(--orange);border-radius:50%;
 }
 .cta__line em{
-  display:block;font-style:normal;font-size:var(--t-2xs);
-  color:rgba(255,255,255,.72);line-height:1.3;
+  /* สีจางระดับเดียวกับป้าย Call Center ฝั่งซ้าย — สองบรรทัดบนของทั้งแถวจึงเป็นชั้นข้อมูลเดียวกัน */
+  display:block;font-style:normal;font-size:var(--t-sm);font-weight:700;
+  color:rgba(255,255,255,.62);line-height:1.3;
 }
 .cta__line b{
-  display:block;font-family:'Archivo',sans-serif;font-size:var(--t-xs);
-  font-weight:800;letter-spacing:.01em;line-height:1.3;margin-top:2px;
+  display:block;font-family:'Archivo',sans-serif;font-size:var(--t-body);
+  font-weight:800;letter-spacing:.01em;line-height:1.25;margin-top:3px;
   transition:color .18s var(--ease);
 }
 .hoverable .cta__line:hover b{color:var(--ink)}
+/* กฎด้านล่างนี้ต้องอยู่หลังกฎฐานของ .cta__line เสมอ — specificity เท่ากัน ตัวที่อยู่ทีหลังถึงจะชนะ
+   เคยวางไว้ก่อนแล้ว border-left/padding-left ของกฎฐานย้อนมาทับ เส้นคั่นจึงโผล่ทั้งซ้ายและบน */
+@media (max-width:1439px){
+  /* แคบกว่านั้นที่ไม่พอ — คลี่แถบ LINE ลงมาอยู่ใต้เบอร์ ไม่งั้นหัวข้อจะถูกบีบจนแตกเป็นสามบรรทัด
+     พอเรียงลงมาแล้ว เส้นคั่นก็ต้องย้ายจากขอบซ้ายมาเป็นเส้นบนตามทิศที่ของสองก้อนวางต่อกัน */
+  .cta__numrow{flex-direction:column;align-items:flex-start;gap:14px}
+  .cta__line{align-self:stretch;padding:14px 0 0;border-left:0;border-top:1px solid rgba(255,255,255,.34)}
+}
 /* รูปช่างยืนบนขอบล่างของกล่องแล้วโผล่พ้นขอบบนขึ้นไป — ต้องมีที่ว่างเหนือ section รองรับ */
 .cta__staff{
-  /* ดันออกไปทางขวาจนแขนที่ยื่นออกมาพ้นขอบกล่องส้ม — ระยะที่ดันได้คือช่องว่างระหว่าง
-     ขอบคอนเทนเนอร์กับขอบจอ (จอแคบกว่าคอนเทนเนอร์เหลือแค่ gutter) จำกัดไว้ 64px
-     เกินกว่านี้ .ctaband ที่ clip แกน x จะตัดตัวคนหายไปครึ่งหนึ่ง */
-  --cta-out:min(64px, calc(max(0px, (100vw - var(--container)) / 2) + var(--gutter)));
-  position:absolute;right:calc(var(--cta-out) * -1);bottom:0;height:calc(100% + 96px);width:auto;
+  /* ชิดขอบขวาของกล่องซึ่งไปชนขอบจอพอดี — แขนที่ยื่นออกมาจึงพ้นกรอบส้มไปทางขวาเต็มที่เท่าที่ทำได้
+     (ดันเกินกว่านี้ .ctaband ที่ clip แกน x จะตัดตัวคนทิ้ง) */
+  /* เพดานความสูง 340px — จอ 1440px รูปสูง 328px อยู่แล้ว เพดานนี้จึงไม่แตะสัดส่วนที่ตั้งใจไว้
+     ช่วง 1025–1439px กล่องสูงขึ้น (แถบ LINE คลี่ลงมาอยู่ใต้เบอร์) ถ้าปล่อยให้สเกลตามความสูงกล่อง
+     รูปจะโตจนมือที่ยื่นออกมาไปแตะปลายบรรทัด Add LINE · ยังโผล่พ้นขอบบนของกล่องเหมือนเดิม */
+  position:absolute;right:0;bottom:0;height:min(calc(100% + 96px), 340px);width:auto;
   pointer-events:none;user-select:none;
 }
 
@@ -1590,8 +1599,10 @@ ul{margin:0;padding:0;list-style:none}
      ซ่อนรูปแล้วก็ไม่ต้องเว้นที่เหนือกล่องให้หัวโผล่อีก */
   :root{--partner-over:150px}
   .ctaband{padding-top:var(--section)}
-  .cta__panel{grid-template-columns:1fr;align-items:start;gap:26px;padding:36px 28px 32px calc(28px - var(--cta-pull));
-    clip-path:polygon(0 0, calc(100% - 34px) 0, 100% 34px, 100% 100%, 0 100%)}
+  /* จอนี้กล่องเป็นการ์ดที่เว้นขอบทั้งสองข้าง ไม่ยืดไปชนขอบจอแล้ว — คืนทั้งริมซ้ายและระยะยืดขวาเป็น 0 */
+  .cta{--cta-lip:0px;--cta-pull:0px}
+  .cta__panel{grid-template-columns:1fr;align-items:start;gap:26px;padding:36px calc(28px - var(--cta-pull)) 32px 28px;
+    clip-path:polygon(34px 0, 100% 0, 100% 100%, 0 100%, 0 34px)}
   .cta__staff{display:none}
   .mainnav{display:none}
   .utility{height:60px}
@@ -1802,6 +1813,8 @@ ul{margin:0;padding:0;list-style:none}
    ย่อโลโก้ลงหนึ่งขั้น (26 → 22px) คืนที่ให้ข้างละ ~11px ข้อความจึงไม่ไปชนโลโก้กลาง */
 @media (max-width:400px){
   .utility .brand img{height:22px}
+  /* ชื่อบัญชี LINE ที่ 18px ยาวเกินหนึ่งบรรทัดบนจอนี้ — ลดลงมาเท่าขนาดเนื้อความให้จบในบรรทัดเดียว */
+  .cta__line b{font-size:var(--t-sm)}
 }
 /* แคบกว่า 340px ย่อโลโก้แล้วยังไม่พอ — ตัดไอคอนหมุดทิ้ง เหลือข้อความอย่างเดียว
    (ความหมายอยู่ที่ข้อความอยู่แล้ว ไอคอนเป็นแค่ตัวช่วยอ่าน) */
