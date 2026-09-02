@@ -620,7 +620,10 @@ ul{margin:0;padding:0;list-style:none}
      ต้องการช่องละ ~114px ถ้าใช้ % พอจอแคบลงช่องจะหดจนป้าย "หน้ายาง" โดนตัด
      padding ขวา = ระยะจากขอบจอถึงแนวคอนเทนเนอร์ 1320px ขอบขวาของการ์ดจึงตรงกับกริดของหน้า
      ไม่ใช่ชิดขอบจอ (พื้นขาวของแผงยังยืดไปชนขอบจอเหมือนเดิม ล้ำออกไปแค่พื้น ไม่ใช่กล่อง) */
-  --fcard:398px;
+  /* 398px คือขนาดต่ำสุดที่สามช่องกรอกยังอยู่แถวเดียวได้ · จอกว้างกว่านั้นให้การ์ดโตตามจอ
+     ไม่งั้นที่ว่างขาวฝั่งขวาของการ์ด (ระยะถึงแนวคอนเทนเนอร์) จะโป่งขึ้นเรื่อย ๆ จนแผงดูโล่ง
+     เพดาน 520px กันไม่ให้การ์ดใหญ่จนแบนเนอร์ฝั่งซ้ายถูกบีบ */
+  --fcard:clamp(398px, 26vw, 520px);
   --fgrid:calc(max(0px, (100vw - var(--container)) / 2) + var(--gutter));
   flex:0 0 calc(var(--fcard) + 22px + var(--fgrid));min-width:0;max-width:none;margin:0;
   padding:16px var(--fgrid) 16px 22px;
@@ -1472,7 +1475,7 @@ ul{margin:0;padding:0;list-style:none}
   /* ที่ว่างขวา = ที่ของรูปช่าง (กว้าง ~380px ชิดขอบขวาของกล่อง) บวกช่องไฟกันชนข้อความ
      วัดจากขอบขวาของกล่องที่ไปชนขอบจอแล้ว กลุ่ม Call Center จึงเกาะไปกับรูปช่างทุกความกว้างจอ
      407px คือค่ามากที่สุดที่ยังเหลือช่องหัวข้อฝั่งซ้าย 293px = พอดีสองบรรทัดที่ขนาด --t-h2 */
-  color:#fff;padding:44px 430px 44px var(--cta-lip);
+  color:#fff;padding:44px 380px 44px var(--cta-lip);
   /* คอลัมน์เดียวเรียงลง ไม่ใช่สองคอลัมน์ซ้าย-ขวา — วางคู่กันแล้วช่องหัวข้อเหลือแค่ ~120px
      หัวข้อจึงแตกเป็นสี่บรรทัดสั้น ๆ เรียงลงมาเหมือนเสา · เรียงลงทีละก้อนแล้วทั้งสองก้อน
      ได้ความกว้างเต็มแผง หัวข้ออยู่สองบรรทัดขนาดเต็ม กลุ่มติดต่อเริ่มที่แนวคอนเทนเนอร์เท่ากัน */
@@ -1484,7 +1487,16 @@ ul{margin:0;padding:0;list-style:none}
 .cta .kicker{color:rgba(255,255,255,.9)}
 /* text-wrap:balance ให้เบราว์เซอร์เกลี่ยความยาวบรรทัดเอง กันไม่ให้ตัดเหลือคำสั้น ๆ ค้างบรรทัดท้าย */
 .cta__panel h2{font-size:var(--t-h2);line-height:1.24;margin-top:12px;text-wrap:balance}
-.cta__call{display:flex;flex-direction:column;align-items:flex-start}
+.cta__panel h2 span{white-space:nowrap}
+/* ป้าย Call Center อยู่บรรทัดบน · เบอร์+LINE กับปุ่มสองใบอยู่บรรทัดเดียวกันด้านล่าง
+   เรียงลงเป็นสามชั้นแล้วแผงจะสูงจนช่องว่างฝั่งขวาโล่ง — จับมาไว้แถวเดียวกันทั้งก้อนพอดีความกว้าง */
+.cta__call{
+  display:grid;grid-template-columns:auto auto;justify-content:start;align-items:center;
+  grid-template-areas:"lbl lbl" "row btns";column-gap:20px;
+}
+.cta__lbl{grid-area:lbl}
+.cta__numrow{grid-area:row}
+.cta__btns{grid-area:btns}
 /* เบอร์โทรกับแถบ LINE อยู่แถวเดียวกัน — สองช่องทางติดต่อระดับเดียวกัน วางคู่กันจึงอ่านเป็นชุดเดียว
    แถวนี้กว้าง ~546px ซึ่งกินที่จนหัวข้อฝั่งซ้ายเหลือน้อย จึงอยู่แถวเดียวได้เฉพาะจอ 1440px ขึ้นไป
    (ที่ความกว้างนั้นขอบซ้ายของเนื้อหาล็อกกับคอนเทนเนอร์ ช่องของหัวข้อจึงคงที่ ~304px = พอดีสองบรรทัด) */
@@ -1509,7 +1521,7 @@ ul{margin:0;padding:0;list-style:none}
 .cta__num svg{padding:6px}
 .cta__line svg{padding:4px}
 .hoverable .cta__num:hover{color:var(--ink)}
-.cta__btns{display:flex;gap:10px;margin-top:18px}
+.cta__btns{display:flex;gap:10px}
 /* ปุ่มมีกรอบบนพื้นส้ม — ชั้นในของขอบต้องเป็นสีส้มตามพื้นกล่อง ไม่ใช่สีดำแบบในฟุตเตอร์ */
 .cta__btns .btn--outline::before{background:var(--orange)}
 .hoverable .cta__btns .btn--outline:hover::before{background:#fff}
@@ -1543,9 +1555,9 @@ ul{margin:0;padding:0;list-style:none}
 .cta__staff{
   /* ชิดขอบขวาของกล่องซึ่งไปชนขอบจอพอดี — แขนที่ยื่นออกมาจึงพ้นกรอบส้มไปทางขวาเต็มที่เท่าที่ทำได้
      (ดันเกินกว่านี้ .ctaband ที่ clip แกน x จะตัดตัวคนทิ้ง) */
-  /* เพดานความสูง 430px — กันไม่ให้รูปโตตามความสูงกล่องจนมือที่ยื่นออกมาไปแตะบรรทัด Add LINE
-     ในช่วงจอที่กล่องสูงกว่าปกติ · ยังโผล่พ้นขอบบนของกล่องเหมือนเดิม */
-  position:absolute;right:100px;bottom:0;height:min(calc(100% + 96px), 430px);width:auto;
+  /* เพดานความสูง 380px — กันไม่ให้รูปโตตามความสูงกล่องจนมือที่ยื่นออกมาไปแตะปลายแถวติดต่อ
+     (รูปกว้างขึ้นตามความสูงเสมอ อัตราส่วนราว 1.16:1) · ยังโผล่พ้นขอบบนของกล่องเหมือนเดิม */
+  position:absolute;right:0;bottom:0;height:min(calc(100% + 96px), 380px);width:auto;
   pointer-events:none;user-select:none;
 }
 
@@ -1645,6 +1657,8 @@ ul{margin:0;padding:0;list-style:none}
   .ctaband{padding-top:var(--section)}
   /* จอนี้กล่องเป็นการ์ดที่เว้นขอบทั้งสองข้าง ไม่ยืดไปชนขอบจอแล้ว — คืนทั้งริมซ้ายและระยะยืดขวาเป็น 0 */
   .cta{--cta-lip:0px;--cta-pull:0px}
+  /* ไม่มีที่พอให้ปุ่มอยู่แถวเดียวกับเบอร์ — คลี่กลับเป็นเรียงลงทีละก้อน */
+  .cta__call{grid-template-columns:minmax(0,1fr);grid-template-areas:"lbl" "row" "btns";row-gap:16px}
   .cta__panel{grid-template-columns:1fr;align-items:start;gap:26px;padding:36px calc(28px - var(--cta-pull)) 32px 28px;
     clip-path:polygon(34px 0, 100% 0, 100% 100%, 0 100%, 0 34px)}
   .cta__staff{display:none}
@@ -2304,7 +2318,9 @@ ul{margin:0;padding:0;list-style:none}
       <div class="cta__panel">
         <div>
           <span class="kicker">Contact</span>
-          <h2>พร้อมดูแลรถของคุณ<br>ทุกสาขาทั่วไทย</h2>
+          <!-- ห่อทีละวลีไว้ใน span nowrap — จอกว้างอยู่บรรทัดเดียว จอแคบตัดที่ช่องว่างระหว่างวลีเท่านั้น
+               ไม่ห่อไว้ ตัวตัดบรรทัดภาษาไทยจะตัดกลางวลีเป็น "พร้อมดูแลรถของ / คุณ ทุกสาขาทั่วไทย" -->
+          <h2><span>พร้อมดูแลรถของคุณ</span> <span>ทุกสาขาทั่วไทย</span></h2>
         </div>
         <div class="cta__call">
           <span class="cta__lbl">Call Center · 08:00–20:00</span>
